@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "board",
     "account",
-    
-    
+    "stock",
+
 ]
 
 REST_FRAMEWORK = {
