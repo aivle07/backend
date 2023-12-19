@@ -35,6 +35,7 @@
                         <li><a href="#">프로필</a> </li> 
                         <li><a href="{% url 'account:logout' %}?next={{request.path}}">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
+                        <li><a href="{% url 'quiz:quiz-list' %}">퀴즈</a></li>
                     {% endif %}
 
                  </ul>
