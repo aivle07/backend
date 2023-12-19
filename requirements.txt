@@ -1,0 +1,7 @@
+finance-datareader
+django 
+djangorestframework 
+django-cors-headers
+pillow
+bs4
+plotly

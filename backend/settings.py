@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "board",
     "account",
     "quiz",
-    
+    "stock",
+
 ]
 
 REST_FRAMEWORK = {

@@ -26,8 +26,7 @@ urlpatterns = [
     path("board/",include("board.urls")),
     path("account/",include("account.urls")),
     path("quiz/",include("quiz.urls")),
-    
-    
+    path("stock/",include("stock.urls")),
     
 ]
 
