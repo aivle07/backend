@@ -13,7 +13,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import IsReviewAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 # Create your views here.
 
 # class BoardViewSet(viewsets.ModelViewSet):
@@ -62,7 +62,7 @@ class BoardCreateAPIView(CreateAPIView):
 class BoardUpdateAPIView(UpdateAPIView):
     # queryset = Post.objects.all()
     serializer_class = BoardUpdateSerializerView
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthorOrReadOnly,IsAuthenticated)
     
     def get_object(self, pk):
         try:
@@ -72,6 +72,7 @@ class BoardUpdateAPIView(UpdateAPIView):
     
     def get(self, request, pk):
         instance = self.get_object(pk)
+        self.check_object_permissions(request, instance) # 이것을 qna에 이용
         serializer = BoardUpdateSerializerView(instance)
         return Response(serializer.data)
     
@@ -89,4 +90,4 @@ class BoardUpdateAPIView(UpdateAPIView):
 class BoardDeleteAPIView(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = BoardDeleteSerializerView
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthorOrReadOnly,IsAuthenticated)

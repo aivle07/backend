@@ -18,11 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 urlpatterns = [
+    path("",views.index),
     path("admin/", admin.site.urls),
     path("board/",include("board.urls")),
     path("account/",include("account.urls")),
+    path("quiz/",include("quiz.urls")),
     path("stock/",include("stock.urls")),
     
 ]
