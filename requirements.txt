@@ -5,3 +5,6 @@ django-cors-headers
 pillow
 bs4
 plotly
+django-allauth
+openai
+tzdata
