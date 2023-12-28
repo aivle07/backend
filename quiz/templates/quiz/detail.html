@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <div>
+                오늘의 퀴즈
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="quiz-detail">
+                    <div>
+                        <label>문제번호 : </label>
+                        <li value="{{data.id}}" name="id">{{data.id}}</li>
+                        <input type="hidden" name="id" value="{{data.id}}"/>
+                    </div>
+                    <div>
+                        <label>문제 : </label>
+                        <li value="{{data.question}}" name="question">{{data.question}}</li>
+                        <input type="hidden" name="question" value="{{data.question}}"/>
+                    </div>
+                    {% if not data.judge %}
+                        <div>
+                            <button type="submit" name="answer" value="O">O</button>
+                            <button type="submit" name="answer" value="X">X</button>
+                            {% comment %} 답 : {{data.answer}} {% endcomment %}
+                        </div>
+                    {% endif %}
+                    
+                </div>
+            </form>
+            {% if data.judge %}
+                <div class="judge">
+                    {% if data.judge == "O" %}
+                        정답입니다. (정답 : {{data.real_answer}})
+                    {% else %}
+                        오답입니다. (정답 : {{data.real_anwer}})
+                    {% endif %}
+                </div>
+                
+            {% endif %}
+            <a href="/quiz">퀴즈 리스트 보기</a>
+        <div>
+    </body>
+</html>

@@ -24,9 +24,11 @@ urlpatterns = [
     path("",views.index),
     path("admin/", admin.site.urls),
     path("board/",include("board.urls")),
-    path("account/",include("account.urls")),
+    # path("account/",include("account.urls")),
+    path("accounts/",include("allauth.urls")),
     path("quiz/",include("quiz.urls")),
     path("stock/",include("stock.urls")),
+    path("simulation/",include("simulation.urls")),
     
 ]
 
