@@ -1,6 +1,6 @@
 from rest_framework import permissions
 from .models import *
-from django.contrib.auth.models import User
+from accounts.models import User
 from datetime import datetime
 
 class QuizLimit(permissions.BasePermission):
