@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "quiz",
     "stock",
     "accounts",
+    "summary",
 ]
 
 #allauth 설정
@@ -95,7 +96,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSON_CLASSES':[
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
 
 AUTHENTICATION_BACKENDS = [

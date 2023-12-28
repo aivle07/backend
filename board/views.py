@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from django.shortcuts import render
 from rest_framework.response import Response
 from .serializers import *
@@ -16,35 +17,54 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import AllowAny
 from .permissions import IsAuthorOrReadOnly
+from rest_framework.renderers import TemplateHTMLRenderer,JSONRenderer,BrowsableAPIRenderer
+from django.core.paginator import Paginator
 # Create your views here.
 
 # class BoardViewSet(viewsets.ModelViewSet):
 #     queryset = Post.objects.all()
 #     serializers = BoardListSerializerView(queryset)
 
-# 페이지네이션
-class BoardPageNumberPagination(PageNumberPagination):
-    page_size = 3 # 한페이지당 3개글
+from django.shortcuts import render
+
+# # 페이지네이션
+# class BoardPageNumberPagination(PageNumberPagination):
+#     page_size = 3 # 한페이지당 3개글
+#     page_size_query_param = 'page_size'
     
 # 목록보기
 class BoardListAPIView(ListAPIView):
     queryset = Post.objects.all().order_by("-id")
     serializer_class = BoardListSerializerView
-    pagination_class = BoardPageNumberPagination
-    # permission_classes = IsAuthenticatedOrReadOnly
     
-    def list(self, request, board):
-        #category = request.GET.get('category',None)
-        instance = Post.objects.filter(category=board).order_by("-id")
-        queryset = self.filter_queryset(instance)
+    def list(self, request):
+        notice_instance = Paginator(Post.objects.filter(category='공지사항').order_by("-id"), 3)
+        notice_page = int(request.GET.get('notice_page',1))
+        notice_list = notice_instance.get_page(notice_page)
+        
+        qna_instance = Paginator(Post.objects.filter(category='Q&A').order_by("-id"), 3)
+        qna_page = int(request.GET.get('qna_page',1))
+        qna_list = qna_instance.get_page(qna_page)
+        
+        
+        return render(request,context={'notice': notice_list,'qna': qna_list}, template_name='board/notice.html',)
+        
+    #     #category = request.GET.get('category',None)
+    #     notice_instance = Post.objects.filter(category='공지사항').order_by("-id")
+    #     qna_instance = Post.objects.filter(category='Q&A').order_by("-id")
+            
+    #     notice_qs = self.filter_queryset(notice_instance)
+    #     qna_qs = self.filter_queryset(qna_instance)
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+    #     notice_page = self.paginate_queryset(notice_qs)
+    #     qna_page = self.paginate_queryset(qna_qs)
+    #     notice_serializer = self.get_serializer(notice_page, many=True)
+    #     qna_serializer = self.get_serializer(qna_page, many=True)
+    #     notice = self.get_paginated_response(notice_serializer.data)
+    #     qna = self.get_paginated_response(qna_serializer.data)
+    #     print(notice.data,qna.data)
+    #     return Response({'notice': notice.data, 'qna':qna.data}, template_name='board/notice.html',)
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
     
     
 # 상세보기

@@ -169,8 +169,13 @@
                           <div class="input-box clearfix">
                             <label for="text-2">이름</label>
                             <div class="input-group">
-                              <input class="form-control" type="text" id="text-2" placeholder="이름을 입력해주세요.">
+                              {{form.name}}
                             </div>
+                            <p>
+                              {%for error in form.name.errors %}
+                                 <div class="sub-tt text-danger">{%trans error %}</div>
+                              {% endfor%}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -209,7 +214,9 @@
                     </div><!--end input-group-->
                   </fieldset>
                   
+                  {% if redirect_field_value %}
                   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
                   <div class="text-center">
                     <button type="submit" class="btn btn-join mt-join">계정 만들기</button>
                   </div>

@@ -1,5 +1,6 @@
 {% load socialaccount %}
 {% load static %}
+{% load utils %}
 <html lang="ko">
 
 <head>
@@ -26,16 +27,17 @@
     <link href="{%static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{%static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{%static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 
+        top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -46,7 +48,7 @@
         <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0" id="home">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-                <a href="../home.html" class="navbar-brand p-0">
+                <a href="/" class="navbar-brand p-0">
                     <h1 class="m-0">Hey! 금융+</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
@@ -55,19 +57,17 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="#about" class="nav-item nav-link">서비스 소개</a>
-                        <a href="./index.html" class="nav-item nav-link">요약서비스</a>
+                        
+                        <a href="/summary" class="nav-item nav-link">요약서비스</a>
                         <a href="./recommended.html" class="nav-item nav-link">추천 서비스</a>
-                        <a href="./quiz.html" class="nav-item nav-link">금융 퀴즈</a>
-                        <a href="./notice.html" class="nav-item nav-link">게시판</a>
-                        <a href="#testimonial" class="nav-item nav-link">고객 후기</a>
+                        <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                        <a href="javascript:void(0)" class="nav-item nav-link">게시판</a>
+                        
                     </div>
                     <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                     <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
-
-                    
                 </div>
             </nav>
             <div class="container-xxl", id="main">
@@ -98,87 +98,48 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                <td class="number">7</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">스포츠센터 스마트폰 앱 출시</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">6</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">프로그램 백업방법 안내</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">5</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">좋은 솔루션 만들기 위원회 워크숍</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">4</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">고객불만제로를 위한 교육을 실시하였습니다</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">3</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">솔루션 25주년을 맞이하여 기념으로 행사와 공연을 추진하였습니다</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">2</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">스포츠센터 스마트폰 앱 출시</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
-                                                <tr>
-                                                <td class="number">1</td>
-                                                <td>
-                                                    <a href="javascript:void(0)">솔루션 홈페이지가 새롭게 리뉴얼 되었습니다</a>
-                                                </td>
-                                                <td class="last-child">2023.01.01</td>
-                                                </tr>
+                                                {% if notice %}
+                                                {% for post in notice  %}
+                                                    <tr>
+                                                        <td class="number">{{ post.id }}</td>
+                                                    
+                                                        <td>
+                                                            <a href="/board/{{post.id}}">{{post.title}}</a>
+                                                        </td>
+                                                        <td class="last-child">{{ post.create_dt|iso_to_date|date:'Y-m-d A H:i' }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                                {% else %}
+                                                    <tr>
+                                                        <td>작성된 게시글이 없습니다.</td>
+                                                    </tr>
+                                                {% endif %}
                                             </tbody>
                                             </table>
                                         </div>
                                         </div>
                                         <nav class="pagiset pagiset-line">
-                                        <div class="pagiset-ctrl">
-                                            <a class="pagiset-link pagiset-first" href="javascript:void(0)">
-                                            <span class="visually-hidden">처음</span>
-                                            </a>
-                                        </div>
-                                        <div class="pagiset-ctrl">
-                                            <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
-                                            <span class="visually-hidden">이전</span>
-                                            </a>
-                                        </div>
                                         <div class="pagiset-list">
-                                            <a class="pagiset-link active-line" href="javascript:void(0)">1</a>
-                                            <a class="pagiset-link" href="javascript:void(0)">2</a>
-                                            <a class="pagiset-link" href="javascript:void(0)">3</a>
-                                            <a class="pagiset-link" href="javascript:void(0)">4</a>
-                                            <a class="pagiset-link" href="javascript:void(0)">5</a>
+                                            {% for page in notice.paginator.page_range %}
+                                                {% if page >= notice.number|add:-2 and page <= notice.number|add:2 %}
+                                                
+                                                <a class="pagiset-link {% if page == notice.number %}active-line{% endif %}" 
+                                                href=
+                                                "
+                                                {% if request.GET.qna_page %}
+                                                ?notice_page={{ page }}&qna_page={{request.GET.qna_page}}
+                                                {% else %}
+                                                ?notice_page={{ page }}
+                                                {% endif %}
+                                                "
+                                                >{{ page}}</a>
+                                                
+                                                {% elif page >= notice.number|add:-3 and page <= notice.number|add:3 %}
+                                                    ..
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
-                                        <div class="pagiset-ctrl">
-                                            <a class="pagiset-link pagiset-next" href="javascript:void(0)">
-                                            <span class="visually-hidden">다음</span>
-                                            </a>
-                                        </div>
-                                        <div class="pagiset-ctrl">
-                                            <a class="pagiset-link pagiset-last" href="javascript:void(0)">
-                                            <span class="visually-hidden">마지막</span>
-                                            </a>
-                                        </div>
+                                       
                                         </nav>
                                 </div>
                             </div>
@@ -188,8 +149,8 @@
                 </div>
             </div>
         </div>
-
-
+        
+        <hr>
         <div class="container-xxl", id="main">
             <div class="custom">
                 <div class="container">
@@ -218,86 +179,42 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                            <td class="number">7</td>
-                                            <td>
-                                                <a href="javascript:void(0)">스포츠센터 스마트폰 앱 출시</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">6</td>
-                                            <td>
-                                                <a href="javascript:void(0)">프로그램 백업방법 안내</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">5</td>
-                                            <td>
-                                                <a href="javascript:void(0)">좋은 솔루션 만들기 위원회 워크숍</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">4</td>
-                                            <td>
-                                                <a href="javascript:void(0)">고객불만제로를 위한 교육을 실시하였습니다</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">3</td>
-                                            <td>
-                                                <a href="javascript:void(0)">솔루션 25주년을 맞이하여 기념으로 행사와 공연을 추진하였습니다</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">2</td>
-                                            <td>
-                                                <a href="javascript:void(0)">스포츠센터 스마트폰 앱 출시</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
-                                            <tr>
-                                            <td class="number">1</td>
-                                            <td>
-                                                <a href="javascript:void(0)">솔루션 홈페이지가 새롭게 리뉴얼 되었습니다</a>
-                                            </td>
-                                            <td class="last-child">2023.01.01</td>
-                                            </tr>
+                                            {% for post in qna %}
+                                                <tr>
+                                                    <td class="number">{{post.id}}</td>
+                                                
+                                                    <td>
+                                                        <a href="/board/{{post.id}}">{{post.title}}</a>
+                                                    </td>
+                                                    <td class="last-child">{{ post.create_dt|iso_to_date|date:'Y-m-d A H:i' }}</td>
+                                                </tr>
+                                            {% endfor %}
                                         </tbody>
                                         </table>
                                     </div>
                                     </div>
                                     <nav class="pagiset pagiset-line">
-                                    <div class="pagiset-ctrl">
-                                        <a class="pagiset-link pagiset-first" href="javascript:void(0)">
-                                        <span class="visually-hidden">처음</span>
-                                        </a>
-                                    </div>
-                                    <div class="pagiset-ctrl">
-                                        <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
-                                        <span class="visually-hidden">이전</span>
-                                        </a>
-                                    </div>
+                                       
+                                    
+                    
                                     <div class="pagiset-list">
-                                        <a class="pagiset-link active-line" href="javascript:void(0)">1</a>
-                                        <a class="pagiset-link" href="javascript:void(0)">2</a>
-                                        <a class="pagiset-link" href="javascript:void(0)">3</a>
-                                        <a class="pagiset-link" href="javascript:void(0)">4</a>
-                                        <a class="pagiset-link" href="javascript:void(0)">5</a>
-                                    </div>
-                                    <div class="pagiset-ctrl">
-                                        <a class="pagiset-link pagiset-next" href="javascript:void(0)">
-                                        <span class="visually-hidden">다음</span>
-                                        </a>
-                                    </div>
-                                    <div class="pagiset-ctrl">
-                                        <a class="pagiset-link pagiset-last" href="javascript:void(0)">
-                                        <span class="visually-hidden">마지막</span>
-                                        </a>
+                                        {% for page in qna.paginator.page_range %}
+                                            {% if page >= qna.number|add:-2 and page <= qna.number|add:2 %}
+                                            <span >
+                                                <a class="pagiset-link {% if page == qna.number %}active-line{% endif %}" href=
+                                                "
+                                                {% if request.GET.notice_page %}
+                                                ?notice_page={{request.GET.notice_page}}&qna_page={{ page }}
+                                                {% else %}
+                                                ?qna_page={{ page }}
+                                                {% endif %}
+                                                "
+                                                >{{ page}}</a>
+                                            </span>
+                                            {% elif page >= qna.number|add:-3 and page <= qna.number|add:3 %}
+                                                ..
+                                            {% endif %}
+                                        {% endfor %}
                                     </div>
                                     </nav>
                             </div>
@@ -388,14 +305,14 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 
