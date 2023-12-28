@@ -80,12 +80,6 @@ class QuizListAPIView(ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response({"data":serializer.data}, template_name="quiz/list.html",)
     
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-
-        serializer = self.get_serializer(queryset, many=True)
-        return Response({'data':serializer.data},template_name='quiz/quiz.html')
-    
 class QuizRetrieveAPIView(RetrieveAPIView):
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
