@@ -26,6 +26,7 @@ urlpatterns = [
     path("board/",include("board.urls")),
     path("quiz/",include("quiz.urls")),
     path("stock/",include("stock.urls")),
+    path("simulation/",include("simulation.urls")),
     path('accounts/', include('allauth.urls')),
     path("accounts/",include("accounts.urls")),
     path("summary/",include("summary.urls")),

@@ -32,25 +32,29 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #"daphne", # 추가한 것
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
+    "rest_framework",
+    "board",
+    "quiz",
+    "stock",
+    "simulation",
+    "accounts",
+    
+
     # 소셜 로그인
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.google',
-    
-    "rest_framework",
-    "board",
-    "quiz",
-    "stock",
-    "accounts",
-    "summary",
 ]
 
 #allauth 설정
@@ -119,6 +123,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "backend.urls"
 
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -130,13 +135,14 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = "backend.wsgi.application"
-
+ASGI_APPLICATION = "backend.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -145,6 +151,15 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels_redis.core.RedisChannelLayer',
+        "CONFIG":{
+            'hosts':[('127.0.0.1', 6379)]
+        }
     }
 }
 
@@ -177,3 +192,20 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+
+# 소셜 로그인
+SOCIALACCOUNT_LOGIN_ON_GET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+ 
+    'allauth.account.auth_backends.AuthenticationBackend',
+]

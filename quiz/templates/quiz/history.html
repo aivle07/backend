@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <div>
+                오늘의 퀴즈
+            </div>
+            <div class="history-list">
+                {% for q in data %}
+                    {{q.id}} {{q.judge}} {{q.create_dt}} {{q.user_id}} <a href="{{q.id}}">{{q.question}}</a><br>
+                {% endfor %}
+            </div>
+        <div>
+    </body>
+</html>

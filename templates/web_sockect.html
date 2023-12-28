@@ -1,0 +1,28 @@
+<!-- templates/websocket_stream.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <div id="data-container"></div>
+
+    <script>
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/stream/');
+
+        socket.onmessage = function(event) {
+            const dataContainer = document.getElementById('data-container');
+            const data = JSON.parse(event.data);
+
+            dataContainer.innerHTML = `Received data: ${data.message}`;
+        };
+
+        socket.onclose = function(event) {
+            console.error('WebSocket closed:', event);
+        };
+    </script>
+</body>
+</html>

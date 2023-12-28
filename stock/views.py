@@ -4,15 +4,16 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 import pandas as pd
-
+ 
 def GetStockCode():
+    #외국 거래소
     market_list = ['NASDAQ', 'NYSE', 'AMEX', 'S&P500',]# 'SSE', 'SZSE', 'HKEX', 'TSE']
     name_to_code = pd.DataFrame()
     for market in market_list:
         tmp = fdr.StockListing(market)[['Symbol','Name']]
         name_to_code = pd.concat([name_to_code, tmp])
     return name_to_code
-
+ 
 @api_view(('GET',))
 def StockRetrieveAPI(request):
     search_param = request.GET.get('search_param')
