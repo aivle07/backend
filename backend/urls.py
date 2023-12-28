@@ -24,12 +24,11 @@ urlpatterns = [
     path("",views.index),
     path("admin/", admin.site.urls),
     path("board/",include("board.urls")),
-    # path("account/",include("account.urls")),
-    path("accounts/",include("allauth.urls")),
     path("quiz/",include("quiz.urls")),
     path("stock/",include("stock.urls")),
     path("simulation/",include("simulation.urls")),
-    
+    path('accounts/', include('allauth.urls')),
+    path("accounts/",include("accounts.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
