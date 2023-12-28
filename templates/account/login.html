@@ -34,7 +34,11 @@
   
   <!-- Customized Bootstrap Stylesheet -->
     <!-- Custom Styles -->
-
+  <style>
+    .btn_social:hover{
+      
+    }
+  </style>
 </head>
 
 <body class="bg-default">
@@ -70,12 +74,7 @@
           </div>
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../index.html">
-                <i class="ni ni-planet"></i>
-                <span class="nav-link-inner--text">요약서비스</span>
-              </a>
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link nav-link-icon" href="{% url 'account_signup' %}">
                 <i class="ni ni-circle-08"></i>
@@ -83,12 +82,7 @@
               </a>
             </li>
           
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-inner--text">마이 페이지</span>
-              </a>
-            </li>
+           
           </ul>
         </div>
       </div>
@@ -171,13 +165,11 @@
             <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-3"><small>소셜 로그인</small></div>
               <div class="btn-wrapper text-center">
-                <a href="/accounts/kakao/login" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="{% static '/assets/img/icons/common/github.svg' %}"></span>
-                  <span class="btn-inner--text">Kakao</span>
-                </a>
-                <a href="/accounts/google/login" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="{% static '/assets/img/icons/common/google.svg' %}"></span>
-                  <span class="btn-inner--text">Google</span>
+                
+                <a href="/accounts/kakao/login?next={{request.GET.next}}" class="btn_social"><img src="{% static '/img/kakao_login_medium.png' %}"></a>
+                
+                <a href="/accounts/google/login?next={{request.GET.next}}" class="btn_social">
+                  <img src="{% static '/img/google_login_medium.png' %}">
                 </a>
               </div>
             </div>
@@ -242,7 +234,9 @@
                   <div class="dim"></div>
                 </div>
               </div>
-              
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
               </form>
             </div>
           </div>

@@ -29,6 +29,7 @@ urlpatterns = [
     path("simulation/",include("simulation.urls")),
     path('accounts/', include('allauth.urls')),
     path("accounts/",include("accounts.urls")),
+    path("summary/",include("summary.urls")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,13 +3,14 @@ from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, agree_terms, agree_marketing, created_at, modified_at,last_password_modified, password=None):
+    def create_user(self, email, name,username, agree_terms, agree_marketing, created_at, modified_at,last_password_modified, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             username = username,
             email=self.normalize_email(email),
+            name = name,
             agree_terms=agree_terms,
             agree_marketing=agree_marketing,
             created_at = created_at,
@@ -21,10 +22,11 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username,email, agree_terms, agree_marketing,created_at, modified_at,last_password_modified,password):
+    def create_superuser(self, name,username,email, agree_terms, agree_marketing,created_at, modified_at,last_password_modified,password):
         user = self.create_user(
             username,
             email,
+            name,
             password=password,
             agree_terms=agree_terms,
             agree_marketing=agree_marketing,
@@ -48,6 +50,7 @@ class User(AbstractBaseUser):
     agree_marketing = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    name = models.CharField(max_length=40)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
     last_password_modified = models.DateTimeField(auto_now_add=True)

@@ -21,7 +21,7 @@
   --purple: #8965e0;
   --pink: #f3a4b5;
   --red: #f5365c;
-  --orange: #fb6340;
+  --orange: #322f2f;
   --yellow: #ffd600;
   --green: #2dce89;
   --teal: #11cdef;
@@ -30,11 +30,11 @@
   --gray: #8898aa;
   --gray-dark: #32325d;
   --light: #ced4da;
-  --lighter: #e9ecef;
+  --lighter: #2d5782;
   --primary: #5e72e4;
   --secondary: #f7fafc;
   --success: #2dce89;
-  --info: #11cdef;
+  --info: #0c7ed5;
   --warning: #fb6340;
   --danger: #f5365c;
   --light: #adb5bd;
@@ -1492,6 +1492,7 @@ pre code {
     padding-right: 15px;
     padding-left: 15px;
   }
+  
 
   .col-xl-5 {
     flex: 0 0 41.666667%;
@@ -1997,6 +1998,7 @@ pre code {
   display: block;
   width: 100%;
   overflow-x: auto;
+  max-height: 10%;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -4988,7 +4990,7 @@ input[type="button"].btn-block {
 .card-body {
   flex: 1 1 auto;
   padding: 1.5rem;
-  height: 360px;
+  height: 400px;
 }
 .card-body-login {
   flex: 1 1 auto;
@@ -5002,7 +5004,8 @@ input[type="button"].btn-block {
 .card-2-body {
   flex: 1 1 auto;
   padding: 1.5rem;
-  height: 360px;
+  height: 410px;
+  overflow: hidden;
 }
 
 .card-title {
@@ -8481,7 +8484,7 @@ button.bg-darker:focus {
 
 .mt--7,
 .my--7 {
-  margin-top: -6rem !important;
+  margin-top: -4rem !important;
 }
 
 .mr--7,
@@ -15517,10 +15520,11 @@ a.btn-icon-only {
   padding: 1rem 1.5rem;
 }
 .card-custom{
-  height: 360px;
+  height: 400px;
   padding: 1rem 1.5rem;
   overflow: auto;
 }
+
 
 .card-stats .card-status-bullet {
   position: absolute;
@@ -15891,6 +15895,7 @@ a.btn-icon-only {
 .footer {
   background: #f7fafc;
   padding: 2.5rem 0;
+  margin-top: 100px;
 }
 
 .footer .col-footer .heading {
@@ -20774,4 +20779,152 @@ pre>code.highlight {
   background-color: #2980b9; /* 호버 시 배경 색상 변경 */
 }
 
+
+
+/* 아래쪽 그래프 그리기 과정*/
+.col-xl-custom{
+  max-width: 50%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  max-height: 50%;
+}
+.chart-dept{
+  height: 400px;
+}
+.row-2 {
+  display: flex;
+  margin-right: -15px;
+  margin-left: -15px;
+  align-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center
+}
+.row-2 > * {
+  flex : 200px; /* 고정된 크기로 설정 (예: 200px) */
+}
+
+.card-3 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.875rem;
+}
+
+.card-3-body {
+  padding: 1.5rem;
+  height: 470px;
+  overflow: hidden;
+}
+
+
+/*종석이가 원하는 기능 구현*/
+.jb-container {
+  position: relative;
+  margin-top: 10%;
+}
+
+.jb-title {
+  cursor: pointer;
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘치는 부분은 감추기 */
+  text-overflow: ellipsis; /* 초과되는 부분에 "..."으로 표시 */
+  counter-increment: item;
+  font-weight: bold;
+  padding:5px;
+
+}
+.jb-title:before {
+  content: counter(item) ". "; /* 번호와 점을 표시 */
+}
+
+.jb-text {
+  padding: 15px 20px;
+  background-color: #444444;
+  border-radius: 5px;
+  color: #ffffff;
+  opacity: 0;
+  transition: all ease 0.5s;
+  pointer-events: none;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 70%;
+  transform: translateX(10px);
+}
+.jb-title:hover {
+  color: #ff0000; /* 호버 시 텍스트 색상 변경 (예: 빨간색) */
+}
+
+.jb-title:hover + .jb-text {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.news-text {
+  text-overflow: ellipsis; /* 텍스트가 잘리면 마침표로 표시 */
+  display: -webkit-box;
+  -webkit-line-clamp: 14; /* 표시할 줄 수 지정 */
+  -webkit-box-orient: vertical;
+  margin-top: 5%;
+  padding: 4%;
+  letter-spacing: 5px; 
+}
+.h2:hover + .jb-text {
+  opacity: 1;
+}
+
+.hot{
+  color: #d31e40;
+}
+.card-chat-bot{
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 0 !important;
+}
+.send{
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5%;
+  display: flex;
+  width: 100%;
+}
+.send-btn{
+  border-radius: 10%;
+  background-color: rgb(255 99 132); /* 파란색 배경 */
+  color: #fff; /* 흰색 텍스트 */
+  padding: 8px 16px; /* 내부 여백 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 커서 모양 변경 */
+  transition: background-color 0.3s; /* 배경색 변경 시 부드러운*/
+}
+
+
+.send-text{
+  padding: 8px 16px; /* 내부 여백 */
+  transition: background-color 0.3s; /* 배경색 변경 시 부드러운*/
+  margin-right: 5%;
+  max-width: 65%;
+  width: 65%;
+  resize: none;
+  overflow-y: hidden;
+  max-height: 100px;
+  border-color: #c5c5c5;
+  border-radius: 10px;
+}
 /*# sourceMappingURL=dashboard-free.css.map */

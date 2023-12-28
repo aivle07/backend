@@ -7,8 +7,7 @@ from . import views
 
 app_name = "board"
 urlpatterns = [
-    
-    path("<str:board>/",views.BoardListAPIView.as_view(), name="board-list"),
+    path("",views.BoardListAPIView.as_view(), name="board-list"),
     path("<str:board>/<int:pk>/",views.BoardRetrieveAPIView.as_view(), name="board-retrieve"),
     path("<str:board>/new/",views.BoardCreateAPIView.as_view(),name="board-create"),
     path("<str:board>/<int:pk>/update/",views.BoardUpdateAPIView.as_view(),name="board-update"),
