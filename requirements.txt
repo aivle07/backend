@@ -21,3 +21,4 @@ playwright
 pypdf
 finance-datareader
 tabulate
+python-dotenv

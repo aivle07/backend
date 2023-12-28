@@ -13,7 +13,8 @@
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %}
 <html lang="en">
 
 <head>
@@ -23,14 +24,14 @@
     Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
   </title>
   <!-- Favicon -->
-  <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <link href="{%static '/assets/img/brand/favicon.png' %}" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="./assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-  <link href="./assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <link href="{%static '/assets/js/plugins/nucleo/css/nucleo.css' %}" rel="stylesheet" />
+  <link href="{%static '/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="./assets/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  <link href="{%static '/assets/css/argon-dashboard.css'%}?v=1.1.2" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -41,8 +42,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="./home.html">
-        <img src="./assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+      <a class="navbar-brand pt-0" href="/">
+        <img src="{%static '/assets/img/brand/blue.png' %}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -61,8 +62,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
               </span>
             </div>
           </a>
@@ -101,7 +101,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="./index.html">
-                <img src="./assets/img/brand/blue.png">
+                <img src="{%static '/assets/img/brand/blue.png' %}">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -126,32 +126,32 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-            <a class="nav-link" href="./home.html">
+            <a class="nav-link" href="/">
               <i class="ni ni-tv-2 text-primary"></i> HEY 금융+ 홈으로
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./index.html">
+          <li class="nav-item  active ">
+            <a class="nav-link  active " href="javascript:void(0)">
               <i class="ni ni-tv-2 text-primary"></i> 대시보드
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./real_estate.html">
+            <a class="nav-link " href="/summary/real_estate">
               <i class="ni ni-bullet-list-67 text-red"></i> 부동산
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./gold_rate.html">
+            <a class="nav-link " href="/summary/gold_rate">
               <i class="ni ni-bullet-list-67 text-red"></i> 금
             </a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link active" href="./exchange_rate.html">
+          <li class="nav-item">
+            <a class="nav-link " href="/summary/exchange_rate">
               <i class="ni ni-bullet-list-67 text-red"></i> 환율
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./coin.html">
+            <a class="nav-link " href="/summary/coin">
               <i class="ni ni-bullet-list-67 text-red"></i> 코인(Comming soon)
             </a>
           </li>
@@ -196,10 +196,10 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
+                  <img alt="Image placeholder" src="{%static '/assets/img/theme/team-4-800x800.jpg' %}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
                 </div>
               </div>
             </a>
@@ -224,7 +224,7 @@
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="/accounts/logout" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -261,7 +261,7 @@
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
                       <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
                       <div class="chart-example">
-                      <img src="./assets/img/brand/zoochart.png" width="400" height="300">
+                      {% comment %} <img src="./assets/img/brand/zoochart.png" width="400" height="300"> {% endcomment %}
 
                       </div>
                     </div>
@@ -278,10 +278,10 @@
                 <div class="card-2-body">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
-                      <span class="h2 font-weight-bold mb-0">삼성전자 소개</span>
+                      <span class="h2 font-weight-bold mb-0">SK하이닉스 소개</span>
                     </div>
                     <div class="news-text">
-                      삼성전자는 대한민국의 다국적 전자기업으로, 전 세계에서 폭넓게 사업을 전개하고 있는 기업입니다. 주력 사업은 주로 반도체, 디스플레이, 모바일 디바이스, 가전제품 등 다양한 분야에 걸쳐 있습니다. 다양한 제품 라인업과 기술력을 바탕으로 스마트폰, TV, 냉장고, 세탁기 등 다양한 가전제품을 선보이며 소비자 전자제품 시장에서 선두를 유지하고 있습니다.
+                      {{corp_info}}
                     </div>
                 </div>
               </div>
@@ -290,30 +290,14 @@
             <div class="col-xl-3 col-lg-6">
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
-                  <h5 class="card-2-title text-uppercase text-muted mb-0">{현재 날짜 23-12-27}</h5>
+                  <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
                   <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
                   <div class = "jb-container">
-                    <p class="jb-title">Lorem ipsum dolor</p>
-                    <div class="jb-text">점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까, 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까</div>
-                    <p class="jb-title">[특징주]솔트웨어, 삼성-레드햇 업계최초 CXL 메모리 동작 검증 성공…기술제휴 부각↑</p>
-                    <div class="jb-text">저녁 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까, 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까</div>
-                    <p class="jb-title">"제2의 HBM 노린다"…삼성, 업계 최초 'CXL 메모리' 동작검증 성공</p>
-                    <div class="jb-text">아침 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까, 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까</div>
-                    <p class="jb-title">“8만전자 가나” 삼성전자, 장중 신고가 재경신 [특징주]</p>
-                    <div class="jb-text">간식 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까, 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까</div>
-                    <p class="jb-title">삼성전자, 기관 '팔자'에 보합권…개장 직후 또 '52주 신고가'</p>
-                    <div class="jb-text">야식 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까, 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까 
-                      점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까점심 뭐먹을까
-                    </div>
+                    {% for news in corp_news  %}
+                      <p class="jb-title">{{news.title}}</p>
+                      <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
+                    {% endfor %}
+                   
                   </div>
                 </div>
               </div>
@@ -325,7 +309,7 @@
                     
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5>
-                      <span class="h2 font-weight-bold mb-0 hot">Top 5</span>
+                      <span class="h2 font-weight-bold mb-0 hot">Recent 5</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -335,27 +319,9 @@
                     
                   </div>
                   <div class = "jb-container">
-                    <p class="jb-title">종섭 : 실세...</p>
-                    <div class="jb-text">말 걸지 마</div>
-
-                    <p class="jb-title">혜인 : 술 좋아하시는 우리 회장님</p>
-                    <div class="jb-text">마X에 손대지 말 것..(경험담)</div>
-
-                    <p class="jb-title">다현 : 목동 주택 부자</p>
-                    <div class="jb-text">28일 목요일 점심 내가 쏜다</div>
-
-                    <p class="jb-title">종석 : 7조 대표 노예</p>
-                    <div class="jb-text">네, 주인님</div>
-
-                    <p class="jb-title">정준 : 아프고 싶은 형</p>
-                    <div class="jb-text">[행복 버튼]</div>
-
-                    <p class="jb-title">우상 : 정상인</p>
-                    <div class="jb-text">평범한 가정에서 자란 26살 남자, 
-                      그는 소소한 순간들에서 행복을 찾았다. 
-                      아침의 차 한 잔과 동네 공원 산책, 
-                      가족과 함께하는 저녁 식사. 
-                      작지만 소중한 순간들이 그의 일상을 채워나갔다.</div>
+                    {% for stock in stock_data  %}
+                      <p class="jb-title">{{stock.Date|date:'y-m-d'}} : {{stock.Close}}원</p>
+                    {% endfor %}
                   </div>
                   </p>
                 </div>
@@ -375,18 +341,20 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-light ls-1 mb-1">재무분석 API</h6>
-                  <h2 class="text-white mb-0">{삼성전자 재무분석}</h2>
+                  <h2 class="text-white mb-0">SK하이닉스 재무분석</h2>
                   
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" data-update='{"data":{"datasets":[{"data":[7000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
+                    data-update='{"data":{"datasets":[{"data":[38408688000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">2021</span>
+                        <span class="d-none d-md-block">2023</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales2" data-update='{"data":{"datasets":[{"data":[1000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
+                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
+                     data-update='{"data":{"datasets":[{"data":[31637411000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
                         <span class="d-none d-md-block">2022</span>
                         <span class="d-md-none">W</span>
@@ -406,7 +374,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-4 mb-5 mb-xl-0">
+        <div class="card-chat-bot">
           <div class="card shadow">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
@@ -418,8 +386,12 @@
             </div>
             <div class="card">
               <div class="card-custom">
-                <div class="news-text">
-                </div>
+                 <div class="send" >
+                  <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
+                  <button class='send-btn' onclick="sendMessage()">전송</button>
+                  </div>
+                <!--백엔드 작업 공간..?-->
+                <div class="news-text">{{chat_answer}}</div>
               </div>
             </div>
           </div>
@@ -434,10 +406,12 @@
               <div class="row">
                 <div class="col">
                   <div class="card-3-body">
-                    <h5 class="card-3-title text-uppercase text-muted mb-0">설명란</h5>
-                    <span class="h2 font-weight-bold mb-0" >손쉬운 지표</span>
+                    <h5 class="card-3-title text-uppercase text-muted mb-0">단위 : %</h5>
+                    <span class="h2 font-weight-bold mb-0" >부채 현황</span>
+                    <canvas id="chart-dept" class="chart-dept" ></canvas>
+
                      <div class = "jb-container">
-                      <p class="jb-title">Lorem ipsum dolor</p>
+                      <p class="jb-title">부채(負債, )</p>
                       <div class="jb-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
                         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
@@ -456,7 +430,7 @@
                 <div class="row-2">
                   <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
-                    <span class="h2 font-weight-bold mb-0">부채 현황</span>
+                    <span class="h2 font-weight-bold mb-0">부채</span>
                     <canvas id="chart-dept" class="chart-dept" ></canvas>
                     
                   </div>
@@ -476,7 +450,7 @@
             <div class="card-3 card-3-stats mb-4">
               <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">URL</h5>
-                    <span class="h2 font-weight-bold mb-0" >전문 사이트들</span>
+                    <span class="h2 font-weight-bold mb-0" >용어 설명</span>
                     <img src="./assets/img/brand/ROEex.jpg" width="600" height="400">
               </div>
             </div>
@@ -491,7 +465,7 @@
                     <span class="h2 font-weight-bold mb-0">자본 및 부채</span>
                     <img src="./assets/img/brand/ROEex2.png" width="600" height="400">
 
-                   
+                   {{exchange_result}}
                   </div>
 
                 </div>
@@ -515,14 +489,14 @@
     </div>
   </div>
   <!--   Core   -->
-  <script src="./assets/js/plugins/jquery/dist/jquery.min.js"></script>
-  <script src="./assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{%static '/assets/js/plugins/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{%static '/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
   <!--   Optional JS   -->
-  <script src="./assets/js/plugins/chart.js/dist/Chart.min.js"></script>
+  <script src="{%static '/assets/js/plugins/chart.js/dist/Chart.min.js' %}"></script>
   <!-- 그래프 모양과 관련됨   -->
-  <script src="./assets/js/plugins/chart.js/dist/Chart.extension.js"></script>
+  <script src="{%static '/assets/js/plugins/chart.js/dist/Chart.extension.js' %}"></script>
   <!--   Argon JS   -->
-  <script src="./assets/js/argon-dashboard.min.js?v=1.1.2"></script>
+  <script src="{%static '/assets/js/argon-dashboard.min.js'%}?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
   <script>
@@ -533,7 +507,7 @@
         datasets: [{
           label: "부채 비율",
           data: [20, 60],
-          backgroundColor: ['red', 'blue'] // Adjust colors as needed
+          backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
         }]
       };
       if (t.length) {
@@ -589,6 +563,23 @@
       }
     );
   });
+
+  const targetTextarea = document.querySelector('#message-input');
+
+  function adjustTextareaHeight() {
+      // 텍스트영역 높이를 실제 컨텐츠의 높이로 재설정
+      targetTextarea.style.height = 'auto';
+
+      // 텍스트영역 높이를 스크롤 높이에 맞춰 설정
+      targetTextarea.style.height = targetTextarea.scrollHeight + 'px';
+      targetTextarea.scrollDown = targetTextarea.scrollHeight;
+    }
+
+  // 인풋 이벤트가 발생할 때마다 높이 조절 함수를 호출
+  targetTextarea.addEventListener('input', adjustTextareaHeight);
+
+  // 페이지 로딩 시 초기 높이 조절
+  adjustTextareaHeight();
   </script>
 </body>
 </html>
