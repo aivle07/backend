@@ -5,6 +5,9 @@ from .corp.langchain_news import *
 from .exchange.exchange_final import *
 from .gold.langchain_gold import *
 from .gold.langchain_goldnews import *
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view 
 import FinanceDataReader as fdr
 import zipfile
 import xml.etree.ElementTree as ET
@@ -18,7 +21,7 @@ import urllib.request
 import requests
 import time
 
-
+agent = None
 ###### 이 아래는 view ######
 #대시보드
 def index(request):
@@ -86,10 +89,9 @@ def real_estate(request):
 def gold_rate(request):
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
-        
         if user:  # 로그인 한 사용자라면
             ####
-            # 여기에 프론트에 넘길 데이터 작성, 함수 호출
+            # 여기에 프론트에 넘길 데이터 작성, 함수호출
             ####
             return render(request, 'summary/gold_rate.html',{
                 # 'key' : data
@@ -99,18 +101,40 @@ def gold_rate(request):
             return redirect('/accounts/login/?next=/summary/gold_rate')  
 # 환율
 def exchange_rate(request):
+    global agent
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
+        
         if user:  # 로그인 한 사용자라면
-            ####
-            # 여기에 프론트에 넘길 데이터 작성, 함수호출
-            ####
+            if agent == None:
+                agent = get_exchange()
+            # exchange_news = news_info(keyword='환율')
+            dollor, _ = get_exchange_data()
+            current_dollor = dollor['Close'][-1:].values[0]
             return render(request, 'summary/exchange_rate.html',{
+                # 'exchange_news':exchange_news['items'],
                 # 'key' : data
                 # 'corp_info' : result
+                'current_dollor':current_dollor
                 })
         else:  # 로그인이 되어 있지 않다면 
-            return redirect('/accounts/login/?next=/summary/exchange_rate')  
+            return redirect('/accounts/login/?next=/summary/exchange_rate')
+        
+@api_view(('POST',))
+def exchange_chatbot(request):
+    global agent
+    user = request.user.is_authenticated
+    
+    if user:
+        question = request.POST.get('data')
+        result = get__exchange_answer(agent, question=question)
+        # print(result)
+        return Response({
+            'chat_answer':result
+        },status=status.HTTP_200_OK)
+    else:
+        return redirect('/accounts/login/?next=/summary/exchange_rate')
+    
 
 # 코인
 def coin(request):
