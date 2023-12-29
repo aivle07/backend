@@ -452,6 +452,9 @@ h6,
 
 .custom-container{
     margin-top: 0px;
+    display: flex;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -1273,4 +1276,45 @@ hr {
 } 
 .input-file .file-label:hover{
   background-color: #267bb3; /* hover 시 색상 변경 */
-} 
+}
+.box{
+  color: #267bb3;
+  flex: auto;
+}
+.box-container {
+  margin-right: 100px;
+  display: flex;
+  background-color: #829f0e;
+  width: 45%;
+  height: 800px;
+  padding: 2%;
+  border-radius: 30px;
+  color: #000;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box-container p-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-chat-bot{
+  height: 100%;
+}
+.p-1{
+  margin-top: 0px;
+  text-overflow: ellipsis;
+
+}
+
+.box-container-2 {
+  width: 45%;
+  height: 800px;
+}
+.summary-chat{
+  background-color: #2320da;
+  width: 10px;
+  height: 10px;
+}
+.contents{
+  height: 661.55px;
+}
