@@ -75,7 +75,12 @@ h6,
 }
 
 .btn.btn-light {
-    color: var(--primary);
+    color: #0e6caaf2;
+    font-weight: bold;
+}
+.btn-welcome{
+  color: #000;
+  font-weight: bold;
 }
 
 .btn-square {
