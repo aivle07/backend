@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -464,7 +465,7 @@
             left: 57%; /* 원하는 위치에 맞게 조절하세요 */
             z-index:-1;
           }
-          #popup, #popup-correct, #popup-incorrect {
+          #popup {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -477,17 +478,17 @@
             z-index: 1;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-          }
+        }
         
-          #popup.hide, #popup-correct.hide, #popup-incorrect.hide {
+        #popup.hide {
             display: none;
-          }
+        }
         
-          #popup .content, #popup-correct .content, #popup-incorrect .content {
+        #popup .content {
             padding: 20px;
             background: #fff;
             border-radius: 5px;
-          }
+        }
     </style>
 </head>
 
@@ -567,20 +568,11 @@
                   </p>
                   <button onclick="closePopup()">닫기</button>
               </div>
-              <div id="popup-incorrect" class="popup hide">
-                <div class="content">
-                  <p>틀렸습니다. 오답입니다.</p>
-                  <button onclick="closePopup('incorrect')">확인</button>
-                </div>
-              </div>
           </div>
         
           <div class="mask-group-2">
-            <img
-              class="cube7"
-              src="img/cube7.png"
-            />
-            <img class="circle7" src="img/circle7.png">
+            <img class="cube7" src="{% static 'img/cube7 1.png' %}"/>
+            <img class="circle7" src="{% static 'img/circle7 1.png' %}">
           </div>
           <div class="checkbox-wrapper">
             <label for="optionO" class="text-wrapper-12">O</label>
@@ -618,7 +610,7 @@
               <!-- JavaScript Libraries -->
               <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-              <script src="lib/wow/wow.min.js"></script>
+              <script src="{% static 'lib/wow/wow.min.js' %}"></script>
               <script src="lib/easing/easing.min.js"></script>
               <script src="lib/waypoints/waypoints.min.js"></script>
               <script src="lib/counterup/counterup.min.js"></script>
@@ -629,6 +621,7 @@
           <!-- Code injected by live-server -->
 <script>
 // <![CDATA[  <-- For SVG support
+/*
 if ('WebSocket' in window) {
   (function () {
     function refreshCSS() {
@@ -662,22 +655,20 @@ if ('WebSocket' in window) {
 else {
   console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
 }
-
-function showPopup(type) {
-  var popupId = '#popup-' + type;
-  $(popupId).removeClass('hide');
+*/
+function showPopup() {
+  $('#popup').removeClass('hide');
 }
 
-function closePopup(type) {
-  var popupId = '#popup-' + type;
-  $(popupId).addClass('hide');
+function closePopup() {
+  $('#popup').addClass('hide');
 }
 
 // 외부영역 클릭 시 팝업 닫기
 $(document).mouseup(function (e) {
-  var popContent = $('.popup');
+  var popContent = $('#popup');
   if (popContent.has(e.target).length === 0) {
-    popContent.addClass('hide');
+      popContent.addClass('hide');
   }
 });
 
