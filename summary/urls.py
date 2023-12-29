@@ -13,4 +13,5 @@ urlpatterns = [
     path("exchange_rate/",views.exchange_rate,name="exchange_rate"),
     path("coin/",views.coin,name="coin"),
     path("exchange_chatbot/",views.exchange_chatbot,name="exchange_chatbot"),
+    path("gold_chatbot/",views.gold_chatbot,name="gold_chatbot"),
 ]

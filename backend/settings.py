@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "stock",
     "simulation",
     "accounts",
+    "report",
     
 
     # 소셜 로그인
