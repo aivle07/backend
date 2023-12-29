@@ -132,6 +132,7 @@ def exchange_rate(request):
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
         
         if user:  # 로그인 한 사용자라면
+            # TESTING
             if agent == None:
                 agent = get_exchange()
             # exchange_news = news_info(keyword='환율')
