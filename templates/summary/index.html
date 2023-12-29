@@ -347,14 +347,14 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
-                    data-update='{"data":{"datasets":[{"data":[38408688000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
+                    data-update='{"data":{"datasets":[{"data":[{{financial_data.0.thisyear}},{{financial_data.1.thisyear}},{{financial_data.2.thisyear}},{{financial_data.3.thisyear}}]}]}}' data-prefix="￦" data-suffix="K">
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
                         <span class="d-none d-md-block">2023</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
                     <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
-                     data-update='{"data":{"datasets":[{"data":[31637411000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
+                    data-update='{"data":{"datasets":[{"data":[{{financial_data.0.lastyear}},{{financial_data.1.lastyear}},{{financial_data.2.lastyear}},{{financial_data.3.lastyear}}]}]}}' data-prefix="￦" data-suffix="K">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
                         <span class="d-none d-md-block">2022</span>
                         <span class="d-md-none">W</span>
@@ -496,10 +496,70 @@
   <!-- 그래프 모양과 관련됨   -->
   <script src="{%static '/assets/js/plugins/chart.js/dist/Chart.extension.js' %}"></script>
   <!--   Argon JS   -->
-  <script src="{%static '/assets/js/argon-dashboard.min.js'%}?v=1.1.2"></script>
+  <script src="{%static '/assets/js/argon-dashboard.min.js'%}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
   <script>
+    
+  SalesChart = (function () {
+    var e,
+      a,
+      t = $("#chart-sales2");
+    if (t.length) {
+      (e = t),
+        (a = new Chart(e, {
+          type: "bar",
+          options: {
+            scales: {
+              yAxes: [
+                {
+                  gridLines: {
+                    lineWidth: 1,
+                    color: Charts.colors.gray[900],
+                    zeroLineColor: Charts.colors.gray[900],
+                  },
+                  ticks: {
+                    callback: function (e) {
+                      if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
+                    },
+                  },
+                },
+              ],
+            },
+            tooltips: {
+              callbacks: {
+                label: function (e, a) {
+                  var t = a.datasets[e.datasetIndex].label || "",
+                    o = e.yLabel,
+                    n = "";
+                  return (
+                    1 < a.datasets.length &&
+                      (n +=
+                        '<span class="popover-body-label mr-auto">' +
+                        t +
+                        "</span>"),
+                    (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
+                  );
+                },
+              },
+            },
+          },
+          data: {
+            labels: ["부채", "영업이익", "매출액", "당기순이익"],
+            datasets: [
+              {
+                label: "Performance",
+                data: [{{financial_data.0.thisyear}}, {{financial_data.1.thisyear}}, {{financial_data.2.thisyear}}, {{financial_data.3.thisyear}}],
+                borderWidth: 10,
+                borderColor: "rgba(255, 99, 132, 1)",
+              },
+            ],
+          },
+        })),
+        e.data("chart", a);
+    }
+  })();
+
     DeptChart = function () {
       var e, a, t = $("#chart-dept");
       var initialData = {

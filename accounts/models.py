@@ -50,7 +50,7 @@ class User(AbstractBaseUser):
     agree_marketing = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now_add=True)
     last_password_modified = models.DateTimeField(auto_now_add=True)
