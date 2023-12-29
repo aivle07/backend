@@ -26,25 +26,25 @@ def index(request):
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
         if user:  # 로그인 한 사용자라면
             ## 여기서 모두 결과를 가져온 후 (corp_news)
-            start = time.time()
-            agent,financial_data = get_financial_agent('SK하이닉스')
-            end = time.time()
-            print('agent생성 : ',end-start)
+            # start = time.time()
+            # agent,financial_data = get_financial_agent('SK하이닉스')
+            # end = time.time()
+            # print('agent생성 : ',end-start)
             
-            start = time.time()
-            corp_info = get_corp_info('SK하이닉스')
-            end = time.time()
-            print('기업요약 : ',end-start)
+            # start = time.time()
+            # corp_info = get_corp_info('SK하이닉스')
+            # end = time.time()
+            # print('기업요약 : ',end-start)
             
-            start = time.time()
-            corp_news = news_info('SK하이닉스')
-            end = time.time()
-            print('뉴스정보추출 : ',end-start)
+            # start = time.time()
+            # corp_news = news_info('SK하이닉스')
+            # end = time.time()
+            # print('뉴스정보추출 : ',end-start)
         
-            start = time.time()
-            chat_answer = get_corp_answer(agent,'재무제표에 대해 알려줘')
-            end = time.time()
-            print('챗봇 답장 : ',end-start)
+            # start = time.time()
+            # chat_answer = get_corp_answer(agent,'재무제표에 대해 알려줘')
+            # end = time.time()
+            # print('챗봇 답장 : ',end-start)
             
             stock_data = {}
             try:
@@ -64,10 +64,11 @@ def index(request):
                 stock_data = df.to_dict(orient='records')
             # 여기에 넣기
             return render(request, 'summary/index.html',
-                          {'corp_info':corp_info, 
-                           'corp_news':corp_news['items'],
-                           'chat_answer':chat_answer,
-                           'financial_data':financial_data,
+                          {
+                        # 'corp_info':corp_info, 
+                        #    'corp_news':corp_news['items'],
+                        #    'chat_answer':chat_answer,
+                        #    'financial_data':financial_data,
                            'stock_data':stock_data,})
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary')

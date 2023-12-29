@@ -58,22 +58,22 @@
                     <div class="navbar-nav mx-auto py-0">
                         <a href="#about" class="nav-item nav-link">서비스 소개</a>
                         <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                        <a href="/recommended.html" class="nav-item nav-link">추천 서비스</a>
+                        <a href="/report" class="nav-item nav-link">금융 리포트 요약</a>
                         <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
                         <a href="/board" class="nav-item nav-link">게시판</a>
                         <a href="#testimonial" class="nav-item nav-link">고객 후기</a>
                     </div>
-                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
+                    {% comment %} <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a> {% endcomment %}
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     {% if not user.is_authenticated %}
                         <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                         <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
                         <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
-                        <a href="{% url 'quiz:quiz-list' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">퀴즈</a></li>
+                        {% comment %} <a href="{% url 'quiz:quiz-list' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">퀴즈</a></li> {% endcomment %}
                     {% endif %}
                     
 
@@ -162,7 +162,7 @@
                         <div class="d-flex align-items-center mb-4">
                             <h1 class="mb-0">02</h1>
                             <span class="bg-primary mx-2" style="width: 30px; height: 2px;"></span>
-                            <h5 class="mb-0">추천 서비스</h5>
+                            <h5 class="mb-0">금융 리포트 요약</h5>
                         </div>
                         <p class="mb-4">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo eirmod magna dolore erat amet</p>
                         <p><i class="fa fa-check-circle text-primary me-3"></i>Fully customizable</p>
