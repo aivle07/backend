@@ -15520,9 +15520,12 @@ a.btn-icon-only {
   padding: 1rem 1.5rem;
 }
 .card-custom{
-  height: 400px;
+  height: 315px;
   padding: 1rem 1.5rem;
   overflow: auto;
+}
+.card-footer-2{
+  height: 85px;
 }
 
 
@@ -20897,12 +20900,15 @@ pre>code.highlight {
   padding-left: 15px;
   margin-bottom: 0 !important;
 }
+
+
 .send{
   position: absolute;
   bottom: 0;
   margin-bottom: 5%;
   display: flex;
   width: 100%;
+  margin-left: 5%;
 }
 .send-btn{
   border-radius: 10%;
@@ -20926,5 +20932,8 @@ pre>code.highlight {
   max-height: 100px;
   border-color: #c5c5c5;
   border-radius: 10px;
+}
+.h-exchange{
+  
 }
 /*# sourceMappingURL=dashboard-free.css.map */

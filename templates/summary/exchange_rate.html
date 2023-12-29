@@ -259,7 +259,10 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
-                      <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
+                      <span class="h2 font-weight-bold mb-0">환율(Exchange rate)</span>
+                      <br>
+                      <br>
+                      <span class="h-exchange">환율은 한 나라의 화폐가 다른 나라의 화폐와 교환되는 비율을 말한다. 대표적으로 금리/물가/국제수지/정치적 상황 등 다양한 요인에 의해 영향을 받는다. </span>
                       <div class="chart-example">
                       {% comment %} <img src="./assets/img/brand/zoochart.png" width="400" height="300"> {% endcomment %}
 
@@ -278,7 +281,14 @@
                 <div class="card-2-body">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
-                      <span class="h2 font-weight-bold mb-0">SK하이닉스 소개</span>
+                      <span class="h2 font-weight-bold mb-0">달러 환율</span>
+                      <br>
+                      <br>
+                      <span class="h2 font-weight-bold mb-0">{{current_dollor}}원</span>
+                      <br>
+                      <br>
+                      <br>
+                      <span class="h2 font-weight-bold mb-0">엔화 환율</span>
                     </div>
                     <div class="news-text">
                       {{corp_info}}
@@ -291,9 +301,9 @@
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
                   <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
-                  <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
+                  <span class="h2 font-weight-bold mb-0">환율 뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in corp_news  %}
+                    {% for news in exchange_news  %}
                       <p class="jb-title">{{news.title}}</p>
                       <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
                     {% endfor %}
@@ -309,7 +319,7 @@
                     
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5>
-                      <span class="h2 font-weight-bold mb-0 hot">Recent 5</span>
+                      <span class="h2 font-weight-bold mb-0">환율 계산기</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -318,10 +328,10 @@
                     </div>
                     
                   </div>
-                  <div class = "jb-container">
-                    {% for stock in stock_data  %}
-                      <p class="jb-title">{{stock.Date|date:'y-m-d'}} : {{stock.Close}}원</p>
-                    {% endfor %}
+                  <div class = "jb-container" id='calc-dollor'>
+                    <input id='calc-input' value=0>
+                    <button onclick="calcDollor()">계산하기</button>
+                    <div id='calc-result'></div>
                   </div>
                   </p>
                 </div>
@@ -341,7 +351,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-light ls-1 mb-1">재무분석 API</h6>
-                  <h2 class="text-white mb-0">SK하이닉스 재무분석</h2>
+                  <h2 class="text-white mb-0">환율 정보</h2>
                   
                 </div>
                 <div class="col">
@@ -349,14 +359,14 @@
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
                     data-update='{"data":{"datasets":[{"data":[38408688000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">2023</span>
+                        <span class="d-none d-md-block">달러</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
                     <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
                      data-update='{"data":{"datasets":[{"data":[31637411000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">2022</span>
+                        <span class="d-none d-md-block">엔화</span>
                         <span class="d-md-none">W</span>
                       </a>
                     </li>
@@ -380,7 +390,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-muted ls-1 mb-1">재무</h6>
-                  <h2 class="mb-0" id="news-title">챗봇 위치 입니다.</h2>
+                  <h2 class="mb-0" id="news-title">챗봇</h2>
                 </div>
               </div>
             </div>
@@ -391,7 +401,7 @@
                   <button class='send-btn' onclick="sendMessage()">전송</button>
                   </div>
                 <!--백엔드 작업 공간..?-->
-                <div class="news-text">{{chat_answer}}</div>
+                <div class="news-text" id='chatbot_text'>{{chat_answer}}</div>
               </div>
             </div>
           </div>
@@ -498,7 +508,7 @@
   <!--   Argon JS   -->
   <script src="{%static '/assets/js/argon-dashboard.min.js'%}?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
     DeptChart = function () {
       var e, a, t = $("#chart-dept");
@@ -562,6 +572,8 @@
         $("#chart-dept-title").css("display", "none");
       }
     );
+
+    $("#calc-dollor").append({{current_dollor}})
   });
 
   const targetTextarea = document.querySelector('#message-input');
@@ -580,6 +592,30 @@
 
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
+  
+  function calcDollor(){
+   
+    var calc_input = Number(document.querySelector('#calc-input').value)
+    var result = Number({{current_dollor}}) * calc_input
+    console.log(result)
+    $("#calc-result").html(result)
+  }
+
+  function sendMessage(){
+    let data = targetTextarea.value
+    $.ajax({
+      type:'post',   //post 방식으로 전송
+      url:'/summary/exchange_chatbot/',   //데이터를 주고/받을 파일 주소
+      data: {
+        data:data,
+        csrfmiddlewaretoken: window.CSRF_TOKEN,
+      },   //위의 변수에 담긴 데이터를 전송해준다.
+      success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
+        console.log(data)
+        $('#chatbot_text').append("<h2>"+data.chat_answer+"</h2>");  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다.
+      }
+    });
+  }
   </script>
 </body>
 </html>

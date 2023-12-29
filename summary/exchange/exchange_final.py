@@ -8,12 +8,7 @@ load_dotenv()
 
 # 환율 라이브러리 가져와서 ChatOpenAI와 연결된 에이전트를 생성
 def get_exchange():
-    df1 = fdr.DataReader('USD/KRW', "2020-12-01") 
-    df2 = fdr.DataReader('JPY/KRW', "2020-12-01") 
-    df1['Currency'] = '달러'
-    df2['Currency'] = '엔화'
-    df1['exchange'] = '환율'
-    df2['exchange'] = '환율'
+    df1, df2 = get_exchange_data()
     
     # ChatOpenAI 에이전트 생성
     openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -25,6 +20,15 @@ def get_exchange():
         agent_type=AgentType.OPENAI_FUNCTIONS,
     )
     return agent
+
+def get_exchange_data():
+    df1 = fdr.DataReader('USD/KRW', "2023-12-01") 
+    df2 = fdr.DataReader('JPY/KRW', "2023-12-01") 
+    df1['Currency'] = '달러'
+    df2['Currency'] = '엔화'
+    df1['exchange'] = '환율'
+    df2['exchange'] = '환율'
+    return df1,df2
 
 # ChatOpenAI 에이전트에게 질문을 던져서 대답하는 함수
 def get__exchange_answer(agent, question):
