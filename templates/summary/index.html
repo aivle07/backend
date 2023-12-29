@@ -293,7 +293,7 @@
                   <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
                   <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in corp_news  %}
+                    {% for news in corp_news %}
                       <p class="jb-title">{{news.title}}</p>
                       <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
                     {% endfor %}
