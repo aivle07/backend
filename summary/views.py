@@ -1,10 +1,15 @@
 from urllib.parse import urlencode
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 from .corp.langchain_dart import *
 from .corp.langchain_news import *
 from .exchange.exchange_final import *
 from .gold.langchain_gold import *
 from .gold.langchain_goldnews import *
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 import FinanceDataReader as fdr
 import zipfile
 import xml.etree.ElementTree as ET
@@ -18,7 +23,7 @@ import urllib.request
 import requests
 import time
 
-
+agent = None
 ###### 이 아래는 view ######
 #대시보드
 def index(request):
@@ -65,7 +70,7 @@ def index(request):
             # 여기에 넣기
             return render(request, 'summary/index.html',
                           {'corp_info':corp_info, 
-                           'corp_news':corp_news['items'],
+                           'corp_news': corp_news['items'],
                            'chat_answer':chat_answer,
                            'financial_data':financial_data,
                            'stock_data':stock_data,})
@@ -84,19 +89,41 @@ def real_estate(request):
         
 # 금        
 def gold_rate(request):
+    global agent
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
-        
+                
         if user:  # 로그인 한 사용자라면
-            ####
-            # 여기에 프론트에 넘길 데이터 작성, 함수 호출
-            ####
+            #gold_news = gold_news_info()
+            if agent == None:
+                 agent = get_gold_data_agent()
+            df_gold = get_gold_data()
+            current_gold = df_gold['Close'][-1:].values[0]
             return render(request, 'summary/gold_rate.html',{
-                # 'key' : data
-                # 'corp_info' : result
+               # 'gold_news': gold_news['items'],
+                'current_gold': current_gold
+                
             })
         else:  # 로그인이 되어 있지 않다면 
-            return redirect('/accounts/login/?next=/summary/gold_rate')  
+            return redirect('/accounts/login/?next=/summary/gold_rate')
+        
+
+@api_view(('POST',))
+def gold_chatbot(request):
+    global agent
+    user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
+    
+    if user:
+        # gold_agent = get_gold_data_agent()
+        question = request.POST.get('data')
+        result = get_answer(agent, question=question)
+        # print(result)
+        return Response({
+            'chat_answer': result   
+        },status=status.HTTP_200_OK)
+    else:  # 로그인이 되어 있지 않다면 
+        return redirect('/accounts/login/?next=/summary/gold_rate')
+            
 # 환율
 def exchange_rate(request):
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
