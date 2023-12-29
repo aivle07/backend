@@ -293,7 +293,7 @@
                   <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
                   <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in corp_news  %}
+                    {% for news in corp_news %}
                       <p class="jb-title">{{news.title}}</p>
                       <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
                     {% endfor %}
@@ -386,13 +386,14 @@
             </div>
             <div class="card">
               <div class="card-custom">
-                 <div class="send" >
-                  <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
-                  <button class='send-btn' onclick="sendMessage()">전송</button>
-                  </div>
-                <!--백엔드 작업 공간..?-->
                 <div class="news-text">{{chat_answer}}</div>
               </div>
+            </div>
+            <div class="card-footer-2">
+                <div class="send" >
+                  <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
+                  <button class='send-btn' onclick="sendMessage()">전송</button>
+                </div>
             </div>
           </div>
         </div>
@@ -411,10 +412,7 @@
                     <canvas id="chart-dept" class="chart-dept" ></canvas>
 
                      <div class = "jb-container">
-                      <p class="jb-title">부채(負債, )</p>
-                      <div class="jb-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+      
                     </div>
                   </div>
                 </div>

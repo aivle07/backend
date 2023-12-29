@@ -259,7 +259,10 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
-                      <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
+                      <span class="h2 font-weight-bold mb-0" >금 소식</span>
+                      <br>
+                      <br>
+                      <span class="h3 font-weight-bold mb-0">금 인플레이션이 일어나는 이유 : 금값은 보통 인플레이션(물가 상승)과 경기 침체에 대한 대비 수단인 안전자산이다. 그러나 현재 미국 금리 인하가 예상되어 금값이 급등하고 있다. 이러한 상황에서 금은 안전자산으로서의 역할을 높이며 투자자들 사이에서 인기를 얻고 있다.</span>
                       <div class="chart-example">
                       {% comment %} <img src="./assets/img/brand/zoochart.png" width="400" height="300"> {% endcomment %}
 
@@ -278,7 +281,12 @@
                 <div class="card-2-body">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
-                      <span class="h2 font-weight-bold mb-0">SK하이닉스 소개</span>
+                      <span class="h2 font-weight-bold mb-0">국내 금 시세</span>
+                      <br>
+                      <span class="h2 font-weight-bold mb-0">{%now "Y-m-d "%}</span>
+                      <br>
+                      <br>
+                      <div>{{current_gold}}원</div>
                     </div>
                     <div class="news-text">
                       {{corp_info}}
@@ -291,9 +299,9 @@
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
                   <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
-                  <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
+                  <span class="h2 font-weight-bold mb-0">금 시세 뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in corp_news  %}
+                    {% for news in gold_news  %}
                       <p class="jb-title">{{news.title}}</p>
                       <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
                     {% endfor %}
@@ -309,7 +317,7 @@
                     
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5>
-                      <span class="h2 font-weight-bold mb-0 hot">Recent 5</span>
+                      <span class="h2 font-weight-bold mb-0 hot">금값 계산기</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -318,10 +326,10 @@
                     </div>
                     
                   </div>
-                  <div class = "jb-container">
-                    {% for stock in stock_data  %}
-                      <p class="jb-title">{{stock.Date|date:'y-m-d'}} : {{stock.Close}}원</p>
-                    {% endfor %}
+                  <div class = "jb-container" id='calc-gold'>
+                    <input id='calc-input' value=0>
+                    <button onclick="calcGold()">계산하기</button>
+                    <div id='calc-result'></div>
                   </div>
                   </p>
                 </div>
@@ -341,7 +349,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <h6 class="text-uppercase text-light ls-1 mb-1">재무분석 API</h6>
-                  <h2 class="text-white mb-0">SK하이닉스 재무분석</h2>
+                  <h2 class="text-white mb-0">금 주가</h2>
                   
                 </div>
                 <div class="col">
@@ -391,7 +399,7 @@
                   <button class='send-btn' onclick="sendMessage()">전송</button>
                   </div>
                 <!--백엔드 작업 공간..?-->
-                <div class="news-text">{{chat_answer}}</div>
+                <div class="news-text" id='chatbot_text'>{{chat_answer}}</div>
               </div>
             </div>
           </div>
@@ -498,8 +506,9 @@
   <!--   Argon JS   -->
   <script src="{%static '/assets/js/argon-dashboard.min.js'%}?v=1.1.2"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
+    
     DeptChart = function () {
       var e, a, t = $("#chart-dept");
       var initialData = {
@@ -551,6 +560,7 @@
   $(function () {
     // 툴팁 초기화
     $('[data-toggle="tooltip"]').tooltip();
+    
   });
 
   $(document).ready(function () {
@@ -562,6 +572,8 @@
         $("#chart-dept-title").css("display", "none");
       }
     );
+
+    $("#calc-gold").append({{current_gold}})
   });
 
   const targetTextarea = document.querySelector('#message-input');
@@ -580,6 +592,30 @@
 
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
+
+  function calcGold(){
+    
+    var calc_input = Number(document.querySelector('#calc-input').value)
+    var result = Number({{current_gold}}) * calc_input
+    console.log(result)
+    $("#calc-result").html(result)
+  }
+  function sendMessage(){
+    let data = targetTextarea.value
+    $('#chatbot_text').append(data)
+    $.ajax({
+			type:'post',   //post 방식으로 전송
+			url:'/summary/gold_chatbot/',   //데이터를 주고/받을 파일 주소
+			data: {
+        data:data,
+        csrfmiddlewaretoken: window.CSRF_TOKEN,
+      },   //위의 변수에 담긴 데이터를 전송해준다.
+			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
+        console.log(data)
+				$('#chatbot_text').append("<h2>"+data.chat_answer+"</h2>");  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
+			}
+		});
+  }
   </script>
 </body>
 </html>
