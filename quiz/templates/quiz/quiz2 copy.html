@@ -464,7 +464,7 @@
             left: 57%; /* 원하는 위치에 맞게 조절하세요 */
             z-index:-1;
           }
-          #popup {
+          #popup, #popup-correct, #popup-incorrect {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -477,17 +477,17 @@
             z-index: 1;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-        }
+          }
         
-        #popup.hide {
+          #popup.hide, #popup-correct.hide, #popup-incorrect.hide {
             display: none;
-        }
+          }
         
-        #popup .content {
+          #popup .content, #popup-correct .content, #popup-incorrect .content {
             padding: 20px;
             background: #fff;
             border-radius: 5px;
-        }
+          }
     </style>
 </head>
 
@@ -566,6 +566,12 @@
                       축하드려요 정답 입니다. 다음 도전 ㄱ
                   </p>
                   <button onclick="closePopup()">닫기</button>
+              </div>
+              <div id="popup-incorrect" class="popup hide">
+                <div class="content">
+                  <p>틀렸습니다. 오답입니다.</p>
+                  <button onclick="closePopup('incorrect')">확인</button>
+                </div>
               </div>
           </div>
         
@@ -657,19 +663,21 @@ else {
   console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
 }
 
-function showPopup() {
-  $('#popup').removeClass('hide');
+function showPopup(type) {
+  var popupId = '#popup-' + type;
+  $(popupId).removeClass('hide');
 }
 
-function closePopup() {
-  $('#popup').addClass('hide');
+function closePopup(type) {
+  var popupId = '#popup-' + type;
+  $(popupId).addClass('hide');
 }
 
 // 외부영역 클릭 시 팝업 닫기
 $(document).mouseup(function (e) {
-  var popContent = $('#popup');
+  var popContent = $('.popup');
   if (popContent.has(e.target).length === 0) {
-      popContent.addClass('hide');
+    popContent.addClass('hide');
   }
 });
 
