@@ -153,13 +153,17 @@ def exchange_rate(request):
             if agent == None:
                 agent = get_exchange()
             # exchange_news = news_info(keyword='환율')
-            dollor, _ = get_exchange_data()
+            dollor, yen = get_exchange_data()
             current_dollor = dollor['Close'][-1:].values[0]
+            current_yen = yen['Close'][-1:].values[0]
+            current_dollor_round = round(current_dollor, 2)
+            current_yen_round_100 = round(current_yen * 100, 2)
             return render(request, 'summary/exchange_rate.html',{
                 # 'exchange_news':exchange_news['items'],
-                # 'key' : data
-                # 'corp_info' : result
-                'current_dollor':current_dollor
+                'current_dollor':current_dollor,
+                'current_yen':current_yen,
+                'current_dollor_round':current_dollor_round,
+                'current_yen_round_100':current_yen_round_100,
                 })
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary/exchange_rate')
