@@ -9,8 +9,8 @@ app_name = "board"
 urlpatterns = [
     path("",views.BoardListAPIView.as_view(), name="board-list"),
     path("<int:pk>/",views.BoardRetrieveAPIView.as_view(), name="board-retrieve"),
-    path("<str:board>/new/",views.BoardCreateAPIView.as_view(),name="board-create"),
-    path("<str:board>/<int:pk>/update/",views.BoardUpdateAPIView.as_view(),name="board-update"),
+    path("new/",views.BoardCreateAPIView.as_view(),name="board-create"),
+    path("<int:pk>/update/",views.BoardUpdateAPIView.as_view(),name="board-update"),
     path("<str:board>/<int:pk>/delete/",views.BoardDeleteAPIView.as_view(),name="board-delete"),
        
 ]
