@@ -283,10 +283,17 @@
                       <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
                       <span class="h2 font-weight-bold mb-0">국내 금 시세</span>
                       <br>
-                      <span class="h2 font-weight-bold mb-0">{%now "Y-m-d "%}</span>
+                      <span class="h4">({% now "Y-m-d" %})</span>
                       <br>
                       <br>
-                      <div>{{current_gold}}원</div>
+                      <div class="exchange-box">
+                        <span class="h3 font-weight-bold mb-0">현재 시세(1g)</span>
+                        <br>
+                        <br>
+                      <div class="h-exchange-right">
+                        <span class="h3">{{current_gold}}원</span>
+                      </div>
+                      </div>
                     </div>
                     <div class="news-text">
                       {{corp_info}}
@@ -326,10 +333,12 @@
                     </div>
                     
                   </div>
-                  <div class = "jb-container" id='calc-gold'>
-                    <input id='calc-input' value=0>
-                    <button onclick="calcGold()">계산하기</button>
-                    <div id='calc-result'></div>
+                  <div class="exchange-calc-box">
+                        <div class = "jb-container" id='calc-gold'>
+                        <input id='calc-input' value=0>
+                        <button onclick="calcGold()">계산하기</button>
+                        <div id='calc-result'></div>
+                  </div>
                   </div>
                   </p>
                 </div>
