@@ -16,6 +16,8 @@ from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, Browsab
 from rest_framework.permissions import IsAuthenticated
 from django.http import Http404
 from datetime import datetime
+from django.contrib.auth.decorators import login_required 
+from rest_framework.decorators import api_view, renderer_classes
 # Create your views here.
 
 
@@ -35,27 +37,28 @@ def get_random(request):
         return cached_result
     
     max_id = Quiz.objects.all().aggregate(max_id=Max("id"))['max_id']
+    # 히스토리 db가져오기
+    now = datetime.now()
+    now_date = now.strftime("%Y-%m-%d")
+    quiz_history = QuizHistory.objects.filter(user_id=request.user, create_dt=now_date)
+        
     while 1:
         # pk = random.randint(1,max_id)
-        random_list = random.sample(range(1,max_id+1),2)
-        
-        # 히스토리 db가져오기
-        now = datetime.now()
-        now_date = now.strftime("%Y-%m-%d")
-        quiz_history = QuizHistory.objects.filter(user_id=request.user, create_dt=now_date)
-        if len(quiz_history) >= 1:
-            check = False
+        random_number = random.sample(range(1,max_id+1),1)[0]
+        quiz_instance = Quiz.objects.get(pk=random_number)
+        check = False
+        if quiz_history:
             for history in quiz_history:
-                if history.quiz_id in random_list:
+                if str(history.quiz_id) == str(quiz_instance):
                     check = True
                     break
-            if check:
-                continue
+        if check:
+            continue
         
-        queryset = Quiz.objects.filter(pk=random_list[0])
-        for temp_pk in random_list[1:]:
-            temp_qs = Quiz.objects.filter(pk=temp_pk)
-            queryset = queryset.union(temp_qs)
+        queryset = Quiz.objects.filter(pk=random_number)
+        # for temp_pk in random_list[1:]:
+        #     temp_qs = Quiz.objects.filter(pk=temp_pk)
+        #     queryset = queryset.union(temp_qs)
         # queryset = Quiz.objects.filter(pk=pk)
         if queryset:
             return queryset
@@ -69,16 +72,87 @@ class QuizListAPIView(ListAPIView):
     def get_queryset(self,request):
         return get_random(request)
     
+    def post(self, request, *args, **kwargs):
+        
+        # 1. request.data의 id값 가져오기
+        request_id = request.data.get("id")
+        # 2. id값으로 model에서 answer가져오기
+        real_answer = Quiz.objects.get(pk=request_id)
+        # 3. request.data의 answer와 2의 answer 비교
+        request_answer = request.data.get("answer")
+        if real_answer.answer == request_answer:
+            judge = "O"
+        else:
+            judge = "X"
+        # 4. 둘이 값이 같으면 history judge컬럼에 O로 저장
+        return_data = {
+            "id":request_id,
+            "question":request.data.get("question"),
+            "judge":judge,
+            "real_answer":real_answer.answer
+        }
+        # 값이 틀리면 X로 저장
+        QuizHistory.objects.create(judge=judge,
+                                   quiz_id=real_answer,
+                                   user_id=request.user)
+        
+        return Response(return_data, template_name="quiz/quiz.html",)
+    
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset(request))
+        
+        
+        history_list = QuizHistory.objects.filter(user_id=request.user).order_by("-create_dt")
+        quiz_instance = self.get_queryset(request).first()
+        
+        data = {
+            "history":history_list,
+            "quiz":quiz_instance
+        }
+        
+        # queryset = self.filter_queryset(self.get_queryset(request))
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
+        # page = self.paginate_queryset(queryset)
+        # if page is not None:
+        #     serializer = self.get_serializer(page, many=True)
+        #     return self.get_paginated_response(serializer.data)
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response({"data":serializer.data}, template_name="quiz/list.html",)
+        # serializer = self.get_serializer(queryset, many=True)
+        return Response(data, template_name="quiz/quiz2.html",)
+        #return Response({"data":serializer.data}, template_name="quiz/list.html",)
+      
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        """
+        `.dispatch()` is pretty much the same as Django's regular dispatch,
+        but with extra hooks for startup, finalize, and exception handling.
+        """
+        for permission in self.get_permissions():
+            if not permission.has_permission(request, self):
+                return render(request, template_name="quiz/quiz3.html",)
+    
+        self.args = args
+        self.kwargs = kwargs
+        request = self.initialize_request(request, *args, **kwargs)
+        self.request = request
+        self.headers = self.default_response_headers  # deprecate?
+
+        try:
+            self.initial(request, *args, **kwargs)
+
+            # Get the appropriate handler method
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(),
+                                  self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+
+            response = handler(request, *args, **kwargs)
+
+        except Exception as exc:
+            response = self.handle_exception(exc)
+
+        self.response = self.finalize_response(request, response, *args, **kwargs)
+        return self.response
     
 class QuizRetrieveAPIView(RetrieveAPIView):
     queryset = Quiz.objects.all()

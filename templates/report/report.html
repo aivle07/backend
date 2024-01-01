@@ -59,9 +59,9 @@
                     <div class="navbar-nav mx-auto py-0">
                         
                         <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                        <a href="./recommended.html" class="nav-item nav-link">추천 서비스</a>
+                        <a href="javascript:void(0)" class="nav-item nav-link">금융 리포트 요약</a>
                         <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
-                        <a href="javascript:void(0)" class="nav-item nav-link">게시판</a>
+                        <a href="/board" class="nav-item nav-link">게시판</a>
                         
                     </div>
                     <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
@@ -77,151 +77,83 @@
                             <div class="content-container">
                                 <div class="content-container container-md">
                                     <div class="textset content-tit">
-                                      <h2 class="textset-tit">공지사항</h2>
+                                      <h2 class="textset-tit">TODAY'S 금융 리포트</h2>
                                     </div>
                                 </div>
                             <div class="container-md">
-                                <div class="custom-container">
-                                    <div class="tableset">
-                                        <div class="tableset-inner">
-                                            <table class="tableset-table table">
-                                            <colgroup>
-                                                <col>
-                                                <col>
-                                                <col>
-                                            </colgroup>
-                                            <thead class="thead-border-top">
-                                                <tr>
-                                                <th class="number" scope="col">NO</th>
-                                                <th scope="col">제목</th>
-                                                <th class="last-child" scope="col">작성일</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% if notice %}
-                                                {% for post in notice  %}
-                                                    <tr>
-                                                        <td class="number">{{ post.id }}</td>
-                                                    
-                                                        <td>
-                                                            <a href="/board/{{post.id}}">{{post.title}}</a>
-                                                        </td>
-                                                        <td class="last-child">{{ post.create_dt|iso_to_date|date:'Y-m-d A H:i' }}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                                {% else %}
-                                                    <tr>
-                                                        <td>작성된 게시글이 없습니다.</td>
-                                                    </tr>
-                                                {% endif %}
-                                            </tbody>
-                                            </table>
+                                <div class="custom-container-2">
+                                  <div class="box-container shadow">
+                                    <p-1>내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간 내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간         내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간         내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간         내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                      내용 들어갈 공간 내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간내용 들어갈 공간
+                                    </p-1>
+                                    
+                                  </div>
+                                  <div class="box-container-2">
+                                    <div class="card-chat-bot">
+                                      <div class="card shadow">
+                                        <div class="card-header bg-transparent">
+                                          <div class="row align-items-center">
+                                            <div class="col">
+                                              <h-report-title>무엇이든 물어보세요</h-report-title>
+                                            </div>
+                                          </div>
                                         </div>
+                                        <div class="report-chat">
+                                            <div class="news-text">{{chat_answer}}</div>
                                         </div>
-                                        <nav class="pagiset pagiset-line">
-                                        <div class="pagiset-list">
-                                            {% for page in notice.paginator.page_range %}
-                                                {% if page >= notice.number|add:-2 and page <= notice.number|add:2 %}
-                                                
-                                                <a class="pagiset-link {% if page == notice.number %}active-line{% endif %}" 
-                                                href=
-                                                "
-                                                {% if request.GET.qna_page %}
-                                                ?notice_page={{ page }}&qna_page={{request.GET.qna_page}}
-                                                {% else %}
-                                                ?notice_page={{ page }}
-                                                {% endif %}
-                                                "
-                                                >{{ page}}</a>
-                                                
-                                                {% elif page >= notice.number|add:-3 and page <= notice.number|add:3 %}
-                                                    ..
-                                                {% endif %}
-                                            {% endfor %}
+                                        <div class="card-footer-2">
+                                            <div class="send-report" >
+                                              <textarea class="send-text-report" placeholder="메세지를 입력하세요" id="message-input"></textarea>
+                                              <button class='report-btn' onclick="sendMessage()">전송</button>
+                                            </div>
                                         </div>
-                                       
-                                        </nav>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
+                              </div>
                             </div>
                         </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <hr>
-        <div class="container-xxl", id="main">
-            <div class="custom">
-                <div class="container">
-                    <div class="row g-5 align-items-center">
-                        <div class="content-container">
-                            <div class="content-container container-md">
-                                <div class="textset content-tit">
-                                  <h2 class="textset-tit">Q & A</h2>
-                                </div>
-                            </div>
-                        <div class="container-md">
-                            <div class="custom-container">
-                                <div class="tableset">
-                                    <div class="tableset-inner">
-                                        <table class="tableset-table table">
-                                        <colgroup>
-                                            <col>
-                                            <col>
-                                            <col>
-                                        </colgroup>
-                                        <thead class="thead-border-top">
-                                            <tr>
-                                            <th class="number" scope="col">NO</th>
-                                            <th scope="col">제목</th>
-                                            <th class="last-child" scope="col">작성일</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for post in qna %}
-                                                <tr>
-                                                    <td class="number">{{post.id}}</td>
-                                                
-                                                    <td>
-                                                        <a href="/board/{{post.id}}">{{post.title}}</a>
-                                                    </td>
-                                                    <td class="last-child">{{ post.create_dt|iso_to_date|date:'Y-m-d A H:i' }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                    </div>
-                                    <nav class="pagiset pagiset-line">
-                                       
-                                    
-                    
-                                    <div class="pagiset-list">
-                                        {% for page in qna.paginator.page_range %}
-                                            {% if page >= qna.number|add:-2 and page <= qna.number|add:2 %}
-                                            <span >
-                                                <a class="pagiset-link {% if page == qna.number %}active-line{% endif %}" href=
-                                                "
-                                                {% if request.GET.notice_page %}
-                                                ?notice_page={{request.GET.notice_page}}&qna_page={{ page }}
-                                                {% else %}
-                                                ?qna_page={{ page }}
-                                                {% endif %}
-                                                "
-                                                >{{ page}}</a>
-                                            </span>
-                                            {% elif page >= qna.number|add:-3 and page <= qna.number|add:3 %}
-                                                ..
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                    </nav>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+          </div>
+          <hr>
             </div>
         </div>
     </div>

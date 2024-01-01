@@ -15520,9 +15520,12 @@ a.btn-icon-only {
   padding: 1rem 1.5rem;
 }
 .card-custom{
-  height: 400px;
+  height: 315px;
   padding: 1rem 1.5rem;
   overflow: auto;
+}
+.card-footer-2{
+  height: 85px;
 }
 
 
@@ -20897,12 +20900,15 @@ pre>code.highlight {
   padding-left: 15px;
   margin-bottom: 0 !important;
 }
+
+
 .send{
   position: absolute;
   bottom: 0;
   margin-bottom: 5%;
   display: flex;
   width: 100%;
+  margin-left: 5%;
 }
 .send-btn{
   border-radius: 10%;
@@ -20929,5 +20935,37 @@ pre>code.highlight {
 }
 .h-exchange{
   
+}
+.h-exchange-right {
+  text-align: right;
+}
+.exchange-box {
+  padding: 10px; /* 안쪽 여백 추가 */
+  margin-bottom: 20px; /* 아래 여백 추가 */
+  background-color: #edf5ff; /* 배경 색상 설정 */
+}
+.exchange-calc-box {
+  margin-top: 20px;
+  /* padding-left: 10px; */
+  padding-bottom: 35px;
+  background-color: #edf5ff; /* 배경 색상 설정 */
+  height: 95px; /* 높이를 원하는 크기로 설정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#calc-input-dollor,
+#calc-input-yen {
+  text-align: right;
+}
+#calc-result-dollor,
+#calc-result-yen{
+  margin-left: auto;
+  text-align: center;
+}
+#calc-input-dollor {
+  width: 190px; /* 너비를 원하는 크기로 조절 */
+  padding: 2px; /* 내부 여백 설정 */
 }
 /*# sourceMappingURL=dashboard-free.css.map */

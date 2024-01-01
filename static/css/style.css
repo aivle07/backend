@@ -452,8 +452,15 @@ h6,
 
 .custom-container{
     margin-top: 0px;
+    height: 100%;
+    width: 100%;
 }
-
+.custom-container-2{
+  margin-top: 0px;
+  height: 100%;
+  display: flex;
+  width: 100%;
+}
 
 .content-container {
     margin: 8rem auto 0;
@@ -1273,4 +1280,85 @@ hr {
 } 
 .input-file .file-label:hover{
   background-color: #267bb3; /* hover 시 색상 변경 */
-} 
+}
+.box{
+  color: #267bb3;
+  flex: auto;
+}
+.box-container {
+  margin-right: 100px;
+  display: flex;
+  background-color: #f0faff;
+  width: 45%;
+  height: 800px;
+  padding: 2%;
+  border-radius: 10px;
+  color: #000;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box-container p-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-chat-bot{
+  height: 100%;
+}
+.p-1{
+  margin-top: 0px;
+  text-overflow: ellipsis;
+
+}
+
+.box-container-2 {
+  width: 45%;
+  height: 800px;
+  /* background-color: #2320da; */
+}
+.summary-chat{
+  background-color: #2320da;
+  width: 10px;
+  height: 10px;
+}
+.contents{
+  height: 661.55px;
+  height: 100%;
+}
+.report-chat{
+  height: 657.32px;
+  border: 1px solid #f4f4f4;
+}
+.send-report{
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+}
+.send-text-report{
+  font-size: 15px;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+  margin-right: 3%;
+  max-width: 78%;
+  max-height: 200px;
+  width: 78%;
+  resize: none;
+  overflow-y: hidden;
+  border-color: #c5c5c5;
+  border-radius: 10px;
+  margin-bottom: 3%;
+  margin-left: 3%;
+}
+.report-btn{
+  border-radius: 10%;
+    background-color: rgb(255 99 132);
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 63px;
+}
+h-report-title {
+  font-size: 24px; /* 원하는 글자 크기로 조절합니다. */
+  color: #202942;
+}

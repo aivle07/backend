@@ -82,7 +82,7 @@
                             <div class="content-container">
                                 <div class="content-container container-md">
                                    <div class="textset content-tit">
-                                     <h2 class="textset-tit">오늘의 금융 상식 퀴즈</h2>
+                                     <h2 class="textset-tit">오늘 2문제를 전부 풀었습니다.</h2>
                                    </div>
                                 </div>
                                 <div class="container-xxl position-relative p-1", id="main">
@@ -91,30 +91,20 @@
                                           <div class="col-lg-6 text-center text-lg-start">
                                          
                                           <div class=' label'><div class="text-wrapper" style="z-index:999">
-                                            {% if question %}
-                                            {{question}}<br>
                                             
-                                            {% endif %}
-                                            {% if judge == "O" %}
-                                            정답입니다. 답({{real_answer}})<br>
-                                            
-                                            {% else %}
-                                            오답입니다. 답({{real_answer}})<br>
-                              
-                                            {% endif %}
                                           </div>
                                         </div>
                                           <div class="position-relative w-100 mt-3">           
                                           </div>
                             
                                           <div>
-                                              <a href="{% url 'quiz:quiz-list' %}" type="button" class="btn-quiz">퀴즈 문제풀기</a>
+                                              <a href="/" type="button" class="btn-quiz">메인홈 가기</a>
                                           </div>
                                       </div>
                                       <div class="container-xxl py-6" id="about">
                                       <div class="mask-group-2">
-                                      {% comment %} <div class="image7"><img class="cube7" src="{% static 'img/cube7 1.png' %}"/></div>
-                                      <div class="image7"><img class="circle7" src="{% static 'img/circle7 1.png' %}"/></div> {% endcomment %}
+                                      <div class="image7"><img class="cube7" src="{% static 'img/cube7 1.png' %}"/></div>
+                                      <div class="image7"><img class="circle7" src="{% static 'img/circle7 1.png' %}"/></div>
                             </div>
                         </div>
                         </div>

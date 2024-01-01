@@ -67,13 +67,30 @@ def index(request):
                 df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
                 df = df.reset_index().rename(columns={"index": "date"})
                 stock_data = df.to_dict(orient='records')
+            crtfc_key = os.getenv("CRTFC_KEY")
+            financial_data = get_financial_statement(get_corp_code('SK하이닉스',crtfc_key),crtfc_key)
+            
+            # 재무제표 
+            fin_data = []
+            for data in financial_data:
+                tmp = {}
+                # 이름
+                tmp['name'] =  data['account_nm']
+                # 금년
+                tmp['thisyear'] = int(data['thstrm_amount'].replace(',',''))//1000
+                # 작년
+                tmp['lastyear'] = int(data['frmtrm_amount'].replace(',',''))//1000
+                fin_data.append(tmp)
+                    
+            print(fin_data)
+            
             # 여기에 넣기
             return render(request, 'summary/index.html',
                           {
-                        # 'corp_info':corp_info, 
+                        #    'corp_info':corp_info, 
                         #    'corp_news':corp_news['items'],
                         #    'chat_answer':chat_answer,
-                        #    'financial_data':financial_data,
+                           'financial_data':fin_data,
                            'stock_data':stock_data,})
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary')
@@ -136,13 +153,17 @@ def exchange_rate(request):
             if agent == None:
                 agent = get_exchange()
             # exchange_news = news_info(keyword='환율')
-            dollor, _ = get_exchange_data()
+            dollor, yen = get_exchange_data()
             current_dollor = dollor['Close'][-1:].values[0]
+            current_yen = yen['Close'][-1:].values[0]
+            current_dollor_round = round(current_dollor, 2)
+            current_yen_round_100 = round(current_yen * 100, 2)
             return render(request, 'summary/exchange_rate.html',{
                 # 'exchange_news':exchange_news['items'],
-                # 'key' : data
-                # 'corp_info' : result
-                'current_dollor':current_dollor
+                'current_dollor':current_dollor,
+                'current_yen':current_yen,
+                'current_dollor_round':current_dollor_round,
+                'current_yen_round_100':current_yen_round_100,
                 })
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary/exchange_rate')
