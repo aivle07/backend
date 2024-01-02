@@ -6,6 +6,7 @@ from asyncio import sleep
 from random import randint
 from channels.generic.websocket import AsyncWebsocketConsumer
 from urllib.parse import unquote
+from plotly.offline import plot
 
 def write_color(value, before_day):
     color = ""
@@ -16,6 +17,7 @@ def write_color(value, before_day):
     else:
         color = "black"
     return color
+
 
 def get_data(param):
 
@@ -29,8 +31,8 @@ def get_data(param):
         period = int(period)
     try:
         #종목코드가 파라미터일 경우
-        df = fdr.DataReader(search_param).sort_index(ascending=False).head(period)    
-        df = df.reset_index().rename(columns={"index": "date"})
+        df = fdr.DataReader(search_param)[-300:]    
+        #df = df.reset_index().rename(columns={"index": "date"})
         df = df.bfill()
         response_data = df.to_dict(orient='records')
     except Exception as e:
@@ -39,29 +41,29 @@ def get_data(param):
         name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
         search_param = name_to_code.loc[name_to_code['Name'] == search_param].Code
                 
-        df = fdr.DataReader(search_param).sort_index(ascending=False).head(period)    
-        df = df.reset_index().rename(columns={"index": "date"})
+        df = fdr.DataReader(search_param)[-300:]  
+        #df = df.reset_index().rename(columns={"index": "date"})
         response_data = df.to_dict(orient='records')
       
     data = []
     # 전날종가
-    before_day = response_data[1]['Close']
+    before_day = response_data[-2]['Close']
     # 현재가격
-    now_value = response_data[0]['Close']
+    now_value = response_data[-1]['Close']
     now_value_color = write_color(now_value, before_day)
     # 오늘 고가
-    today_high = response_data[0]['High']
+    today_high = response_data[-1]['High']
     today_high_color = write_color(today_high, before_day)
     # 오늘 저가
-    today_low = response_data[0]['Low']
+    today_low = response_data[-1]['Low']
     today_low_color = write_color(today_low, before_day)
     # 오늘 거래량
-    today_volume = response_data[0]['Volume']
+    today_volume = response_data[-1]['Volume']
     # 오늘 시작가격
-    today_open = response_data[0]['Open']
+    today_open = response_data[-1]['Open']
     today_open_color = write_color(today_open, before_day)
     # 등락율
-    today_change_rate = response_data[0]["Change"]
+    today_change_rate = response_data[-1]["Change"]
     if today_change_rate > 0:
         today_change_rate_color = "red"
     elif today_change_rate < 0:
@@ -90,13 +92,16 @@ def get_data(param):
         "price_change_color":price_change_color
     }
     #response_data.reverse()
-    for i in response_data[::-1]:
-        open_data = i['Open']
-        close_data = i['Close']
-        data.append(open_data)
-        data.append(close_data)
+    # for i in response_data[::-1]:
+    #     open_data = i['Open']
+    #     close_data = i['Close']
+    #     data.append(open_data)
+    #     data.append(close_data)
+    chart = fdr.chart.plot(df)
+    chart = plot(chart, output_type='div', include_plotlyjs=False)
     
-    result = [data, today_data]
+    # result = [data, today_data]
+    result = [chart, today_data]
     return result
     #return response_data[0]['Close']
 
@@ -113,7 +118,9 @@ class GraphConsumer(AsyncWebsocketConsumer):
         while 1:
             value = get_data(param)
             await self.send(json.dumps({"value":value,
-                                        "param":param}))
+                                        "param":param,
+                                        "chart":value[0],}))
+            
             await sleep(1)
             
     async def disconnect(self, code):
