@@ -268,8 +268,8 @@
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
                       <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
                       <div class="chart-example">
-                      {% comment %} <img src="./assets/img/brand/zoochart.png" width="400" height="300"> {% endcomment %}
-
+                        <button onclick='test()'>AJAX</button>
+                        
                       </div>
                     </div>
                     
@@ -504,6 +504,7 @@
   <script src="{%static '/assets/js/argon-dashboard.min.js'%}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
     
   SalesChart = (function () {
@@ -628,6 +629,21 @@
       }
     );
   });
+
+  function test(){
+    const chart_example = document.querySelector("#chart-example");
+    $.ajax({
+			type:'post',   //post 방식으로 전송
+			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
+			data: {
+        csrfmiddlewaretoken: window.CSRF_TOKEN,
+      },   //위의 변수에 담긴 데이터를 전송해준다.
+			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
+        console.log(data)
+				$(".chart-example").html(data.chart);  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
+			}
+		});
+  }
 
   const targetTextarea = document.querySelector('#message-input');
 
