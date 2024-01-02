@@ -55,13 +55,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                      <a href="#about" class="nav-item nav-link">서비스 소개</a>
+                      <a href="/" class="nav-item nav-link">서비스 소개</a>
                       <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                      <a href="/recommended.html" class="nav-item nav-link">추천 서비스</a>
+                      <a href="/report" class="nav-item   nav-link">금융 리포트 요약</a>
                       <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
                       <a href="/board" class="nav-item nav-link">게시판</a>
                     </div>
-                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
+                    {% comment %} <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a> {% endcomment %}
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     {% if not user.is_authenticated %}
@@ -158,7 +158,7 @@
         }
         .text-wrapper {
           position: absolute;
-          top: 80%;
+          top: 30%;
           left: 50%;
           transform: translate(-50%, -50%);
         
@@ -177,10 +177,11 @@
           color: #fff;
           background-color: #486eff;
           border: none;
+        text-align: center;
+
         }
 
       .btn-quiz {
-        
         padding: 10px 20px;
         font-size: 18px;
         border-radius: 5px;
@@ -191,6 +192,7 @@
         margin-left: 10.3px;
         left: 50%; /* 중앙으로 이동하는 부분 */
         transform: translate(-50%, -50%); 
+        text-align: center;
       }
 
     .frame .glass-crystal-ring {

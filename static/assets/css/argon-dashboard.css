@@ -20832,7 +20832,7 @@ pre>code.highlight {
 /*종석이가 원하는 기능 구현*/
 .jb-container {
   position: relative;
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 .jb-title {
@@ -21013,4 +21013,43 @@ button.btn:hover {
     margin-top: 15%;
     border-radius: 11px;
 }
+
+/* 계산기 버튼 스타일 */
+.gold-calc-box .jb-container button {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  font-size: 18px;
+  border: 1px solid #edf5ff; /* 파랑색 테두리 */
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #edf5ff; /* 파랑색 배경 */
+  color: #5e72e4; /* 글자색 흰색 */
+}
+
+.gold-calc-box .jb-container button:hover {
+  background-color: #5e72e4; /* 마우스 호버 시 어둡게 */
+  border-color: #edf5ff; /* 마우스 호버 시 테두리 색 변경 */
+  color: #edf5ff;
+}
+
+/* 계산 결과 스타일 */
+.gold-calc-box #calc-result-gold {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 계산기 전체 박스 스타일 */
+.gold-calc-box .jb-container {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center; /* 가운데 정렬을 추가 */
+}
+
+.gold-calcbox-main {
+  margin-top: 10px;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

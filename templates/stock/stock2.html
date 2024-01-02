@@ -1,0 +1,515 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>Lucky Seven - Very Nice finance 7조</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static css/bootstrap.min.css %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-xxl position-relative p-0" id="home">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="../home.html" class="navbar-brand p-0">
+                    <h1 class="m-0">Hey! 금융+</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav mx-auto py-0">
+                        <a href="#about" class="nav-item nav-link">서비스 소개</a>
+                        <a href="./index.html" class="nav-item nav-link">요약서비스</a>
+                        <a href="./recommended.html" class="nav-item nav-link">추천 서비스</a>
+                        <a href="./quiz.html" class="nav-item nav-link">금융 퀴즈</a>
+                        <a href="./notice.html" class="nav-item nav-link">게시판</a>
+                        <a href="#testimonial" class="nav-item nav-link">고객 후기</a>
+                    </div>
+                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
+                    <!-- 로그인 페이지로 이동하는 버튼 -->
+                    <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                    <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+
+                    
+                </div>
+            </nav>
+            <div class="container-xxl", id="main">
+                <div class="custom">
+                    <div class="container">
+                      <div class="row g-5 align-items-center">
+
+                            <div class="content-container">
+                                <div class="content-container container-md">
+                                  <div class="overlap-8">
+                                    <div class="text-wrapper-17">매입금액</div>
+                                    <div class="text-wrapper-18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;353,573.235 원</div>
+                                  </div>
+                                  <div class="overlap-9">
+                                    <div class="text-wrapper-19">평가금액</div>
+                                    <div class="element">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;383,573.235 원</div>
+                                  </div>
+                                  <div class="overlap">
+                                    <div class="overlap-group">
+                                      <div class="text-wrapper">투자 수익률</div>
+                                    </div>
+                                    <div class="text-wrapper-2">32.3%</div>
+                                  </div>
+                                  <div class="overlap-2">
+                                    <div class="overlap-3">
+                                      <div class="text-wrapper-4">손익</div>
+                                    </div>
+                                    <div class="text-wrapper-3">+1.453,868원</div>
+                                    
+                                  </div>
+                                  
+                                    
+                                    <div class="div">
+                                      
+                                      
+                                    
+                                    </div>
+                                  
+                                   
+                                </div>
+                                <div class="container-xxl position-relative p-1", id="main">
+                                  <div class="container">
+                                      <div class="row g-5 align-items-center">
+                                          <div class="position-relative w-100 mt-3">                                                 
+                                          </div>
+                                      </div>
+                                      <div class="container-xxl py-6" id="about">
+                                      <div class="mask-group-2">
+                                        <p>2024년 1월 1일 19:35:36 기준</p>
+                                        <table>
+                                         <thead>
+                                            <tr>
+                                              <td>매수번호</td>
+                                              <td>종목</td>
+                                              <td>수량</td>
+                                              <td>매입단가</td>
+                                              <td>매입가격</td>
+                                              <td>현재시장단가</td>
+                                              <td>평가금액</td>
+                                              <td>손익</td>
+                                              <td>수익률</td>
+                                            </tr>
+                                         </thead>
+                                         <tbody>
+                                          <tr>
+                                            <td><input type="checkbox">1</td>
+                                            <td>삼상전자</td>
+                                            <td>10</td>
+                                            <td>77,000</td>
+                                            <td>770,000</td>
+                                            <td>78,000</td>
+                                            <td>780,000</td>
+                                            <td>10,000</td>
+                                            <td>7%</td>
+                                          </tr>
+                                          <tr>
+                                            <td><input type="checkbox">2</td>
+                                            <td>sk</td>
+                                            <td>10</td>
+                                            <td>77,000</td>
+                                            <td>770,000</td>
+                                            <td>78,000</td>
+                                            <td>780,000</td>
+                                            <td>10,000</td>
+                                            <td>7%</td>
+                                          </tr>
+                                          <tr>
+                                            <td><input type="checkbox">3</td>
+                                            <td>kg</td>
+                                            <td>10</td>
+                                            <td>77,000</td>
+                                            <td>770,000</td>
+                                            <td>78,000</td>
+                                            <td>780,000</td>
+                                            <td>10,000</td>
+                                            <td>7%</td>
+                                          </tr>
+                                          
+                                         </tbody>
+                                        </table>
+                                        <button class="sell-button" onclick="sellStock()">매도하기</button>
+                                        <script>
+                                          function sellStock() {
+                                            // 매도하기 버튼이 클릭되었을 때 수행할 동작을 정의합니다.
+                                            alert("주식을 매도합니다!");
+                                            // 실제로는 여기에 매도 로직을 추가해야 합니다.
+                                          }
+                                        </script>
+                                      </div>
+                                      </div>
+                                  </div>      
+                                </div>      
+                            </div>
+                          </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+    </div>
+        <!-- Navbar & Hero End -->
+        
+
+
+        <!-- Back to Top -->
+        
+    
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+
+</html>
+
+
+
+
+
+  <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        top: 40%;
+      }
+      thead {
+        background-color: #87CEEB;
+        color: white; 
+    }
+
+      table, th, td {
+        border: 1px solid lightblue;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    
+      .overlap-3 {
+        position: absolute;
+        width: 1750px;
+        height: 750px;
+        top: 120px;
+        margin-left: -700px;
+      }
+      .rectangle-21 {
+      width: 655px;
+      height: 656px;
+      top: 191px;
+      left: 509px;
+      background-color: #fff;
+      border-radius: 7px;
+      border: 1px solid;
+      border-color: #fff;
+      position: absolute;
+      }
+      .frame {
+        background-color: #ffffff;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+      }
+       
+      .div {
+        background-color: #ffffff;
+        overflow: hidden;
+        width: 14px;
+        height: 187px;
+        position: relative;
+      }
+       
+      .overlap {
+        position: absolute;
+        width: 251px;
+        height: 147px;
+        top: 273px;
+        left: 600px;
+        background-image: url(./img/rectangle-145.svg);
+        background-size: 100% 100%;
+        border: 5px solid lightgray;
+        border-radius: 30px;  
+      }
+       
+      .overlap-group {
+        position: absolute;
+        width: 219px;
+        height: 64px;
+        top: 52px;
+        left: 128px;
+      }
+       
+      .text-wrapper {
+        width: 219px;
+        left: -50px;
+        transform: rotate(0.33deg);
+        font-size: 16px;
+        position: absolute;
+        top: -25px;
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 300;
+        color: #000000;
+        letter-spacing:60;
+        line-height: normal;
+
+      }
+       
+      .line {
+        width: 110px;
+        height: 2px;
+        top: 32px;
+        left: 5px;
+        position: absolute;
+        object-fit: cover;
+      }
+       
+      .text-wrapper-2 {
+        position: absolute;
+        width: 183px;
+        top: 70px;
+        left: 78px;
+        transform: rotate(0.33deg);
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 300;
+        color: #fc6161;
+        font-size: 36px;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+      .overlap-2 {
+        position: absolute;
+        width: 251px;
+        height: 147px;
+        top: 273px;
+        left: 908px;
+        background-image: url(./img/rectangle-160.svg);
+        background-size: 100% 100%;
+        border: 5px solid lightgray;
+        border-radius: 30px;
+      }
+       
+      .text-wrapper-3 {
+        width: 326px;
+        top: 66px;
+        left: 28px;
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 400;
+        color: #fc6161;
+        font-size: 33px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+      .overlap-3 {
+        position: absolute;
+        width: 230px;
+        height: 64px;
+        top: 45px;
+        left: 789px;
+      }
+       
+      .text-wrapper-4 {
+        width: 203px;
+        top: -18px;
+        left: 14px;
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 300;
+        color: #000000;
+        font-size: 16px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+      .frame .img {
+        width: 110px;
+        height: 2px;
+        top: 38px;
+        left: 0;
+        position: absolute;
+        object-fit: cover;
+      }
+       
+      .group {
+        position: absolute;
+        width: 2124px;
+        height: 115px;
+        top: 0;
+        left: 0;
+      }
+       
+      .overlap-group-2 {
+        position: relative;
+        width: 2114px;
+        height: 115px;
+        background-image: url(./img/rectangle-1.png);
+        background-size: 100% 100%;
+      }
+      .overlap-8 {
+        position: absolute;
+        width: 417px;
+        height: 84px;
+        top: 319px;
+        left: 129px;
+      }
+       
+      .text-wrapper-17 {
+        width: 142px;
+        top: 7px;
+        left: 2px;
+        font-family: "Inter-Light", Helvetica;
+        font-weight: 300;
+        color: #000000;
+        font-size: 16px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+       
+      .text-wrapper-18 {
+        width: 263px;
+        left: 154px;
+        font-size: 24px;
+        position: absolute;
+        top: 0;
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 400;
+        color: #000000;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+      .overlap-9 {
+        position: absolute;
+        width: 421px;
+        height: 48px;
+        top: 380px;
+        left: 129px;
+      }
+       
+      .text-wrapper-19 {
+        width: 142px;
+        top: 1px;
+        left: 2px;
+        font-family: "Inter-Light", Helvetica;
+        font-weight: 300;
+        color: #000000;
+        font-size: 16px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+       
+      .element {
+        width: 263px;
+        top: 0;
+        left: 158px;
+        font-family: "Inter-Regular", Helvetica;
+        font-weight: 400;
+        color: #000000;
+        font-size: 24px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+       
+      .overlap-10 {
+        position: absolute;
+        width: 417px;
+        height: 53px;
+        top: 315px;
+        left: 159px;
+      }
+       
+      .text-wrapper-20 {
+        width: 142px;
+        top: 6px;
+        left: 0;
+        font-family: "Inter-Light", Helvetica;
+        font-weight: 300;
+        color: #000000;
+        font-size: 24px;
+        position: absolute;
+        letter-spacing: 0;
+        line-height: normal;
+      }
+      .sell-button {
+        background-color: blue;
+        color: white;
+        padding: 10px 30px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 2px;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+  
+      .sell-button:active {
+        background-color: blue;
+      }
+      .mask-group-2{
+        top:50px;
+      }
