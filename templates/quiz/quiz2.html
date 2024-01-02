@@ -192,9 +192,10 @@
           .frame .overlap-3 {
             position: absolute;
             width: 250px;
-            height: 700px;
+            height: 656px;
             top: 190px;
-            left: 0;
+            left: 7%;
+            z-index:1;
           }
           .frame .rectangle {
             position: absolute;
@@ -215,6 +216,7 @@
             letter-spacing: 0;
             line-height: normal;
           }
+          
           .frame .span {
             font-family: "Inter-Medium", Helvetica;
             font-weight: 500;
@@ -224,6 +226,12 @@
           }
           .frame .text-wrapper-7 {
             font-size: 16px;
+            color: #000000; /* 기본 텍스트 색상 */
+            transition: color 0.3s ease;
+          }
+          .frame .text-wrapper-7:hover {
+            color: #ff0000; /* hover 상태일 때의 텍스트 색상 변경 */
+            font-weight: bold;
           }
           .frame .rectangle-2 {
             position: absolute;
@@ -317,6 +325,7 @@
             background-color: #486eff;
             color: #fff;
             border-radius: 7px;
+            border:none;
             
           }
           .frame .text-wrapper-10 {
@@ -460,7 +469,7 @@
             height: 310px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
             transform: rotate(25deg);
             margin-top: -200.3px;
-            margin-left: 200.3px;
+            margin-left: 150.3px;
             top:-62%; /* 원하는 위치에 맞게 조절하세요 */
             left: 57%; /* 원하는 위치에 맞게 조절하세요 */
             z-index:-1;
@@ -515,14 +524,14 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarCollapse">
                   <div class="navbar-nav mx-auto py-0">
-                      <a href="#about" class="nav-item nav-link">서비스 소개</a>
+                      <a href="/" class="nav-item nav-link">서비스 소개</a>
                       <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                      <a href="/recommended.html" class="nav-item nav-link">추천 서비스</a>
+                      <a href="/report" class="nav-item nav-link">금융 요약 리포트</a>
                       <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
                       <a href="/board" class="nav-item nav-link">게시판</a>
                       {% comment %} <a href="#testimonial" class="nav-item nav-link">고객 후기</a> {% endcomment %}
                   </div>
-                  <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
+                  {% comment %} <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a> {% endcomment %}
                   <!-- 로그인 페이지로 이동하는 버튼 -->
                   <!-- 로그인 페이지로 이동하는 버튼 -->
                   {% if not user.is_authenticated %}
@@ -541,7 +550,7 @@
               
       <!-- Navbar & Hero End -->
       <div class="frame">
-       <div class="overlap-3 rectangle-21">
+       <div class="overlap-3 rectangle-21 shadow">
           <div class="text-wrapper">퀴즈 History</div>
           <p class="element">
             {% if not history %}
@@ -564,7 +573,7 @@
           
           
           
-          <div class="rectangle-5"></div>
+          <div class="rectangle-5 shadow"></div>
           <div class="rectangle-6"></div>
 
           <div class="text-wrapper-9">퀴즈 문제</div>
@@ -611,7 +620,10 @@
 
         </div>
       </div>
+
     </div>
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
   </body>
   
 </div>
