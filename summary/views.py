@@ -22,9 +22,34 @@ import json
 import urllib.request
 import requests
 import time
+import plotly.offline as opy
 
 agent = None
 ###### 이 아래는 view ######
+@api_view(('POST',))
+def test(request):
+    global agent
+    user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
+    
+    if user:
+        name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
+        filter = name_to_code.loc[name_to_code['Name'] == 'SK하이닉스']
+        
+        search_param = filter[['Code']].values[0]
+        
+        df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
+        df = df.reset_index().rename(columns={"index": "date"})
+        
+        chart = fdr.chart.plot(df)
+        chart = opy.plot(chart,output_type='div')
+
+        return Response({
+            'chart': chart   
+        },status=status.HTTP_200_OK)
+    else:  # 로그인이 되어 있지 않다면 
+        return redirect('/accounts/login/?next=/summary')
+    
+            
 #대시보드
 def index(request):
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
@@ -81,15 +106,18 @@ def index(request):
                 # 작년
                 tmp['lastyear'] = int(data['frmtrm_amount'].replace(',',''))//1000
                 fin_data.append(tmp)
-                    
             print(fin_data)
-            
             # 여기에 넣기
             return render(request, 'summary/index.html',
                           {
                         #    'corp_info':corp_info, 
                         #    'corp_news':corp_news['items'],
                         #    'chat_answer':chat_answer,
+                            'corp_news' : [{'title':'good1','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good2','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good3','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good4','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good5','link':'naver.com','summary':'content','date':'2024-01-02'}],
                            'financial_data':fin_data,
                            'stock_data':stock_data,})
         else:  # 로그인이 되어 있지 않다면 

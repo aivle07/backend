@@ -42,7 +42,6 @@
     </div>
   </div>
   <!-- Spinner End -->
-
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -263,14 +262,14 @@
           <div class="row">
             <div class="col-xl-3 col-lg-6">
               <div class="card-2 card-stats mb-4 mb-xl-0">
-                <div class="card-2-body">
+                <div class="card-2-body shadow">
                   <div class="row">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
                       <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
                       <div class="chart-example">
-                      {% comment %} <img src="./assets/img/brand/zoochart.png" width="400" height="300"> {% endcomment %}
-
+                        <button onclick='test()'>AJAX</button>
+                        
                       </div>
                     </div>
                     
@@ -302,10 +301,19 @@
                   <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
                   <div class = "jb-container">
                     {% for news in corp_news %}
-                      <p class="jb-title">{{news.title}}</p>
-                      <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
+                      <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
+                      <div id="popup" class="hide layer">
+                          <div class="content">
+                              <h-title>{{news.date}}</h-title>
+                              <h-summary>{{news.summary}}</h-summary>
+                              <h-link>{{news.link}}</h-link>
+                              <button onclick="closePopup()" class="custom-end">종료</button>
+                              <button onclick="openNextPopup('{{ news.title }}')" class="custom-next">다음 팝업</button>
+                              <button onclick="openPreviousPopup('{{ news.title }}')" class="custom-previous">이전 팝업</button>
+                          </div>
+                      </div>
                     {% endfor %}
-                   <div class="jb-text">뉴스라고</div>
+                    
                   </div>
                 </div>
               </div>
@@ -317,12 +325,10 @@
                     
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5>
-                      <span class="h2 font-weight-bold mb-0 hot">Recent 5</span>
+                      <span class="h2 font-weight-bold mb-0">Recent 5</span>
                     </div>
                     <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
+                      
                     </div>
                     
                   </div>
@@ -434,11 +440,10 @@
             <div class="card-3 card-3-stats mb-4" id="chart-dept-card">
               <div class="card-3-body">
                 <div class="row-2">
-                  <div class="card-3-body">
-                    <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
-                    <span class="h2 font-weight-bold mb-0">부채</span>
-                    <canvas id="chart-dept" class="chart-dept" ></canvas>
-                    
+                  <div class="card-4-body">
+                    <span class="h2 font-weight-bold mb-0">금리 현황</span>
+                    <canvas id="chart-interest" class="chart-canvas"></canvas>
+              
                   </div>
 
                 </div>
@@ -449,15 +454,13 @@
         </div>
       </div>
 
-
       <div class="row-2 mt-5">
         <div class="row-2">
           <div class="col-xl-custom">
             <div class="card-3 card-3-stats mb-4">
               <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">URL</h5>
-                    <span class="h2 font-weight-bold mb-0" >용어 설명</span>
-                    <img src="./assets/img/brand/ROEex.jpg" width="600" height="400">
+                    <span class="h2 font-weight-bold mb-0" >금융 용어 100선</span>
               </div>
             </div>
           </div>
@@ -469,11 +472,7 @@
                   <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
                     <span class="h2 font-weight-bold mb-0">자본 및 부채</span>
-                    <img src="./assets/img/brand/ROEex2.png" width="600" height="400">
-
-                   
                   </div>
-
                 </div>
               </div>
             </div>
@@ -505,6 +504,7 @@
   <script src="{%static '/assets/js/argon-dashboard.min.js'%}"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
+  <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
     
   SalesChart = (function () {
@@ -614,6 +614,56 @@
       }
     }();
 
+    interestChart = function () {
+      var e, a, t = $("#chart-interest");
+      var initialData = {
+        labels: ["한국", "미국"],
+        datasets: [{
+          label: "금리 값",
+          data: [3.25, 5.25],
+          backgroundColor: ['blue', 'red'] // Adjust colors as needed
+        }]
+      };
+      if (t.length) {
+        e = t;
+        a = new Chart(e, {
+          type: "horizontalBar",
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: 'black'
+              }
+              
+            },
+            tooltips: {
+              callbacks: {
+                label: function (e, a) {
+                  var t = a.labels[e.index] || "",
+                    o = a.datasets[0].data[e.index],
+                    n = "";
+                  return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
+                }
+              }
+            },
+            plugins: {
+              labels: {
+                render: 'percentage',
+                fontColor: ['#ff0000', '#0000ff'],
+                precision: 2
+                
+              }
+            }
+
+          },
+          data: initialData
+        }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
+      }
+    }();
+
   $(function () {
     // 툴팁 초기화
     $('[data-toggle="tooltip"]').tooltip();
@@ -629,6 +679,21 @@
       }
     );
   });
+
+  function test(){
+    const chart_example = document.querySelector("#chart-example");
+    $.ajax({
+			type:'post',   //post 방식으로 전송
+			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
+			data: {
+        csrfmiddlewaretoken: window.CSRF_TOKEN,
+      },   //위의 변수에 담긴 데이터를 전송해준다.
+			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
+        console.log(data)
+				$(".chart-example").html(data.chart);  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
+			}
+		});
+  }
 
   const targetTextarea = document.querySelector('#message-input');
 
@@ -646,19 +711,73 @@
 
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
-  
   </script>
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-  <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
-  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
-  <!-- Template Javascript -->
-  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    
+    function showPopup() {
+      var popup = document.getElementById("popup");
+      popup.classList.remove("hide");
+      popup.classList.add("show");
+  }
+
+  function closePopup() {
+      var popup = document.getElementById("popup");
+      popup.classList.remove("show");
+      popup.classList.add("hide");}
+  // 외부영역 클릭 시 팝업 닫기
+  $(document).mouseup(function (e) {
+    var popContent = $('#popup');
+    if (popContent.has(e.target).length === 0) {
+        popContent.addClass('hide');
+    }
+  });
+  
+
+function openNextPopup(currentTitle) {
+  // 현재 팝업 숨김
+  document.getElementById('popup_' + currentTitle).style.display = 'none';
+  
+  // 다음 팝업 표시
+  var nextNewsTitle = getNextNewsTitle(currentTitle);
+  document.getElementById('popup_' + nextNewsTitle).style.display = 'block';
+}
+
+function openPreviousPopup(currentTitle) {
+  // 현재 팝업 숨김
+  document.getElementById('popup_' + currentTitle).style.display = 'none';
+  
+  // 이전 팝업 표시
+  var previousNewsTitle = getPreviousNewsTitle(currentTitle);
+  document.getElementById('popup_' + previousNewsTitle).style.display = 'block';
+}
+
+function getNextNewsTitle(currentTitle) {
+  var currentIndex = newsTitles.indexOf(currentTitle);
+  
+  // 다음 뉴스 제목을 결정
+  if (currentIndex !== -1 && currentIndex < newsTitles.length - 1) {
+    return newsTitles[currentIndex + 1];
+  } else {
+    // 현재 뉴스가 마지막이면 첫 번째 뉴스로 돌아감
+    return newsTitles[0];
+  }
+}
+
+function getPreviousNewsTitle(currentTitle) {
+  var currentIndex = newsTitles.indexOf(currentTitle);
+  
+  // 이전 뉴스 제목을 결정
+  if (currentIndex !== -1 && currentIndex > 0) {
+    return newsTitles[currentIndex - 1];
+  } else {
+    // 현재 뉴스가 첫 번째이면 마지막 뉴스로 돌아감
+    return newsTitles[newsTitles.length - 1];
+  }
+}
+
+</script>
+
 </body>
 </html>
 
