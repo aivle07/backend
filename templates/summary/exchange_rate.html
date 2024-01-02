@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 {% load static %}
 {% load socialaccount %}
+{% load humanize %}
 <html lang="en">
 
 <head>
@@ -290,7 +291,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_dollor_round}}원</span>
+                        <span class="h3">{{current_dollor_round|intcomma}}원</span>
                       </div>
                       </div>
                       <br>
@@ -300,7 +301,7 @@
                         <br>
                         <br>
                         <div class="h-exchange-right">
-                          <span class="h3 h-exchange-right">{{current_yen_round_100}}원</span>
+                          <span class="h3 h-exchange-right">{{current_yen_round_100|intcomma}}원</span>
                         </div>
                         </div>
                     </div>
@@ -335,21 +336,30 @@
                       <span class="h2 font-weight-bold mb-0">환율 계산기</span>
                     </div>                   
                   </div>
-                  <div class="exchange-calc-box">
-                    <div class="jb-container" id='calc-dollor'>
-                        <h3 class="mb-0">달러 계산</h6>
-                        <input id='calc-input-dollor' value='0'>
-                        <button class="btn" onclick="calcDollor()">계산</button>
-                        <div id='calc-result-dollor'></div>
-                    </div>
-                  </div>
-                  <br>
-                  <div class="exchange-calc-box">
-                    <div class = "jb-container" id='calc-yen'>
-                      <h3 class="mb-0">엔화 계산</h6>
-                      <input id='calc-input-yen' value='0'>
-                      <button class="btn" onclick="calcDollor()">계산</button>
-                      <div id='calc-result-yen'></div>
+                  <div class="gold-calc-box">
+                    <div class = "jb-container" id='calc-gold'>
+                          <input id='calc-input-currency' value=1>
+                          <div id='calc-result-currency'></div>
+                          <div class='gold-calcbox-main'>
+                            <button onclick="appendToInput('calc-input-currency', '1')">1</button>
+                            <button onclick="appendToInput('calc-input-currency', '2')">2</button>
+                            <button onclick="appendToInput('calc-input-currency', '3')">3</button>
+                            <button onclick="calcCurrency()">🟰</button>
+                            <br>
+                            <button onclick="appendToInput('calc-input-currency', '4')">4</button>
+                            <button onclick="appendToInput('calc-input-currency', '5')">5</button>
+                            <button onclick="appendToInput('calc-input-currency', '6')">6</button>
+                            <button class='active' onclick="setCurrency('dollars')">$</button>
+                            <br>
+                            <button onclick="appendToInput('calc-input-currency', '7')">7</button>
+                            <button onclick="appendToInput('calc-input-currency', '8')">8</button>
+                            <button onclick="appendToInput('calc-input-currency', '9')">9</button>
+                            <button onclick="setCurrency('yen')">¥</button>
+                            <br>
+                            <button onclick="appendToInput('calc-input-currency', '0')">0</button>
+                            <button onclick="appendToInput('calc-input-currency', '.')">.</button>
+                            <button onclick="removeLastDigit('calc-input-currency')">←</button>
+                        </div>
                     </div>
                   </div>
                   </p>
@@ -614,24 +624,6 @@
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
 
-  function calcDollor(){
-    var calc_input = Number(document.querySelector('#calc-input-dollor').value)
-    var result = Number({{current_dollor}}) * calc_input
-    console.log(result)
-    $("#calc-result-dollor").empty();
-    $("#calc-result-dollor").html(result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원');
-
-  }
-
-  function calcYen(){
-    var calc_input = Number(document.querySelector('#calc-input-yen').value)
-    var result = Number({{current_yen}}) * calc_input * 100
-    console.log(result)
-    $("#calc-result-yen").html('');
-    $("#calc-result-yen").html(result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원');
-  }
-  
-
   //페이지 새로고침 시 달러,엔화 1단위 계산 결과 출력
   document.addEventListener('DOMContentLoaded', function () {
     // 페이지가 로드될 때 실행되는 함수
@@ -642,8 +634,8 @@
     var initialDollarRate = 1; // 1달러의 초기 환율
     var initialYenRate = 1; // 1엔화의 초기 환율
     // 달러 계산기 초기 설정
-    document.getElementById('calc-input-dollor').value = initialDollarRate;
-    updatePlaceholder('calc-input-dollor'); // 플레이스홀더 업데이트
+    document.getElementById('calc-input-currency').value = initialDollarRate;
+    updatePlaceholder('calc-input-currency'); // 플레이스홀더 업데이트
     calcDollor(); // 초기 계산 결과 업데이트
     // 엔화 계산기 초기 설정
     document.getElementById('calc-input-yen').value = initialYenRate;
@@ -656,16 +648,11 @@
   }
   // 환율 결과 업데이트 함수
   function updateExchangeResult(containerId, rate) {
-    var resultContainer = document.getElementById('calc-result-' + containerId);
+    var resultContainer = document.getElementById('calc-result-' + currency);
     var result = rate * 1; 
     resultContainer.innerHTML = result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원';
   }
-  // 환율 결과 업데이트 함수
-  function updateExchangeResult(containerId, rate) {
-    var resultContainer = document.getElementById('calc-result-' + containerId);
-    var result = rate * 1; // 계산 로직에 따라 수정 필요
-    resultContainer.innerHTML = result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원';
-  }
+  
 
 
   function sendMessage() {
@@ -687,7 +674,50 @@
       }
     });
   }
+  var currentCurrency = 'dollars'; // 초기화 달러
 
+  // 달러와 엔화의 환율 설정 (실제로는 업데이트되어야 함)
+  var exchangeRates = {
+      dollars: {{current_dollor}}, // 예시
+      yen: {{current_yen}} * 100 // 예시
+  };
+
+  // 화폐 설정 함수
+  function setCurrency(currency) {
+    currentCurrency = currency;
+  }
+
+  // 화폐 계산 함수
+  function calcCurrency() {
+    var inputId = 'calc-input-currency';
+    var resultId = 'calc-result-currency';
+    var inputValue = parseFloat(document.getElementById(inputId).value);
+
+   // 계산 및 결과 업데이트
+   var result;
+   if (currentCurrency === 'dollars') {
+     result = inputValue * exchangeRates.dollars;
+     document.getElementById(resultId).innerHTML = result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' $';
+   } else if (currentCurrency === 'yen') {
+     result = inputValue * exchangeRates.yen;
+     document.getElementById(resultId).innerHTML = result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ¥';
+   }
+  }
+
+  function appendToInput(inputId, value) {
+    document.getElementById(inputId).value += value;
+
+  }
+
+  function removeLastDigit(inputId) {
+    var inputValue = document.getElementById(inputId).value;
+    document.getElementById(inputId).value = inputValue.slice(0, -1);
+  }
+
+  // 페이지 로딩 시 초기값으로 달러 계산
+  window.onload = function () {
+    calcCurrency();
+  };
   </script>
 </body>
 </html>

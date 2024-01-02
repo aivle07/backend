@@ -20965,7 +20965,8 @@ pre>code.highlight {
 
 #calc-input-dollor,
 #calc-input-yen, 
-#calc-input-gold {
+#calc-input-gold,
+#calc-input-currency {
   text-align: right;
 }
 #calc-result-dollor,
@@ -21055,7 +21056,10 @@ button.btn:hover {
   text-align: left; /* 왼쪽 정렬을 추가 */
   margin-left: 8%; 
 }
-
+.exchange-calcbox-main {
+  text-align: left; /* 왼쪽 정렬을 추가 */
+  margin-left: 8%; 
+}
 /* 입력 필드 스타일 */
 #calc-input-gold {
   width: 80%;
@@ -21068,9 +21072,34 @@ button.btn:hover {
   box-sizing: border-box; /* 내용의 패딩 및 경계 상자 크기를 포함하여 크기를 계산 */
 }
 
-#calc-input-gold:focus {
+#calc-input-gold button:focus {
   outline: none; /* 포커스된 상태일 때 테두리 제거 */
-  border-color: #5e72e4; /* 포커스된 상태일 때 테두리 색상 변경 */
+  border-color: #fff; /* 포커스된 상태일 때 테두리 색상 변경 */
+}
+
+/* 입력 필드 스타일 */
+#calc-input-currency {
+  width: 80%;
+  height: 30px;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #797b7d;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* 내용의 패딩 및 경계 상자 크기를 포함하여 크기를 계산 */
+}
+
+#calc-input-currency button:focus {
+  outline: none; /* 포커스된 상태일 때 테두리 제거 */
+  border-color: #fff; /* 포커스된 상태일 때 테두리 색상 변경 */
+}
+
+.gold-calc-box #calc-result-currency {
+  margin-top: 10px;
+  margin-right: 10%;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
 }
 
 

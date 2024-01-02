@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 {% load static %}
 {% load socialaccount %}
+{% load humanize %}
 <html lang="en">
 
 <head>
@@ -291,7 +292,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_gold}}원</span>
+                        <span class="h3">{{current_gold|intcomma}}원</span>
                       </div>
                       </div>
                       <br>
@@ -301,7 +302,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_gold}}원</span>
+                        <span class="h3">{{current_gold|intcomma}}원</span>
                   
                       </div>
                       </div>
@@ -342,7 +343,6 @@
                           <input id='calc-input-gold' value=1>
                           <div id='calc-result-gold'></div>
                           <div class='gold-calcbox-main'>
-                          <!-- 숫자 버튼 추가 -->
                             <button onclick="appendToInput('calc-input-gold', '1')">1</button>
                             <button onclick="appendToInput('calc-input-gold', '2')">2</button>
                             <button onclick="appendToInput('calc-input-gold', '3')">3</button>
@@ -604,7 +604,6 @@
       }
     );
 
-    {% comment %} $("#calc-gold").append({{current_gold}}) {% endcomment %}
   });
 
   const targetTextarea = document.querySelector('#message-input');
@@ -678,15 +677,13 @@
 
     function appendToInput(inputId, value) {
       document.getElementById(inputId).value += value;
+  
     }
     function removeLastDigit(inputId) {
       var inputValue = document.getElementById(inputId).value;
       document.getElementById(inputId).value = inputValue.slice(0, -1);
     }
   
-    function changeIcon(icon) {
-      document.getElementById('calc-icon').innerHTML = icon;
-    }
   </script>
 </body>
 </html>
