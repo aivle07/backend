@@ -5,4 +5,5 @@ from . import views
 app_name = "stock"
 urlpatterns = [
     path('',views.StockRetrieveAPI,name='stock-retrieve'),
+    path('temp/',views.temp),
 ]

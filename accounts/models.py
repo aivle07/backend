@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
+from datetime import datetime
 
 
 class UserManager(BaseUserManager):
@@ -22,17 +23,18 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name,username,email, agree_terms, agree_marketing,created_at, modified_at,last_password_modified,password):
+    def create_superuser(self, username,email, agree_terms, agree_marketing,password):
+        current_dateTime = datetime.now()
         user = self.create_user(
-            username,
-            email,
-            name,
+            username=username,
+            email=email,
+            name='admin',
             password=password,
             agree_terms=agree_terms,
             agree_marketing=agree_marketing,
-            created_at = created_at,
-            modified_at = modified_at,
-            last_password_modified = last_password_modified,
+            created_at=current_dateTime,
+            modified_at=current_dateTime,
+            last_password_modified=current_dateTime,
         )
         user.is_admin = True
         user.save(using=self._db)

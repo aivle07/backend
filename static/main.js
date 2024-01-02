@@ -1,5 +1,5 @@
 
-var ctx = document.getElementById("myChart").getContext("2d");
+// var ctx = document.getElementById("myChart").getContext("2d");
 var param = document.getElementById("param").innerText;
 
 var now_value = document.querySelector("#now-value");
@@ -12,6 +12,7 @@ var today_change_rate =document.querySelector("#today-change-rate");
 var today_open = document.querySelector("#today-open");
 var today_low = document.querySelector("#today-low");
 
+var chart = document.querySelector("#chart");
 
 var graphData = {
     type: "line",
@@ -34,7 +35,7 @@ var graphData = {
     options: {} 
 }
 
-var myChart = new Chart(ctx, graphData);
+// var myChart = new Chart(ctx, graphData);
 
 var socket = new WebSocket("ws://localhost:8000/ws/graph/?"+param);
 
@@ -44,9 +45,13 @@ socket.onopen = function(e){
 
 socket.onmessage = function(e){
     var djangoData = JSON.parse(e.data);
-    console.log(djangoData)
-
-    graphData.data.datasets[0].data = djangoData.value[0];
+    // var djangoData = JSON.stringify(e.data);
+    console.log(djangoData);
+    console.log(typeof djangoData.value[0]);
+    console.log(djangoData.value[0]);
+    
+    chart.innerHTML = djangoData.value[0];
+    // graphData.data.datasets[0].data = djangoData.value[0];
     // now.innerText = djangoData.value[1];
     // 현재가격
     now_value.innerText = "현재가격 : " + djangoData.value[1].now_value;
@@ -83,6 +88,6 @@ socket.onmessage = function(e){
     input_now_value = document.getElementById("input-now-value")
     input_now_value.value = djangoData.value[1].now_value;
 
-    myChart.update();
+    // myChart.update();
 
 }
