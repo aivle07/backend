@@ -13,7 +13,8 @@ def GetStockCode():
         tmp = fdr.StockListing(market)[['Symbol','Name']]
         name_to_code = pd.concat([name_to_code, tmp])
     return name_to_code
- 
+def temp(request):
+    return render(request,'stock/stock1.html')
 @api_view(('GET',))
 def StockRetrieveAPI(request):
     search_param = request.GET.get('search_param')

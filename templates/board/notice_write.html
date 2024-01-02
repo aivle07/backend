@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{%load static%}
+{%load socialaccount%}
 <html lang="ko">
 
 <head>
@@ -9,7 +10,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="{% static 'img/favicon.ico'%}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,14 +22,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Toast UI Editor -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 
 <body>
@@ -54,17 +58,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
-                        <a href="#about" class="nav-item nav-link">서비스 소개</a>
-                        <a href="./index.html" class="nav-item nav-link">요약서비스</a>
-                        <a href="./recommended.html" class="nav-item nav-link">추천 서비스</a>
-                        <a href="./quiz.html" class="nav-item nav-link">금융 퀴즈</a>
-                        <a href="./notice.html" class="nav-item nav-link">게시판</a>
-                        <a href="#testimonial" class="nav-item nav-link">고객 후기</a>
+                        <a href="/summary" class="nav-item nav-link">요약서비스</a>
+                        <a href="/report" class="nav-item nav-link">금융 리포트 요약</a>
+                        <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                        <a href="/board" class="nav-item nav-link">게시판</a>
                     </div>
-                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
-                    <!-- 로그인 페이지로 이동하는 버튼 -->
-                    <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
-                    <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% if not user.is_authenticated %}
+                        <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                        <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% else %}
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
+                        <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
+                    {% endif %}
                 </div>
             </nav>
           <div class="screen">
@@ -75,17 +81,20 @@
                 </div>
               </div>
               <div class="textset content-tit">
-                <h2 class="title-notice">작성공간</h2>
+                <h2 class="title-notice">
+                    {% if 'update' in request.path %}
+                        게시글 수정 
+                    {%else%}
+                        게시글 작성 
+                    {%endif%}
+                </h2>
               </div>
               <div class="overlap">
                 <div class="overlap-2">
                   <div class="group">
                     <div class="overlap-3">
-                      <div class="overlap-group-wrapper">
-                        {여기 작성 공간}
-                      </div>
-
-                      </div>
+                        
+                        <div id="editor"></div>
                     </div>
                   </div>
                   
@@ -98,8 +107,8 @@
             <label for="upload01" class="file-label">파일 업로드</label>
             <input type="file" name="" id="upload01" class="file-upload" />
             <div class= btn-notice>
-                <button class = "back" onclick="goBack()">뒤로가기</button>
-                <button class = "create"onclick="sendMessage()">작성하기</button>
+                <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
+                <button class = "create" onclick="sendMessage()">작성하기</button>
             </div>
           </div>      
         
@@ -158,8 +167,7 @@
 							 <a class="border-bottom" href="https://htmlcodex.com">개인정보 처리방침|</a>
                              <a class="border-bottom" href="https://htmlcodex.com">개인정보 처리위탁현황|</a>
                              <a class="border-bottom" href="https://htmlcodex.com">신용정보제공 활용에 대한 고객권리|</a>
-                            rder-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                             <br>Distributed By: <a class="bo
+                             <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
@@ -183,19 +191,34 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
     
+    <!--Toast UI Editor-->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
-
+    <script>
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        height: '500px',
+        initialEditType: 'wysiwyg',
+        previewStyle: 'vertical'
+        });
+        
+    //editor.getHTML()로 나중에 값 가져오기
+    </script>
 </html>
 <style>
-    
+    #editor {
+        border : 1px solid;
+        width : 100%;
+        margin : 0 auto;
+    }
 </style>

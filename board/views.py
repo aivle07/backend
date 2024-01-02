@@ -73,23 +73,24 @@ class BoardRetrieveAPIView(RetrieveAPIView):
     serializer_class = BoardDetailSerializerView
     permission_classes = (IsAuthorOrReadOnly,)
     
-    def retrieve(self, request, board, pk):
+    def retrieve(self, request, pk):
         
-        instance = Post.objects.filter(category=board, id=pk).first()
+        instance = Post.objects.filter(id=pk).first()
         commentList = instance.comment_set.all().order_by("-id")
         data = {
             "board":instance,
             "commentList":commentList
         }
-        if not request.user.is_superuser:
+        if not request.user.is_admin:
             self.check_object_permissions(request, instance) # 이것을 qna에 이용
         serializer = self.get_serializer(instance=data)
-        return Response(serializer.data)
+        return render(request,"board/notice_contents.html",{'data' :serializer.data})
     
-    def get(self, request, board, pk):
-        if board != "qna":
+    def get(self, request, pk):
+        category = Post.objects.filter(id=pk).first().category
+        if category != "qna":
             self.permission_classes = (AllowAny,)
-        return self.retrieve(request, board, pk)
+        return self.retrieve(request, pk)
     
         
 # 작성하기
@@ -98,6 +99,9 @@ class BoardCreateAPIView(CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = BoardCreateSerializerView
     permission_classes = (IsAuthenticated,IsAuthorOrReadOnly)
+    
+    def get(self, request):
+        return render(request,'board/notice_write.html')
     
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)      
@@ -108,17 +112,17 @@ class BoardUpdateAPIView(UpdateAPIView):
     serializer_class = BoardUpdateSerializerView
     permission_classes = (IsAuthorOrReadOnly,IsAuthenticated)
     
-    def get_object(self, board, pk):
+    def get_object(self,pk):
         try:
             return Post.objects.get(pk=pk)
         except Post.DoesNotExist:
             raise Http404
     
-    def get(self, request, board, pk):
-        instance = self.get_object(board, pk)
+    def get(self, request, pk):
+        instance = self.get_object(pk)
         self.check_object_permissions(request, instance) # 이것을 qna에 이용
         serializer = BoardUpdateSerializerView(instance)
-        return Response(serializer.data)
+        return render(request,'board/notice_write.html',{'data':serializer.data})
     
         
     def put(self, request, board, pk):
