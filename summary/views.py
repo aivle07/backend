@@ -90,6 +90,11 @@ def index(request):
                         #    'corp_info':corp_info, 
                         #    'corp_news':corp_news['items'],
                         #    'chat_answer':chat_answer,
+                            'corp_news' : [{'title':'good1','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good2','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good3','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good4','link':'naver.com','summary':'content','date':'2024-01-02'},
+                                           {'title':'good5','link':'naver.com','summary':'content','date':'2024-01-02'}],
                            'financial_data':fin_data,
                            'stock_data':stock_data,})
         else:  # 로그인이 되어 있지 않다면 
