@@ -151,6 +151,7 @@ ASGI_APPLICATION = "backend.asgi.application"
 
 DATABASES = db_settings.DATABASES
 
+
 CHANNEL_LAYERS = {
     'default':{
         'BACKEND':'channels_redis.core.RedisChannelLayer',
