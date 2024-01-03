@@ -21109,7 +21109,8 @@ button.btn:hover {
   border-color: #797b7d;
 }
 
-.gold-calc-box #calc-result-currency {
+.gold-calc-box #calc-result-currency,
+.gold-calc-box #calc-result-gold {
   margin-right: 10%;
   margin-left: 10%;
   font-size: 18px;
@@ -21253,7 +21254,7 @@ button.btn:hover {
 #chatbot_conversation p.user-question {
   text-align: right;
   margin-left: auto;
-  background-color: #aecbff; /* 어두운 파란색 */
+  background-color: #e4f0ff; /* 어두운 하늘색 */
   color: #333333; /* 흰색 글씨 */
   letter-spacing: 1px;
   font-family: 'Malgun Gothic', 'NanumGothic', sans-serif; /* 고딕체 설정 */
@@ -21267,14 +21268,14 @@ button.btn:hover {
   margin-left: -7px; /* 수정된 부분 */
   border-style: solid;
   border-width: 8px;
-  border-color: transparent transparent transparent #aecbff;
+  border-color: transparent transparent transparent #e4f0ff;
 }
 
 /* 챗봇 답변 스타일링 */
 #chatbot_conversation p.chatbot-answer {
   text-align: left;
   margin-right: auto;
-  background-color: #b3e0ff; /* 연한 파란색 */
+  background-color: #f1f3f5; /* 연한 회색 */
   color: #333333; /* 어두운 회색 글씨 */
   font-size: 13px; /* 글씨 크기를 13px로 조절 */
   letter-spacing: 1px;
@@ -21289,5 +21290,5 @@ button.btn:hover {
   margin-right: -1px; /* 수정된 부분 */
   border-style: solid;
   border-width: 8px;
-  border-color: transparent #b3e0ff transparent transparent;
+  border-color: transparent #f1f3f5 transparent transparent;
 }
