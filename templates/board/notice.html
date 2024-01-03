@@ -81,10 +81,10 @@
                         <div class="row g-5 align-items-center">
                             <div class="content-container">
                                 <div class="content-container container-md">
-                                    <div class="textset content-tit">
-                                      <h2 class="textset-tit">공지사항</h2>
+                                    <div class = "notice-title">
+                                        
                                     </div>
-                                </div>
+                                    <h2 class="textset-tit">공지사항</h2>
                             <div class="container-md">
                                 <div class="custom-container">
                                     <div class="tableset">
@@ -147,7 +147,6 @@
                                        
                                         </nav>
                                         <button class = "create" onclick="location.href='{{request.path}}new'">작성하기</button>
-
                                 </div>
                             </div>
                         </div>
@@ -222,8 +221,7 @@
                                         {% endfor %}
                                     </div>
                                     </nav>
-                                    
-                                    <button class = "create" onclick="location.href='{{request.path}}new'">작성하기</button>
+                                <button class = "create" onclick="location.href='{{request.path}}new'">작성하기</button>
                             </div>
                         </div>
                     </div>
@@ -324,122 +322,3 @@
 
 
 </html>
-<style>
-    .opilsol-N24 .content-container {
-        margin-bottom: 8rem;
-        padding: 8rem 0;
-      }
-      
-      .opilsol-N24 table {
-        table-layout: fixed;
-      }
-      
-      .opilsol-N24 .tableset .tableset-table> :not(caption):not(colgroup)>*>* {
-        padding: 1.3rem 2.4rem;
-      }
-      
-      .opilsol-N24 .table .thead-border-top .number,
-      .opilsol-N24 .table tbody .number {
-        padding: 1.3rem;
-        width: 10rem;
-        min-width: 10rem;
-        text-align: center;
-        line-height: var(--lh-h6);
-        font-size: var(--fs-p1);
-        font-family: var(--ff-po);
-        color: var(--text-color7);
-      }
-      
-      .opilsol-N24 .table .thead-border-top .last-child,
-      .opilsol-N24 .table tbody .last-child {
-        margin-left: auto;
-        width: 12rem;
-        min-width: 12rem;
-        line-height: var(--lh-h6);
-        text-align: center;
-        font-size: var(--fs-p1);
-        color: var(--text-color7);
-      }
-      
-      .opilsol-N24 .table .thead-border-top th:nth-of-type(2) {
-        text-align: center;
-        color: var(--text-color1);
-      }
-      
-      .opilsol-N24 .table tbody td:nth-of-type(2) a {
-        overflow: hidden;
-        display: block;
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        color: var(--text-color1);
-      }
-      
-      .opilsol-N24 .table tr:hover td {
-        background-color: var(--con-bg-gray);
-      }
-      
-      .opilsol-N24 .pagiset {
-        margin-top: 8rem;
-      }
-      
-      .opilsol-N24 .pagiset-link {
-        font-family: var(--ff-en);
-        font-weight: 400;
-      }
-      
-      @media (max-width: 1366px) {
-        .opilsol-N24 .container-md {
-          padding: 0 1.6rem;
-        }
-      }
-      
-      @media (max-width: 1024px) {
-        .opilsol-N24 .content-container {
-          margin-bottom: 6rem;
-          padding: 4rem 0;
-        }
-      
-        .opilsol-N24 .table .thead-border-top,
-        .opilsol-N24 .table .number {
-          display: none;
-        }
-      
-        .tableset .tableset-table {
-          min-width: 0;
-        }
-      
-        .opilsol-N24 .tableset .tableset-table> :not(caption):not(colgroup)>*>* {
-          padding: 0 0 0.5rem 0;
-        }
-      
-        .opilsol-N24 .table tbody tr {
-          display: flex;
-          flex-direction: column;
-          width: calc(100vw - 3.2rem);
-        }
-      
-        .opilsol-N24 .table tbody tr:first-child {
-          border-top: 1px solid var(--line-color3);
-        }
-      
-        .opilsol-N24 .table tbody td:nth-of-type(2) {
-          padding: 0.8rem 0 0;
-          border-bottom: 0 none;
-        }
-      
-        .opilsol-N24 .table tbody .last-child {
-          width: 100%;
-          text-align: left;
-        }
-      
-        .opilsol-N24 .pagiset {
-          margin-top: 4rem;
-        }
-      
-        .opilsol-N24 .pagiset-link {
-          width: 3.2rem;
-          height: 3.2rem;
-        }
-      }
-</style>
