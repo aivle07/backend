@@ -6,7 +6,7 @@ from asyncio import sleep
 from random import randint
 from channels.generic.websocket import AsyncWebsocketConsumer
 from urllib.parse import unquote
-from plotly.offline import plot
+import plotly.offline as opy
 
 def write_color(value, before_day):
     color = ""
@@ -63,14 +63,17 @@ def get_data(param):
     today_open = response_data[-1]['Open']
     today_open_color = write_color(today_open, before_day)
     # 등락율
-    today_change_rate = response_data[-1]["Change"]
-    if today_change_rate > 0:
-        today_change_rate_color = "red"
-    elif today_change_rate < 0:
-        today_change_rate_color = "blue"
-    else:
-        today_change_rate_color = "black"
-    today_change_rate = str(round(today_change_rate * 100,2)) + "%"
+    today_change_rate = "None"
+    today_change_rate_color = "black"
+    if 'Change' in response_data[-1]:
+        today_change_rate = response_data[-1]["Change"]
+        if today_change_rate > 0:
+            today_change_rate_color = "red"
+        elif today_change_rate < 0:
+            today_change_rate_color = "blue"
+        else:
+            today_change_rate_color = "black"
+        today_change_rate = str(round(today_change_rate * 100,2)) + "%"
     
     # 전일대비 가격변화
     price_change = abs(now_value - before_day)
@@ -98,7 +101,7 @@ def get_data(param):
     #     data.append(open_data)
     #     data.append(close_data)
     chart = fdr.chart.plot(df)
-    chart = plot(chart, output_type='div', include_plotlyjs=False)
+    chart = opy.plot(chart, output_type='div')
     
     # result = [data, today_data]
     result = [chart, today_data]
@@ -119,7 +122,7 @@ class GraphConsumer(AsyncWebsocketConsumer):
             value = get_data(param)
             await self.send(json.dumps({"value":value,
                                         "param":param,
-                                        "chart":value[0],}))
+                                        }))
             
             await sleep(1)
             

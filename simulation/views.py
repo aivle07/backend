@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import *
 from datetime import datetime
 import FinanceDataReader as fdr
+from plotly.offline import plot
 
 def get_data(param):
 
@@ -15,21 +16,21 @@ def get_data(param):
         period = int(period)
     try:
         #종목코드가 파라미터일 경우
-        df = fdr.DataReader(search_param).sort_index(ascending=False).head(period)    
-        df = df.reset_index().rename(columns={"index": "date"})
+        df = fdr.DataReader(search_param)[-300:]
+        #df = df.reset_index().rename(columns={"index": "date"})
         df = df.bfill()
-        response_data = df.to_dict(orient='records')
+        #response_data = df.to_dict(orient='records')
     except Exception as e:
         #회사, 주식명이 파라미터일 경우
         
         name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
         search_param = name_to_code.loc[name_to_code['Name'] == search_param].Code
                 
-        df = fdr.DataReader(search_param).sort_index(ascending=False).head(period)    
-        df = df.reset_index().rename(columns={"index": "date"})
-        response_data = df.to_dict(orient='records')
+        df = fdr.DataReader(search_param)[-300:]
+        #df = df.reset_index().rename(columns={"index": "date"})
+        #response_data = df.to_dict(orient='records')
         
-    return response_data[0]["Close"]
+    return df
 
 def index(request):
     param = request.GET.get("param")
@@ -44,23 +45,27 @@ def index(request):
             count = int(count)
         except:
             
-            return render(request, "simulation.html", context={"param":commodity,
+            return render(request, "stock/stock1.html", context={"param":commodity,
                                                                "message":message})
         if count <= 0:
-            return render(request, "simulation.html", context={"param":commodity,
+            return render(request, "stock/stock1.html", context={"param":commodity,
                                                                "message":message})
         # 여기에 매수한 것을 db에 넣는 과정이 필요
         Buy.objects.create(user=user, commodity=commodity,
                            count=count, market_value=now_value)
         
-        return render(request, "simulation.html", context={"param":commodity})
+        return render(request, "stock/stock1.html", context={"param":commodity})
     try:
-        get_data(param)
+        df = get_data(param)
+        chart = fdr.chart.plot(df)
+        chart = plot(chart, output_type='div', include_plotlyjs=False)
+
     except:
         search_message = "상품명을 정확히 입력하세요."
-        return render(request, "simulation.html", context={"param":param,
+        return render(request, "stock/stock1.html", context={"param":param,
                                                                "search_message":search_message})
-    return render(request, "simulation.html", context={"param":param})
+    return render(request, "stock/stock1.html", context={"param":param,
+                                                       "chart":chart})
 
 def my_report(request):
     data = []

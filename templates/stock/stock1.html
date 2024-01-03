@@ -28,7 +28,8 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css '%}" rel="stylesheet">
     
-
+    <!-- 주식 차트 -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
@@ -43,24 +44,29 @@
 
       <div class="container-xxl position-relative p-0" id="home">
           <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-              <a href="../home.html" class="navbar-brand p-0">
+              <a href="/" class="navbar-brand p-0">
                   <h1 class="m-0">Hey! 금융+</h1>
               </a>
               <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                   <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarCollapse">
-                  <div class="navbar-nav mx-auto py-0">
-                      <a href="#about" class="nav-item nav-link">서비스 소개</a>
-                      <a href="./index.html" class="nav-item nav-link">요약서비스</a>
-                      <a href="./recommended.html" class="nav-item nav-link">추천 서비스</a>
-                      <a href="./quiz.html" class="nav-item nav-link">금융 퀴즈</a>
-                      <a href="./notice.html" class="nav-item nav-link">게시판</a>
-                      <a href="#testimonial" class="nav-item nav-link">고객 후기</a>
-                  </div>
-                  <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
-                  <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
-                  <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                <div class="navbar-nav mx-auto py-0">
+                  <a href="/" class="nav-item nav-link">서비스 소개</a>
+                  <a href="/summary" class="nav-item nav-link">요약서비스</a>
+                  <a href="/report" class="nav-item   nav-link">금융 리포트 요약</a>
+                  <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                  <a href="/board" class="nav-item nav-link">게시판</a>
+                </div>
+                {% if not user.is_authenticated %}
+                <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                {% else %}
+                    <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
+                    <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
+                    <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
+                    <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
+                {% endif %}
               </div>
           </nav>
 
@@ -68,34 +74,39 @@
               <div class="custom">
                   <div class="container">
                       <div class="row g-5 align-items-center">
+
                           <div class="content-container">
                               <div class="main-stock-info" status="up">
                                   <div class="stock-info">
-                                      <input class="input" type="text">
-                                      <button>검색</button>
+                                    <form action="" method="get" style="margin-top:20px;">
+                                      <input type="text" name="param" value="{{param|default:''}}" placeholder="검색"/>
+                                      <input type="submit" value="검색"/>
+                                    </form>
+                                    {% if search_message %}
+                                    {{search_message}}
+                                    {% endif %}
                                       <div class="main-stock-info">
-                                        <span class="stock-name">삼성전자</span>
+                                        <span class="stock-name" id="param">{{param}}</span>
                                         <span class="middle-point">ㆍ</span>
                                         <span>현재가격</span>
-                                        <span class="price-close">77,900</span>
+                                        <span class="price-close" id="now-value" style=""></span>
                                         <span class="middle-point">ㆍ</span>
                                         <span>등락율</span>
-                                        <span>+1.70%</span>
+                                        <span id="today-change-rate" style=""></span>
                                         <span class="middle-point">ㆍ</span>
                                         <span>전일대비</span>
-                                        <span class="symbol-image" status="up"></span> 
-                                            1,300
+                                        <span class="symbol-image" status="up" id="price-change" style=""></span> 
                                         <span class="middle-point">ㆍ</span>
                                         <span class="volume-label">거래량</span>
-                                        <span class="volume">17,337,451</span>
+                                        <span class="volume" id="today-volume"></span>
                                       </div>
                                       <div class="chart-ohlcv-wrap">
                                         <span class="legend-ohlcv-date">2023.12.25(월)</span>
                                         <span class="legend-ohlcv-item">
-                                            <span>시가</span><span>  76,100 </span>
-                                            <span>고가</span><span>  78,000 </span>
-                                            <span>저가</span><span>  75,700 </span>
-                                            <span>종가</span><span>  78,000 </span>
+                                            <span>시가</span><span id="today-open" style=""></span>
+                                            <span>고가</span><span id="today-high" style=""></span>
+                                            <span>저가</span><span id="today-low" style=""></span>
+                                            <span>전일종가</span><span id="before-day"></span>
                                         </span>
                                       </div>
                                       <div class="sma-legend legend-summary-wrap">
@@ -105,10 +116,105 @@
                                           <span class="chart-legend-label" style="color: rgb(17, 208, 103);">60</span>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div class="chart-section">
-                                      <div class="chart-legend">    
-                                          <div class="right-transition-container">
+                                  </div><!--stock-info-->
+
+
+                                  <div class="chart-section" >
+                                      <div class="chart-legend" >
+                                        <div id="chart">
+                                        
+                                        </div>
+                                      </div>
+                                      <div class="sell-point" >
+                                        <div class="slide-layout" >
+                                          <div class="slide-header">
+                                              <h2 class="title" style="font-size: 1.2rem;">주식주문</h2>
+                                          </div>
+                                        </div>                                          
+                                        <div class="tabs-connected-underline desktop">
+                                            <button class="tab" style="font-size: 1.2rem;">매수</button>
+                                            <span class="underline" style="width: 100%; transform: translate(0px); background-color: var(--up);"></span>
+                                        </div>
+                                        <div class="trading-tab-form">
+                                            {% comment %} <div class="form-wrapper price-form">
+                                                <div class="header">
+                                                    <p class="label" style="font-size: 1rem;">가격</p>
+                                                    <div class="a-sliding-toggle" style="width: 52px; height: 16px; padding: 2px; gap: 2px;">
+                                                        <button class="a-sliding-toggle__tab active" disabled=""></button>
+                                                        <button class="a-sliding-toggle__tab">시장가</button>
+                                                        <span class="a-sliding-toggle__active-highlight" style="width: 43px; height: 20px; transform: translate(2px);"></span>
+                                                    </div>
+                                                </div>
+                                            </div> {% endcomment %}
+                                            {% comment %} <div class="trading-order-spinner">
+                                                <div class="trading-input-gray-box"></div>
+                                                    <div class="button-group">
+                                                        <button class="btn-up clickable-layer">
+                                                          <div class="chevron-up-icon">
+                                                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                  <path d="M6 14L12 8L18 14" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+                                                              </svg>
+                                                          </div>
+                                                        </button>
+                                                        <button class="btn-down clickable-layer">
+                                                          <div class="chevron-down-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                      <path d="M6 10L12 16L18 10" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"></path>
+                                                                </svg>
+                                                          </div>
+                                                        </button>
+                                                    </div>
+                                                    <label class="unit-label">원</label>
+                                                </div>
+                                            </div> {% endcomment %}
+                                            <div class="form-wrapper quantity-form">
+                                                {% comment %} <div class="header">
+                                                    <p class="label" style="font-size: 1.1rem;">수량</p>
+                                                    
+                                                </div> {% endcomment %}
+                                                <div class="trading-order-spinner" style="margin-top:20px; display:inline-block;">
+                                                    <label class="label" style="width:20%; margin-right:10px;">수량</label>
+                                                    <input type="text" style="width:70%; margin:0; padding:0; text-align:right;">
+                                                    <label style="width:5%; text-align:right;">주</label>
+                                                    {% comment %} <div class="button-group">
+                                                        <button class="btn-up clickable-layer">
+                                                            <div class="chevron-up-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="0none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                    <path d="M6 14L12 8L18 14" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+                                                                </svg>
+                                                            </div>
+                                                        </button>
+                                                        <button class="btn-down clickable-layer">
+                                                            <div class="chevron-down-icon">
+                                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                    <path d="M6 10L12 16L18 10" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"></path>
+                                                                </svg>
+                                                            </div>
+                                                        </button>
+                                                    </div> {% endcomment %}
+                                                    {% comment %} <label class="unit-label">주</label> {% endcomment %}
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="result-form">
+                                                <div>
+                                                    {% comment %} <div class="buyable-cash">
+                                                        <label class="label">최대</label>
+                                                        <p class="price">9,688,243</p>
+                                                        <span class="unit">원</span>
+                                                    </div> {% endcomment %}
+                                                    <div class="total-order-price">
+                                                        <label class="label">주문총액</label>
+                                                        <p class="price">0</p>
+                                                        <span class="unit">원</span>
+                                                    </div>
+                                                </div>
+                                                <button type="button" onclick="buyStock()" class="btn-order clickable-layer bid">매수</button>
+                                            </div>
+                                        </div>
+                                      </div>
+                                  </div><!-- 차트 섹션 -->
+                                          {% comment %} <div class="right-transition-container">
                                               <div class="slide-layout">
                                                   <div class="slide-header">
                                                       <h2 class="title" style="font-size: 1.2rem;">주식주문</h2>
@@ -198,13 +304,105 @@
                                                       </div>
                                                   </div>
                                               </div>
+                                          </div> {% endcomment %}
+                                      
+                                  
+                                  {% comment %} <div class="sell-section">
+                                      <div class="slide-layout">
+                                        <div class="slide-header">
+                                            <h2 class="title" style="font-size: 1.2rem;">주식주문</h2>
+                                        </div>
+                                      </div>                                          
+                                      <div class="tabs-connected-underline desktop">
+                                          <button class="tab" style="font-size: 1.2rem;">매수</button>
+                                          <span class="underline" style="width: 100%; transform: translate(0px); background-color: var(--up);"></span>
+                                      </div>
+                                      <div class="trading-tab-form">
+                                          <div class="form-wrapper price-form"> {% endcomment %}
+                                              {% comment %} <div class="header">
+                                                  <p class="label" style="font-size: 1rem;">가격</p>
+                                                  <div class="a-sliding-toggle" style="width: 52px; height: 16px; padding: 2px; gap: 2px;">
+                                                      <button class="a-sliding-toggle__tab active" disabled=""></button>
+                                                      <button class="a-sliding-toggle__tab">시장가</button>
+                                                      <span class="a-sliding-toggle__active-highlight" style="width: 43px; height: 20px; transform: translate(2px);"></span>
+                                                  </div>
+                                              </div> {% endcomment %}
+                                          {% comment %} </div> {% endcomment %}
+                                          {% comment %} <div class="trading-order-spinner">
+                                              <div class="trading-input-gray-box"></div>
+                                                  <div class="button-group">
+                                                      <button class="btn-up clickable-layer">
+                                                        <div class="chevron-up-icon">
+                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                <path d="M6 14L12 8L18 14" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+                                                            </svg>
+                                                        </div>
+                                                      </button>
+                                                      <button class="btn-down clickable-layer">
+                                                        <div class="chevron-down-icon">
+                                                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                    <path d="M6 10L12 16L18 10" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"></path>
+                                                              </svg>
+                                                        </div>
+                                                      </button>
+                                                  </div>
+                                                  <label class="unit-label">원</label>
+                                              </div>
+                                          </div> {% endcomment %}
+                                          {% comment %} <div class="form-wrapper quantity-form"> {% endcomment %}
+                                              {% comment %} <div class="header">
+                                                  <p class="label" style="font-size: 1.1rem;">수량</p>
+                                              </div> {% endcomment %}
+                                              {% comment %} <div class="trading-order-spinner">
+                                                  <input type="text" class="trading-input">
+                                                  <div class="button-group">
+                                                      <button class="btn-up clickable-layer">
+                                                          <div class="chevron-up-icon">
+                                                              <svg width="16" height="16" viewBox="0 0 24 24" fill="0none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                  <path d="M6 14L12 8L18 14" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path>
+                                                              </svg>
+                                                          </div>
+                                                      </button>
+                                                      <button class="btn-down clickable-layer">
+                                                          <div class="chevron-down-icon">
+                                                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+                                                                  <path d="M6 10L12 16L18 10" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"></path>
+                                                              </svg>
+                                                          </div>
+                                                      </button>
+                                                  </div>
+                                                  <label class="unit-label">주</label>
+                                              </div>
+                                          </div>
+                                          <div class="result-form"> {% endcomment %}
+                                              {% comment %} <div>
+                                                  <div class="buyable-cash">
+                                                      <label class="label">최대</label>
+                                                      <p class="price">9,688,243</p>
+                                                      <span class="unit">원</span>
+                                                  </div>
+                                                  <div class="total-order-price">
+                                                      <label class="label">주문총액</label>
+                                                      <p class="price">0</p>
+                                                      <span class="unit">원</span>
+                                                  </div>
+                                              </div> {% endcomment %}
+                                              {% comment %} <button type="button" onclick="buyStock()" class="btn-order clickable-layer bid">매수</button>
                                           </div>
                                       </div>
+
+                                    </div><!-- sell section--> {% endcomment %}
+
                                   </div>
                               </div>
                           </div>
+
+
                       </div>
                   </div>
+
+
+
               </div>
           </div>
       </div>
@@ -229,6 +427,7 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
     <script>
       function buyStock() {
         alert("주식을 매수합니다!");
@@ -244,6 +443,9 @@
 
 
 <style>
+      .sell-section {
+        width:20%;
+      }
       .right-transition-container {
         margin-left: 76%; /* auto 마진을 주어 오른쪽으로 이동 */
         margin-top: -20%;
@@ -389,7 +591,7 @@
       .slide-header .title {
         font-size: 1.2rem;
         font-weight: 500;
-        line-height: 2.4rem;
+        /*line-height: 2.4rem;*/
         text-align: center;
       
       }
@@ -401,7 +603,7 @@
           -webkit-transform: translate(0,-50%);
           transform: translateY(-50%);
           border-radius: 4px;
-          padding: 0.2rem;
+          /*padding: 0.2rem;*/
       }
       .clickable-layer {
           position: relative;
@@ -420,10 +622,10 @@
       .slide-header .btn-close {
         position: absolute;
         right: 1.4rem;
-        top: 34%;
+        /*top: 34%;*/
         transform: translateY(-50%);
         border-radius: 4px;
-        padding: 0.2rem;
+        /*padding: 0.2rem;*/
       }
       
       .clickable-layer {
@@ -1156,11 +1358,26 @@
         position: absolute;
         height: 2px;
       }
+      .chart-legend{
+        display: inline-block;
+        vertical-align: top;
+        background-color: lightgray;
+        margin-top:20px;
+        width: 60%
+      }
+      .sell-point{
+        display: inline-block;
+        vertical-align: top;
+        margin-top:20px;
+        width: 39%
+      }
+      /*
       .chart-section{
         background-color: lightgray;
-        margin-top:20%;
-        width: 100%
+        margin-top:20px;
+        width: 70%
       }
+      */
       .input button{
         border-color: gray;
       }

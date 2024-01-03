@@ -26,8 +26,8 @@
             <div class="col-10 mx-auto mt-5">   
                 {% comment %} <canvas id="myChart" width="400" height="200"></canvas>      {% endcomment %}
                 
-                <div id="chart" style="width:400px; height:200px;">
-                    
+                <div id="chart">
+                    {{chart|safe}}
                 </div>
                 
             </div>
