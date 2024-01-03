@@ -20957,9 +20957,10 @@ pre>code.highlight {
 }
 
 .exchange-box {
-  padding: 10px; /* 안쪽 여백 추가 */
+  padding: 15px; /* 안쪽 여백 추가 */
   margin-bottom: 20px; /* 아래 여백 추가 */
   background-color: #edf5ff; /* 배경 색상 설정 */
+  border-radius: 8px;
 }
 .exchange-calc-box {
   margin-top: 20px;
@@ -21034,13 +21035,24 @@ button.btn:hover {
   cursor: pointer;
   background-color: #edf5ff; /* 파랑색 배경 */
   color: #5e72e4; /* 글자색 흰색 */
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* 트랜지션 효과 추가 */
 }
 
-.gold-calc-box .jb-container button:hover {
-  background-color: #5e72e4; /* 마우스 호버 시 어둡게 */
-  border-color: #edf5ff; /* 마우스 호버 시 테두리 색 변경 */
-  color: #edf5ff;
+/* 선택된 버튼에 대한 스타일 */
+.gold-calc-box .jb-container button.active {
+  background-color: #5e72e4;
+  color: white;
 }
+
+/* 수정된 부분 - 선택되지 않은 버튼에 대한 스타일 */
+.gold-calc-box .jb-container button:not(.active):hover {
+  background-color: #5e72e4 !important; /* !important를 추가하여 우선순위를 높임 */
+  border-color: #edf5ff !important;
+  color: #edf5ff !important;
+}
+
+
 
 /* 계산 결과 스타일 */
 .gold-calc-box #calc-result-gold {
@@ -21093,22 +21105,23 @@ button.btn:hover {
   border: 1px solid #797b7d;
   border-radius: 5px;
   margin-bottom: 10px;
-  box-sizing: border-box; /* 내용의 패딩 및 경계 상자 크기를 포함하여 크기를 계산 */
-}
-
-#calc-input-currency button:focus {
-  outline: none; /* 포커스된 상태일 때 테두리 제거 */
-  border-color: #fff; /* 포커스된 상태일 때 테두리 색상 변경 */
+  box-sizing: border-box;
+  border-color: #797b7d;
 }
 
 .gold-calc-box #calc-result-currency {
-  margin-top: 10px;
   margin-right: 10%;
+  margin-left: 10%;
   font-size: 18px;
   font-weight: bold;
   text-align: right;
+  border-bottom: 1px solid #000;
+  background-color: #f7f7f7;
 }
-
+/* 밑줄 스타일 클래스 */
+.bottom-border {
+  border-bottom: 1px solid #000;
+}
 .hide {
   display: none;
 }
