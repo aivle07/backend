@@ -31,13 +31,15 @@ def get_gold_data_agent():
     return agent
 
 def get_gold_data():
-    df_gold = fdr.DataReader('GC=F',"2023-12-01")
+    df_gold = fdr.DataReader('GC=F',"2023-12-01","2024-01-01")
+    
     nan_rows = df_gold[df_gold.isna().any(axis=1)].index
 
     df_gold.dropna(inplace=True)
-    df_usa = fdr.DataReader('USD/KRW',"2023-12-01")
+    
+    df_usa = fdr.DataReader('USD/KRW',"2023-12-01","2024-01-01")
     df_usa.drop(nan_rows, inplace=True)
-
+    
     df_gold['Open'] = df_gold['Open'] / 31.1034768 * df_usa['Open'] / 0.9999
     df_gold['High'] = df_gold['High'] / 31.1034768 * df_usa['High'] / 0.9999
     df_gold['Low'] = df_gold['Low'] / 31.1034768 * df_usa['Low'] / 0.9999
