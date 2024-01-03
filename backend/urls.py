@@ -22,6 +22,8 @@ from . import views
 
 urlpatterns = [
     path("",views.index),
+    path("private2/",views.privateView2),
+    path("private/",views.privateView),
     path("admin/", admin.site.urls),
     path("board/",include("board.urls")),
     path("quiz/",include("quiz.urls")),
