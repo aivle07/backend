@@ -45,8 +45,14 @@
   </style>
 </head>
 
-<body class="">
-  
+<body class="scrollbar">
+  <!-- Spinner Start -->
+  <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <!-- Spinner End -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -316,12 +322,29 @@
                       <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
                       <div id="popup" class="hide layer">
                           <div class="content">
-                              <h-title>{{news.date}}</h-title>
-                              <h-summary>{{news.summary}}</h-summary>
-                              <h-link>{{news.link}}</h-link>
-                              <button onclick="closePopup()" class="custom-end">종료</button>
-                              <button onclick="openNextPopup('{{ news.title }}')" class="custom-next">다음 팝업</button>
-                              <button onclick="openPreviousPopup('{{ news.title }}')" class="custom-previous">이전 팝업</button>
+                              <div class="pop-title">{{news.date}}</div>
+                              <div class="pop-summary">{{news.summary}}오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
+                                오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
+                                
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <button onclick="closePopup()" class="custom-end">종료</button>
+                                </div>
+                              <div class="pop-link">{{news.link}}</div>
                           </div>
                       </div>
                     {% endfor %}
@@ -595,13 +618,62 @@
             }
             
           },
-          tooltips: {
-            callbacks: {
-              label: function (e, a) {
-                var t = a.labels[e.index] || "",
-                  o = a.datasets[0].data[e.index],
-                  n = "";
-                return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
+          data: {
+            labels: ["부채", "영업이익", "매출액", "당기순이익"],
+            datasets: [
+              {
+                label: "Performance",
+                data: [{{financial_data.0.thisyear}}, {{financial_data.1.thisyear}}, {{financial_data.2.thisyear}}, {{financial_data.3.thisyear}}],
+                borderWidth: 10,
+                borderColor: "rgba(255, 99, 132, 1)",
+              },
+            ],
+          },
+        }),
+        e.data("chart", a);
+    }
+  }();
+
+    DeptChart = function () {
+      var e, a, t = $("#chart-dept");
+      var initialData = {
+        labels: ["부채", "자본"],
+        datasets: [{
+          label: "부채 비율",
+          data: [20, 80],
+          backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
+        }]
+      };
+      if (t.length) {
+        e = t;
+        a = new Chart(e, {
+          type: "doughnut",
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            cutoutPercentage: 30,
+            legend: {
+              display: true,
+              position: 'right',
+              labels: {
+                fontColor: 'black'
+              }
+            },
+            tooltips: {
+              callbacks: {
+                label: function (e, a) {
+                  var t = a.labels[e.index] || "",
+                    o = a.datasets[0].data[e.index],
+                    n = "";
+                  return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
+                }
+              }
+            },
+            plugins: {
+              labels: {
+                render: 'percentage',
+                fontColor: ['#ff0000', '#0000ff'],
+                precision: 2
               }
             }
           },
@@ -611,14 +683,31 @@
               fontColor: ['#ff0000', '#0000ff'],
               precision: 2
               
+            },
+            tooltips: {
+              callbacks: {
+                label: function (e, a) {
+                  var t = a.labels[e.index] || "",
+                    o = a.datasets[0].data[e.index],
+                    n = "";
+                  return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
+                }
+              }
+            },
+            
+            plugins: {
+              labels: {
+                render: 'percentage',
+                fontColor: ['#ff0000', '#0000ff'],
+                precision: 2
+                
+              }
             }
-          }
-
-        },
-        data: initialData
-      }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
-    }
-  }();
+          },
+          data: initialData
+        }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
+      }
+    }();
 
   $(function () {
     // 툴팁 초기화
@@ -789,49 +878,6 @@
         popContent.addClass('hide');
     }
   });
-  
-
-function openNextPopup(currentTitle) {
-  // 현재 팝업 숨김
-  document.getElementById('popup_' + currentTitle).style.display = 'none';
-  
-  // 다음 팝업 표시
-  var nextNewsTitle = getNextNewsTitle(currentTitle);
-  document.getElementById('popup_' + nextNewsTitle).style.display = 'block';
-}
-
-function openPreviousPopup(currentTitle) {
-  // 현재 팝업 숨김
-  document.getElementById('popup_' + currentTitle).style.display = 'none';
-  
-  // 이전 팝업 표시
-  var previousNewsTitle = getPreviousNewsTitle(currentTitle);
-  document.getElementById('popup_' + previousNewsTitle).style.display = 'block';
-}
-
-function getNextNewsTitle(currentTitle) {
-  var currentIndex = newsTitles.indexOf(currentTitle);
-  
-  // 다음 뉴스 제목을 결정
-  if (currentIndex !== -1 && currentIndex < newsTitles.length - 1) {
-    return newsTitles[currentIndex + 1];
-  } else {
-    // 현재 뉴스가 마지막이면 첫 번째 뉴스로 돌아감
-    return newsTitles[0];
-  }
-}
-
-function getPreviousNewsTitle(currentTitle) {
-  var currentIndex = newsTitles.indexOf(currentTitle);
-  
-  // 이전 뉴스 제목을 결정
-  if (currentIndex !== -1 && currentIndex > 0) {
-    return newsTitles[currentIndex - 1];
-  } else {
-    // 현재 뉴스가 첫 번째이면 마지막 뉴스로 돌아감
-    return newsTitles[newsTitles.length - 1];
-  }
-}
 
 </script>
 
