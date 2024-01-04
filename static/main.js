@@ -85,8 +85,8 @@ socket.onmessage = function(e){
 
 
     // 매수 폼 hidden
-    // input_now_value = document.getElementById("input-now-value")
-    // input_now_value.value = djangoData.value[1].now_value;
+    input_now_value = document.getElementById("input-now-value");
+    input_now_value.value = djangoData.value[1].now_value;
 
     // myChart.update();
 

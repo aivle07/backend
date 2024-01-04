@@ -214,7 +214,7 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{%static '/assets/img/theme/team-4-800x800.jpg' %}">
+                  <img alt="Image placeholder" src="{%static '/assets/img/theme/example.jpg' %}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
@@ -508,6 +508,7 @@
                   <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
                     <span class="h2 font-weight-bold mb-0">자본 및 부채</span>
+                    <canvas id="triangleCanvas" width="400" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -542,6 +543,9 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
   <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+  <!-- D3.js -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
   <script>
     interestChart = function () {
       var e, a, t = $("#chart-interest");
@@ -713,6 +717,53 @@
       data: initialData
     })
   }
+ // 회사의 Roe, PBR, PER 값을 설정
+ var roeValue = 0.8;
+ var pbrValue = 1.2;
+ var perValue = 1.5;
+
+ // 삼각형 각 꼭지점 좌표
+ var points = [
+   { x: 200, y: 50 },
+   { x: 100, y: 300 },
+   { x: 300, y: 300 }
+ ];
+
+ // 삼각형 내부 지점 계산
+ var companyPoint = {
+   x: (roeValue * points[0].x + pbrValue * points[1].x + perValue * points[2].x) / (roeValue + pbrValue + perValue),
+   y: (roeValue * points[0].y + pbrValue * points[1].y + perValue * points[2].y) / (roeValue + pbrValue + perValue)
+ };
+
+ var canvas = document.getElementById("triangleCanvas");
+ var context = canvas.getContext("2d");
+
+ // 삼각형 그리기
+ context.beginPath();
+ context.moveTo(points[0].x, points[0].y);
+ context.lineTo(points[1].x, points[1].y);
+ context.lineTo(points[2].x, points[2].y);
+ context.closePath();
+ context.strokeStyle = "#FF0000";  // 삼각형 선 색상
+ context.stroke();
+
+ // 회사 지점 그리기
+ context.beginPath();
+ context.arc(companyPoint.x, companyPoint.y, 5, 0, 2 * Math.PI, false);
+ context.fillStyle = "#0000FF";  // 회사 지점 색상
+ context.fill();
+
+ // 각 꼭지점에 지표 값 표시
+ context.fillStyle = "#000000";  // 텍스트 색상
+ context.fillText("주가", points[0].x, points[0].y - 10);
+ context.fillText("자본", points[1].x, points[1].y + 20);
+ context.fillText("이익", points[2].x, points[2].y + 20);
+
+ // 회사 지점에 값 표시
+ context.fillText(`(${roeValue}, ${pbrValue}, ${perValue})`, companyPoint.x, companyPoint.y - 10);
+    
+    
+    
 
   function test(){
     let corp_name = $("#corp_name").val();
