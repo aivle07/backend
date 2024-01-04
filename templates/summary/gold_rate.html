@@ -324,7 +324,8 @@
                       <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
                       <div id="popup" class="hide layer">
                           <div class="content">
-                              <div class="pop-title">{{news.date}}</div>
+                            <div class="pop-title">{{news.title}}</div>
+                              <div class="pop-date">{{news.date}}</div>
                               <div class="pop-summary">{{news.summary}}
                                 <button onclick="closePopup()" class="custom-end">종료</button>
                                 </div>
@@ -427,7 +428,7 @@
               </div>
             </div>
             <div class="card">
-              <div class="card-custom">
+              <div class="card-custom" style="max-height: 300px; overflow-y: auto;">
                 <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
                 <div class="news-text" id='chatbot_conversation'></div>
                 
@@ -650,34 +651,48 @@
     });
 
   function sendMessage() {
-      // 사용자가 입력한 질문 가져오기
-      let userQuestion = $('#message-input').val();
-    
-      // 사용자 질문을 대화창에 추가
-      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
-    
-      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
-      $.ajax({
+    // 사용자가 입력한 질문 가져오기
+    let userQuestion = $('#message-input').val();
+  
+    // 사용자 질문을 대화창에 추가
+    $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
+  
+    // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
+    $.ajax({
         type: 'post',
         url: '/summary/gold_chatbot/',
         data: {
-          data: userQuestion,
-          csrfmiddlewaretoken: window.CSRF_TOKEN,
+            data: userQuestion,
+            csrfmiddlewaretoken: window.CSRF_TOKEN,
         },
         success: function (data) {
-          console.log(data);
-    
-          // 챗봇의 답변을 대화창에 추가
-          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
-    
-          // 메시지 전송 후 textarea 비우기
-          $('#message-input').val('');
-    
-          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
-          $('#message-input').attr("placeholder", "메시지를 입력하세요");
-        }
+            console.log(data);
+
+            // 챗봇의 답변을 대화창에 추가
+            $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
+
+            // 메시지 전송 후 textarea 비우기
+            $('#message-input').val('');
+
+            // placeholder를 다시 보이도록 설정
+            $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+            
+            // 대화창을 맨 아래로 스크롤
+            $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+          },
       });
+
+      // 대화창을 맨 아래로 스크롤
+      $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
     }
+    
+    $('.card-custom').on('scroll', function () {
+      if ($('.card-custom').scrollTop() + $('.card-custom').innerHeight() >= $('.card-custom')[0].scrollHeight) {
+        // 맨 아래에 도달한 경우 스크롤을 유지
+        $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+      }
+    });
   
   
     //페이지 새로고침 시 달러,엔화 1단위 계산 결과 출력

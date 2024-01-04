@@ -15519,11 +15519,15 @@ a.btn-icon-only {
 .card-stats .card-body {
   padding: 1rem 1.5rem;
 }
-.card-custom{
+.card-custom {
   height: 315px;
   padding: 1rem 1.5rem;
   overflow: auto;
+  /* display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start; 추가된 부분 */
 }
+
 .card-footer-2{
   height: 85px;
   position: relative;
@@ -21154,11 +21158,11 @@ button.btn:hover {
 
 
 #popup .content {
-  padding: 20px;
+    padding: 20px;
     background: #fff;
     border-radius: 5px;
     height: 90%;
-    width: 90%;
+    width: 60%;
     overflow: auto;
     display: flex;
     flex-direction: column;
@@ -21325,25 +21329,32 @@ button.btn:hover {
 }
 
 .pop-title{
-  width: 10%;
   position: absolute;
-  top: 10%;
-  text-align: center;
+  top: 15%;
+  text-align: left;
+  left: 27%;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.pop-date{
+  position: absolute;
+  top: 23%;
+  text-align: left;
+  left: 27%;
 }
 
 .pop-summary{
-  width: 100%;
-  height: 100%;
-  text-align: center;
+  width: 80%;
   overflow: overlay;
   margin-top: 7%;
   margin-bottom: 10%;
-
+  text-align: justify;
 }
 .pop-link{
-  width: 10%;
   position: absolute;
-  bottom: 10%;
-  text-align: center;
+  text-align: left;
   margin-bottom: 5%;
+  left: 27%;
+  top: 28%;
 }
