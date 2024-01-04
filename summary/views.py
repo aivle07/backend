@@ -34,6 +34,7 @@ def search_corp(request):
     user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
     
     if user:
+        corp_name = request.POST.get('corp_name')
         # 여기서 모두 결과를 가져온 후 (corp_news)
         start = time.time()
         agent,_ = get_financial_agent(corp_name)
@@ -50,7 +51,7 @@ def search_corp(request):
         end = time.time()
         print('뉴스정보추출 : ',end-start)
     
-        corp_name = request.POST.get('corp_name')
+        
         crtfc_key = os.getenv("CRTFC_KEY")
         financial_data = get_financial_statement(get_corp_code(corp_name,crtfc_key),crtfc_key)
         
