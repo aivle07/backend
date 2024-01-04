@@ -19,22 +19,12 @@ load_dotenv()
 
 # 기업명으로 corp_code를 검색하는 함수
 def get_corp_code(corp_name, crtfc_key):
-        request_url = 'https://opendart.fss.or.kr/api/corpCode.xml'
-        parameters = {'crtfc_key': crtfc_key}
-        result = requests.get(url=request_url, params=parameters)
+        request_url = 'https://dart.fss.or.kr/corp/searchExistAll.ax'
+        data = {'textCrpNm': corp_name}
+        result = requests.post(url=request_url, data=data)
 
         if result.status_code == 200:
-            with BytesIO(result.content) as zip_content:
-                with zipfile.ZipFile(zip_content, 'r') as z:
-                    xml_content = z.read(z.namelist()[0])
-
-                root = ET.fromstring(xml_content)
-
-                for company in root.iter('list'):
-                    if corp_name.strip() == company.find('corp_name').text.strip():
-                        return company.find('corp_code').text
-
-            return None
+            return result.content.rstrip().decode("utf-8")
         else:
             return None
 
