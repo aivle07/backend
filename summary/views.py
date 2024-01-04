@@ -35,11 +35,10 @@ def search_corp(request):
     
     if user:
         corp_name = request.POST.get('corp_name')
+        if agent == None:
+                 agent, _ =  get_financial_agent(corp_name)
+                 print('에이전트 생성완료')
         # 여기서 모두 결과를 가져온 후 (corp_news)
-        start = time.time()
-        agent,_ = get_financial_agent(corp_name)
-        end = time.time()
-        print('agent생성 : ',end-start)
         
         start = time.time()
         corp_info = get_corp_info(corp_name)
@@ -109,7 +108,7 @@ def search_corp(request):
         },status=status.HTTP_200_OK)
     else:  # 로그인이 되어 있지 않다면 
         return redirect('/accounts/login/?next=/summary')
-    
+
             
 #기업 대시보드
 def index(request):
@@ -121,6 +120,22 @@ def index(request):
             return render(request, 'summary/index.html')
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary')
+        
+@api_view(('POST',))
+def corp_chatbot(request):
+    global agent
+    user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
+    
+    if user:
+        
+        question = request.POST.get('data')
+        result = get_corp_answer(agent=agent, question=question)
+        # print(result)
+        return Response({
+            'chat_answer': result   
+        },status=status.HTTP_200_OK)
+    else:  # 로그인이 되어 있지 않다면 
+        return redirect('/accounts/login/?next=/summary')
 
 # 부동산
 def real_estate(request):
