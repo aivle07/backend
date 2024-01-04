@@ -15526,6 +15526,7 @@ a.btn-icon-only {
 }
 .card-footer-2{
   height: 85px;
+  position: relative;
 }
 
 
@@ -20917,30 +20918,31 @@ pre>code.highlight {
   margin-bottom: 5%;
   display: flex;
   width: 100%;
-  margin-left: 5%;
 }
 .send-btn{
   border-radius: 10%;
-  background-color: rgb(255 99 132); /* 파란색 배경 */
+  background-color: rgb(0 123 255); /* 파란색 배경 */
   color: #fff; /* 흰색 텍스트 */
   padding: 8px 16px; /* 내부 여백 */
   border: none; /* 테두리 없음 */
   cursor: pointer; /* 커서 모양 변경 */
   transition: background-color 0.3s; /* 배경색 변경 시 부드러운*/
+  margin-right: 5%;
 }
 
 
 .send-text{
-  padding: 8px 16px; /* 내부 여백 */
-  transition: background-color 0.3s; /* 배경색 변경 시 부드러운*/
-  margin-right: 5%;
-  max-width: 65%;
-  width: 65%;
-  resize: none;
-  overflow-y: hidden;
-  max-height: 100px;
-  border-color: #c5c5c5;
-  border-radius: 10px;
+  padding: 8px 16px;
+    transition: background-color 0.3s;
+    margin-right: 5%;
+    max-width: 65%;
+    margin: auto;
+    width: 65%;
+    resize: none;
+    overflow-y: hidden;
+    max-height: 100px;
+    border-color: #c5c5c5;
+    border-radius: 10px;
 }
 .h-exchange{
   
@@ -20957,9 +20959,10 @@ pre>code.highlight {
 }
 
 .exchange-box {
-  padding: 10px; /* 안쪽 여백 추가 */
+  padding: 15px; /* 안쪽 여백 추가 */
   margin-bottom: 20px; /* 아래 여백 추가 */
   background-color: #edf5ff; /* 배경 색상 설정 */
+  border-radius: 8px;
 }
 .exchange-calc-box {
   margin-top: 20px;
@@ -21014,6 +21017,7 @@ button.btn:hover {
   align-self: flex-end;
   max-width: 70%;
   word-wrap: break-word;
+  letter-spacing: normal;
 }
 
 #chatbot_text .chatbot-answer {
@@ -21021,6 +21025,9 @@ button.btn:hover {
     font-size: 15px;
     margin-top: 15%;
     border-radius: 11px;
+    padding: 5px;
+  letter-spacing: normal;
+
 }
 
 /* 계산기 버튼 스타일 */
@@ -21034,13 +21041,24 @@ button.btn:hover {
   cursor: pointer;
   background-color: #edf5ff; /* 파랑색 배경 */
   color: #5e72e4; /* 글자색 흰색 */
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* 트랜지션 효과 추가 */
 }
 
-.gold-calc-box .jb-container button:hover {
-  background-color: #5e72e4; /* 마우스 호버 시 어둡게 */
-  border-color: #edf5ff; /* 마우스 호버 시 테두리 색 변경 */
-  color: #edf5ff;
+/* 선택된 버튼에 대한 스타일 */
+.gold-calc-box .jb-container button.active {
+  background-color: #5e72e4;
+  color: white;
 }
+
+/* 수정된 부분 - 선택되지 않은 버튼에 대한 스타일 */
+.gold-calc-box .jb-container button:not(.active):hover {
+  background-color: #5e72e4 !important; /* !important를 추가하여 우선순위를 높임 */
+  border-color: #edf5ff !important;
+  color: #edf5ff !important;
+}
+
+
 
 /* 계산 결과 스타일 */
 .gold-calc-box #calc-result-gold {
@@ -21093,22 +21111,24 @@ button.btn:hover {
   border: 1px solid #797b7d;
   border-radius: 5px;
   margin-bottom: 10px;
-  box-sizing: border-box; /* 내용의 패딩 및 경계 상자 크기를 포함하여 크기를 계산 */
+  box-sizing: border-box;
+  border-color: #797b7d;
 }
 
-#calc-input-currency button:focus {
-  outline: none; /* 포커스된 상태일 때 테두리 제거 */
-  border-color: #fff; /* 포커스된 상태일 때 테두리 색상 변경 */
-}
-
-.gold-calc-box #calc-result-currency {
-  margin-top: 10px;
+.gold-calc-box #calc-result-currency,
+.gold-calc-box #calc-result-gold {
   margin-right: 10%;
+  margin-left: 10%;
   font-size: 18px;
   font-weight: bold;
   text-align: right;
+  border-bottom: 1px solid #000;
+  background-color: #f7f7f7;
 }
-
+/* 밑줄 스타일 클래스 */
+.bottom-border {
+  border-bottom: 1px solid #000;
+}
 .hide {
   display: none;
 }
@@ -21126,7 +21146,6 @@ button.btn:hover {
   z-index: 1;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  
 }
 
 #popup.hide {
@@ -21136,23 +21155,27 @@ button.btn:hover {
 
 #popup .content {
   padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  height: 90%;
-  width: 90%;
-  overflow: auto;
+    background: #fff;
+    border-radius: 5px;
+    height: 90%;
+    width: 90%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .custom-end {
   background-color: #3498db; /* 배경색 */
   color: #fff; /* 텍스트 색상 */
   border: none; /* 테두리 없음 */
-  padding: 10px 20px; /* 내부 여백 */
+  padding: 5px 8px; /* 내부 여백 */
   border-radius: 5px; /* 테두리 모서리 둥글게 */
   cursor: pointer; /* 커서 모양 변경 */
   position: fixed;
-    bottom: 10%; /* 원하는 여백 조절 */
-    left: 50%;
-    transform: translateX(-50%);
+  bottom: 10%; /* 원하는 여백 조절 */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .custom-end:hover {
@@ -21167,8 +21190,8 @@ button.btn:hover {
   border-radius: 5px; /* 테두리 모서리 둥글게 */
   cursor: pointer; /* 커서 모양 변경 */
   position: fixed;
-  bottom: 10%; /* 원하는 여백 조절 */
-  left: 84%;
+  bottom: 50%; /* 원하는 여백 조절 */
+  right: 10%;
 }
 
 .custom-next:hover {
@@ -21183,7 +21206,7 @@ button.btn:hover {
   border-radius: 5px; /* 테두리 모서리 둥글게 */
   cursor: pointer; /* 커서 모양 변경 */
   position: fixed;
-  bottom: 10%; /* 원하는 여백 조절 */
+  bottom: 50%; /* 원하는 여백 조절 */
   left: 10%;
 }
 
@@ -21219,4 +21242,108 @@ button.btn:hover {
   flex-direction: column;
   margin-bottom: 5%;
   font-size: 30px;
+}
+
+/* 대화창 스타일링 */
+#chatbot_conversation {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 사용자 질문 스타일링 */
+#chatbot_conversation p {
+  margin: 5px;
+  padding: 10px;
+  position: relative;
+  border-radius: 10px;
+  font-weight: bold; /* 약간의 볼드 텍스트 */
+  font-size: 13px; /* 글씨 크기를 13px로 조절 */
+}
+
+#chatbot_conversation p.user-question {
+  text-align: right;
+  margin-left: auto;
+  background-color: #e4f0ff; /* 어두운 하늘색 */
+  color: #333333; /* 흰색 글씨 */
+  letter-spacing: 1px;
+  font-family: 'Malgun Gothic', 'NanumGothic', sans-serif; /* 고딕체 설정 */
+}
+
+#chatbot_conversation p.user-question::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -14px; /* 수정된 부분 */
+  margin-left: -7px; /* 수정된 부분 */
+  border-style: solid;
+  border-width: 8px;
+  border-color: transparent transparent transparent #e4f0ff;
+}
+
+/* 챗봇 답변 스타일링 */
+#chatbot_conversation p.chatbot-answer {
+  text-align: left;
+  margin-right: auto;
+  background-color: #f1f3f5; /* 연한 회색 */
+  color: #333333; /* 어두운 회색 글씨 */
+  font-size: 13px; /* 글씨 크기를 13px로 조절 */
+  letter-spacing: 1px;
+  font-family: 'Malgun Gothic', 'NanumGothic', sans-serif; /* 고딕체 설정 */
+}
+
+#chatbot_conversation p.chatbot-answer::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-right: -1px; /* 수정된 부분 */
+  border-style: solid;
+  border-width: 8px;
+  border-color: transparent #f1f3f5 transparent transparent;
+}
+
+
+/* 임의의 영역 생성 */
+
+
+/* 아래의 모든 코드는 영역::코드로 사용 */
+.pop-summary::-webkit-scrollbar,
+.scrollbar::-webkit-scrollbar {
+  width: 15px; /* 스크롤바의 너비 */
+}
+
+.pop-summary::-webkit-scrollbar-thumb,
+.scrollbar::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: #217af4; /* 스크롤바의 색상 */
+  border-radius: 7px;
+}
+
+.pop-summary::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, .1); /* 스크롤바 뒷 배경 색상 */
+}
+
+.pop-title{
+  width: 10%;
+  position: absolute;
+  top: 10%;
+  text-align: center;
+}
+
+.pop-summary{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  overflow: overlay;
+  margin-top: 7%;
+  margin-bottom: 10%;
+
+}
+.pop-link{
+  width: 10%;
+  position: absolute;
+  bottom: 10%;
+  text-align: center;
+  margin-bottom: 5%;
 }

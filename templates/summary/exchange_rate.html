@@ -291,7 +291,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_dollor_round|intcomma}}원</span>
+                        <span class="h2">{{current_dollor_round|intcomma}}원</span>
                       </div>
                       </div>
                       <br>
@@ -301,7 +301,7 @@
                         <br>
                         <br>
                         <div class="h-exchange-right">
-                          <span class="h3 h-exchange-right">{{current_yen_round_100|intcomma}}원</span>
+                          <span class="h2 h-exchange-right">{{current_yen_round_100|intcomma}}원</span>
                         </div>
                         </div>
                     </div>
@@ -349,12 +349,12 @@
                             <button onclick="appendToInput('calc-input-currency', '4')">4</button>
                             <button onclick="appendToInput('calc-input-currency', '5')">5</button>
                             <button onclick="appendToInput('calc-input-currency', '6')">6</button>
-                            <button class='active' onclick="setCurrency('dollars')">$</button>
+                            <button class='active' onclick="setCurrency('dollars')" id="dollarButton">$</button>
                             <br>
                             <button onclick="appendToInput('calc-input-currency', '7')">7</button>
                             <button onclick="appendToInput('calc-input-currency', '8')">8</button>
                             <button onclick="appendToInput('calc-input-currency', '9')">9</button>
-                            <button onclick="setCurrency('yen')">¥</button>
+                            <button onclick="setCurrency('yen')" id="yenButton">¥</button>
                             <br>
                             <button onclick="appendToInput('calc-input-currency', '0')">0</button>
                             <button onclick="appendToInput('calc-input-currency', '.')">.</button>
@@ -419,13 +419,15 @@
               <div class="row align-items-center">
                 <div class="col">
                   <br>
-                  <h2 class="mb-0" id="news-title">챗봇 위치 입니다.</h2>
+                  <h2 class="mb-0" id="news-title">환율 Chatbot</h2>
                 </div>
               </div>
             </div>
             <div class="card">
               <div class="card-custom">
-                <div class="news-text" id='chatbot_text'>{{chat_answer}}</div>
+                <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
+                <div class="news-text" id='chatbot_conversation'></div>
+                
               </div>
             </div>
             <div class="card-footer-2">
@@ -433,11 +435,9 @@
                 <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
                 <button class='send-btn' onclick="sendMessage()">전송</button>
               </div>
-              </div>
             </div>
           </div>
         </div>
-      </div>
 
       <!--ROE, PER, PBR, 부채 등등...재무제표 쉽게 알려주기-->
       <div class="row-2 mt-5">
@@ -604,7 +604,6 @@
       }
     );
 
-    {% comment %} $("#calc-dollor").append({{current_dollor}}) {% endcomment %}
   });
 
   const targetTextarea = document.querySelector('#message-input');
@@ -629,6 +628,7 @@
     // 페이지가 로드될 때 실행되는 함수
     setInitialExchangeRate();
   });
+
   function setInitialExchangeRate() {
     // 초기 환율을 설정하는 함수
     var initialDollarRate = 1; // 1달러의 초기 환율
@@ -655,37 +655,53 @@
   
 
 
-  function sendMessage() {
-    let data = targetTextarea.value;
-    let $chatbotText = $('#chatbot_text');
-    $chatbotText.append('<span class="user-message">' + data + '</span>');
-    
-    $.ajax({
-      type: 'post',
-      url: '/summary/exchange_chatbot/',
-      data: {
-        data: data,
-        csrfmiddlewaretoken: window.CSRF_TOKEN,
-      },
-      success: function (data) {
-        console.log(data);
-        let $chatbotText = $('#chatbot_text');
-        $chatbotText.append("<h2 class='chatbot-answer'>" + data.chat_answer + "</h2>");
-      }
+  $(document).ready(function () {
+    // 페이지가 로드될 때 챗봇 초기 인사말 표시
+    $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 환율 정보를 물어보세요!</p>");
     });
-  }
+
+  function sendMessage() {
+      // 사용자가 입력한 질문 가져오기
+      let userQuestion = $('#message-input').val();
+    
+      // 사용자 질문을 대화창에 추가
+      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
+    
+      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
+      $.ajax({
+        type: 'post',
+        url: '/summary/exchange_chatbot/',
+        data: {
+          data: userQuestion,
+          csrfmiddlewaretoken: window.CSRF_TOKEN,
+        },
+        success: function (data) {
+          console.log(data);
+    
+          // 챗봇의 답변을 대화창에 추가
+          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
+    
+          // 메시지 전송 후 textarea 비우기
+          $('#message-input').val('');
+    
+          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
+          $('#message-input').attr("placeholder", "메시지를 입력하세요");
+        }
+      });
+    }
   var currentCurrency = 'dollars'; // 초기화 달러
 
-  // 달러와 엔화의 환율 설정 (실제로는 업데이트되어야 함)
+  // 달러와 엔화의 환율 설정
   var exchangeRates = {
-      dollars: {{current_dollor}}, // 예시
-      yen: {{current_yen}} * 100 // 예시
+      dollars: {{current_dollor}}, 
+      yen: {{current_yen}} * 100 
   };
 
   // 화폐 설정 함수
   function setCurrency(currency) {
-    currentCurrency = currency;
+  currentCurrency = currency;
   }
+
 
   // 화폐 계산 함수
   function calcCurrency() {
@@ -714,10 +730,106 @@
     document.getElementById(inputId).value = inputValue.slice(0, -1);
   }
 
-  // 페이지 로딩 시 초기값으로 달러 계산
+
   window.onload = function () {
+    setInitialButtonStyle();
+    setCurrencyButtonEvents();
     calcCurrency();
   };
+  
+  function setInitialButtonStyle() {
+    var dollarButton = document.getElementById('dollarButton');
+    var yenButton = document.getElementById('yenButton');
+  
+    // 초기 선택된 버튼이 'dollars'인 경우
+    if (currentCurrency === 'dollars') {
+      setButtonStyles(dollarButton, yenButton);
+      yenButton.classList.remove('active');
+    } else if (currentCurrency === 'yen') {
+      // 초기 선택된 버튼이 'yen'인 경우
+      setButtonStyles(yenButton, dollarButton);
+      dollarButton.classList.remove('active');
+    }
+  }
+
+  function setCurrencyButtonEvents() {
+    var dollarButton = document.getElementById('dollarButton');
+    var yenButton = document.getElementById('yenButton');
+  
+    dollarButton.addEventListener('click', function () {
+      if (currentCurrency !== 'dollars') {
+        setCurrency('dollars');
+        setButtonStyles(dollarButton, yenButton);
+      }
+    });
+  
+    yenButton.addEventListener('click', function () {
+      if (currentCurrency !== 'yen') {
+        setCurrency('yen');
+        setButtonStyles(yenButton, dollarButton);
+      }
+    });
+  }
+  
+  var calcButtons = document.querySelectorAll('.jb-container button');
+  calcButtons.forEach(function (button) {
+    button.addEventListener('mouseover', function () {
+      if (!button.classList.contains('active')) {
+        calcButtons.forEach(function (btn) {
+          btn.classList.remove('hovered');
+        });
+        button.classList.add('hovered');
+      }
+    });
+  
+    button.addEventListener('mouseout', function () {
+      button.classList.remove('hovered');
+    });
+  });
+
+function setCurrency(currency) {
+  currentCurrency = currency;
+
+  var allButtons = document.querySelectorAll('.jb-container button');
+  allButtons.forEach(function (button) {
+    button.classList.remove('active', 'hovered');
+  });
+
+  var selectedButton = document.getElementById(currency + 'Button');
+  selectedButton.classList.add('active');
+}
+
+function setButtonStyles(activeButton, inactiveButton) {
+  // 현재 선택된 통화가 'yen'인 경우에만 크로스 오버 효과 적용
+  if (currentCurrency === 'yen') {
+    activeButton.style.backgroundColor = '#5e72e4';
+    activeButton.style.color = 'white';
+  } else {
+    activeButton.style.backgroundColor = '';
+    activeButton.style.color = '';
+  }
+
+  // 비활성화된 버튼의 스타일 초기화
+  inactiveButton.style.backgroundColor = '';
+  inactiveButton.style.color = '';
+}
+
+var calcButtons = document.querySelectorAll('.jb-container button');
+calcButtons.forEach(function (button) {
+  button.addEventListener('mouseover', function () {
+    if (!button.classList.contains('active')) {
+      calcButtons.forEach(function (btn) {
+        btn.classList.remove('hovered');
+      });
+      button.classList.add('hovered');
+    }
+  });
+
+  button.addEventListener('mouseout', function () {
+    button.classList.remove('hovered');
+  });
+});
+  
   </script>
 </body>
 </html>

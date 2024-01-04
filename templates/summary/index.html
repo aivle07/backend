@@ -32,9 +32,20 @@
   <link href="{%static '/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{%static '/assets/css/argon-dashboard.css'%}?v=1.1.2" rel="stylesheet" />
+  <style>
+      @keyframes spinner-grow{0%{transform:scale(0)}50%{opacity:1;transform:none}}
+      .spinner-grow{display:inline-block;width:2rem;height:2rem;vertical-align:-.125em;
+        background-color:currentColor;border-radius:50%;opacity:0;animation:.75s 
+        linear infinite spinner-grow}
+        .spinner-grow-sm{width:1rem;height:1rem}
+        @media (prefers-reduced-motion: reduce){.spinner-border,.spinner-grow{animation-duration:1.5s}}
+      .spin-class{
+        z-index : 11;
+      }
+  </style>
 </head>
 
-<body class="">
+<body class="scrollbar">
   <!-- Spinner Start -->
   <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -203,7 +214,7 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{%static '/assets/img/theme/team-4-800x800.jpg' %}">
+                  <img alt="Image placeholder" src="{%static '/assets/img/theme/example.jpg' %}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
@@ -247,19 +258,28 @@
       <div class="container-fluid">
         <div class="header-body">
           <!-- Search Button -->
-          <form class="navbar-search navbar-search-dark form-inline">
+          <form id='search_form' class="navbar-search navbar-search-dark form-inline" onsubmit='return test();'>
             <div class="form-group">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-search"></i></span>
                 </div>
-                <input class="form-control custom-width-input" placeholder="Search" type="text">
+                <input id='corp_name' class="form-control custom-width-input" placeholder="정확한 기업명을 입력해주세요" type="text">
             </div>
+            <span id='search_error' class='text-red mt-3' style='display:none;'>해당 기업과 관련된 정보를 찾지 못했어요. DART와 거래소에 등록된 기업이름인지 확인해주세요</span>
           </form>
+          
         </div>
-
+          <!-- Spinner Start -->
+          <div class="d-flex justify-content-center">
+            <div class="spin-class spinner-grow text-light" style="width: 10rem; height: 10rem; display: none;" role="status">
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-5">
+            <h2 class="spin-class text-light" style="display: none;">기업 정보를 열심히 공부하고 있어요!&nbsp&nbsp&nbsp잠시만 기다려주세요..<br><br>내용이 많은 경우에는 최대 1분 정도 걸릴수도 있어요</h2>
+          </div>
           <!-- Card stats -->
-          <div class="row">
+          <div class="row summary_card">
             <div class="col-xl-3 col-lg-6">
               <div class="card-2 card-stats mb-4 mb-xl-0">
                 <div class="card-2-body shadow">
@@ -268,8 +288,6 @@
                       <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
                       <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
                       <div class="chart-example">
-                        <button onclick='test()'>AJAX</button>
-                        
                       </div>
                     </div>
                     
@@ -285,7 +303,7 @@
                 <div class="card-2-body">
                     <div class="col">
                       <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
-                      <span class="h2 font-weight-bold mb-0">SK하이닉스 소개</span>
+                      <span id='corp_intro' class="h2 font-weight-bold mb-0"></span>
                     </div>
                     <div class="news-text">
                       {{corp_info}}
@@ -304,12 +322,29 @@
                       <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
                       <div id="popup" class="hide layer">
                           <div class="content">
-                              <h-title>{{news.date}}</h-title>
-                              <h-summary>{{news.summary}}</h-summary>
-                              <h-link>{{news.link}}</h-link>
-                              <button onclick="closePopup()" class="custom-end">종료</button>
-                              <button onclick="openNextPopup('{{ news.title }}')" class="custom-next">다음 팝업</button>
-                              <button onclick="openPreviousPopup('{{ news.title }}')" class="custom-previous">이전 팝업</button>
+                              <div class="pop-title">{{news.date}}</div>
+                              <div class="pop-summary">{{news.summary}}오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
+                                오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
+                                
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                <button onclick="closePopup()" class="custom-end">종료</button>
+                                </div>
+                              <div class="pop-link">{{news.link}}</div>
                           </div>
                       </div>
                     {% endfor %}
@@ -347,15 +382,15 @@
     </div>
 
     <!-- 차트 그려지는 공간-->
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7 summary_card">
       <div class="row">
         <div class="col-xl-8 mb-5 mb-xl-0">
           <div class="card bg-gradient-default shadow">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-light ls-1 mb-1">재무분석 API</h6>
-                  <h2 class="text-white mb-0">SK하이닉스 재무분석</h2>
+                  <h6 class="text-uppercase text-light ls-1 mb-1">재무분석 차트</h6>
+                  <h2 id='corp_financial_reports' class="text-white mb-0"></h2>
                   
                 </div>
                 <div class="col">
@@ -472,6 +507,7 @@
                   <div class="card-3-body">
                     <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
                     <span class="h2 font-weight-bold mb-0">자본 및 부채</span>
+                    <canvas id="triangleCanvas" width="400" height="400"></canvas>
                   </div>
                 </div>
               </div>
@@ -493,6 +529,7 @@
       </footer>
     </div>
   </div>
+  <div id="spinner_background" class="spin-class" style="width:100%; height:100%; margin:0 auto; padding:0; border:none; float:top; position:fixed; top:0%; z-index:10; background-color:rgba(0, 0, 0, 0.3); display:none;"></div>
   <!--   Core   -->
   <script src="{%static '/assets/js/plugins/jquery/dist/jquery.min.js' %}"></script>
   <script src="{%static '/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
@@ -505,115 +542,10 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 
   <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
+  <!-- D3.js -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
   <script>
-    
-  SalesChart = (function () {
-    var e,
-      a,
-      t = $("#chart-sales2");
-    if (t.length) {
-      (e = t),
-        (a = new Chart(e, {
-          type: "bar",
-          options: {
-            scales: {
-              yAxes: [
-                {
-                  gridLines: {
-                    lineWidth: 1,
-                    color: Charts.colors.gray[900],
-                    zeroLineColor: Charts.colors.gray[900],
-                  },
-                  ticks: {
-                    callback: function (e) {
-                      if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
-                    },
-                  },
-                },
-              ],
-            },
-            tooltips: {
-              callbacks: {
-                label: function (e, a) {
-                  var t = a.datasets[e.datasetIndex].label || "",
-                    o = e.yLabel,
-                    n = "";
-                  return (
-                    1 < a.datasets.length &&
-                      (n +=
-                        '<span class="popover-body-label mr-auto">' +
-                        t +
-                        "</span>"),
-                    (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
-                  );
-                },
-              },
-            },
-          },
-          data: {
-            labels: ["부채", "영업이익", "매출액", "당기순이익"],
-            datasets: [
-              {
-                label: "Performance",
-                data: [{{financial_data.0.thisyear}}, {{financial_data.1.thisyear}}, {{financial_data.2.thisyear}}, {{financial_data.3.thisyear}}],
-                borderWidth: 10,
-                borderColor: "rgba(255, 99, 132, 1)",
-              },
-            ],
-          },
-        })),
-        e.data("chart", a);
-    }
-  })();
-
-    DeptChart = function () {
-      var e, a, t = $("#chart-dept");
-      var initialData = {
-        labels: ["부채", "자본"],
-        datasets: [{
-          label: "부채 비율",
-          data: [20, 60],
-          backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
-        }]
-      };
-      if (t.length) {
-        e = t;
-        a = new Chart(e, {
-          type: "doughnut",
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            legend: {
-              display: true,
-              position: 'right',
-              labels: {
-                fontColor: 'black'
-              }
-            },
-            tooltips: {
-              callbacks: {
-                label: function (e, a) {
-                  var t = a.labels[e.index] || "",
-                    o = a.datasets[0].data[e.index],
-                    n = "";
-                  return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
-                }
-              }
-            },
-            plugins: {
-              labels: {
-                render: 'percentage',
-                fontColor: ['#ff0000', '#0000ff'],
-                precision: 2
-              }
-            }
-
-          },
-          data: initialData
-        }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
-      }
-    }();
-
     interestChart = function () {
       var e, a, t = $("#chart-interest");
       var initialData = {
@@ -637,7 +569,7 @@
               labels: {
                 fontColor: 'black'
               }
-              
+             
             },
             tooltips: {
               callbacks: {
@@ -649,27 +581,85 @@
                 }
               }
             },
+           
             plugins: {
               labels: {
                 render: 'percentage',
                 fontColor: ['#ff0000', '#0000ff'],
                 precision: 2
-                
+               
               }
             }
-
           },
           data: initialData
         }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
       }
     }();
 
+  function drawSalesChart(e,data){
+    a = new Chart(e, {
+      type: "bar",
+      options: {
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                lineWidth: 1,
+                color: Charts.colors.gray[900],
+                zeroLineColor: Charts.colors.gray[900],
+              },
+              ticks: {
+                callback: function (e) {
+                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
+                },
+              },
+            },
+          ],
+        },
+        tooltips: {
+          callbacks: {
+            label: function (e, a) {
+              var t = a.datasets[e.datasetIndex].label || "",
+                o = e.yLabel,
+                n = "";
+              return (
+                1 < a.datasets.length &&
+                  (n +=
+                    '<span class="popover-body-label mr-auto">' +
+                    t +
+                    "</span>"),
+                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
+              );
+            },
+          },
+        },
+      },
+      data: {
+        labels: ["부채", "영업이익", "매출액", "당기순이익"],
+        datasets: [
+          {
+            label: "Performance",
+            data: data,
+            borderWidth: 10,
+            borderColor: "rgba(255, 99, 132, 1)",
+          },
+        ],
+      },
+    })
+  }
+  
+
   $(function () {
     // 툴팁 초기화
     $('[data-toggle="tooltip"]').tooltip();
   });
+  
+  $("#search_form").submit(function(e) {
+    e.preventDefault();
+  });
 
   $(document).ready(function () {
+    $('.summary_card').hide();
     $("#chart-dept-card").hover(
       function () {
         $("#chart-dept-title").css("display", "block");
@@ -678,20 +668,163 @@
         $("#chart-dept-title").css("display", "none");
       }
     );
+    
   });
 
+  function drawDeptChart(e,data){
+    var initialData = {
+      labels: ["부채", "자본"],
+      datasets: [{
+        label: "부채 비율",
+        data: data,
+        backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
+      }]
+    };
+    a = new Chart(e, {
+      type: "doughnut",
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        legend: {
+          display: true,
+          position: 'right',
+          labels: {
+            fontColor: 'black'
+          }
+          
+        },
+        tooltips: {
+          callbacks: {
+            label: function (e, a) {
+              var t = a.labels[e.index] || "",
+                o = a.datasets[0].data[e.index],
+                n = "";
+              return n += '<span class="popover-body-value">' + t + ":" + o + "%</span>"
+            }
+          }
+        },
+        plugins: {
+          labels: {
+            render: 'percentage',
+            fontColor: ['#ff0000', '#0000ff'],
+            precision: 2
+            
+          }
+        }
+
+      },
+      data: initialData
+    })
+  }
+ // 회사의 Roe, PBR, PER 값을 설정
+ var roeValue = 0.8;
+ var pbrValue = 1.2;
+ var perValue = 1.5;
+
+ // 삼각형 각 꼭지점 좌표
+ var points = [
+   { x: 200, y: 50 },
+   { x: 100, y: 300 },
+   { x: 300, y: 300 }
+ ];
+
+ // 삼각형 내부 지점 계산
+ var companyPoint = {
+   x: (roeValue * points[0].x + pbrValue * points[1].x + perValue * points[2].x) / (roeValue + pbrValue + perValue),
+   y: (roeValue * points[0].y + pbrValue * points[1].y + perValue * points[2].y) / (roeValue + pbrValue + perValue)
+ };
+
+ var canvas = document.getElementById("triangleCanvas");
+ var context = canvas.getContext("2d");
+
+ // 삼각형 그리기
+ context.beginPath();
+ context.moveTo(points[0].x, points[0].y);
+ context.lineTo(points[1].x, points[1].y);
+ context.lineTo(points[2].x, points[2].y);
+ context.closePath();
+ context.strokeStyle = "#FF0000";  // 삼각형 선 색상
+ context.stroke();
+
+ // 회사 지점 그리기
+ context.beginPath();
+ context.arc(companyPoint.x, companyPoint.y, 5, 0, 2 * Math.PI, false);
+ context.fillStyle = "#0000FF";  // 회사 지점 색상
+ context.fill();
+
+ // 각 꼭지점에 지표 값 표시
+ context.fillStyle = "#000000";  // 텍스트 색상
+ context.fillText("주가", points[0].x, points[0].y - 10);
+ context.fillText("자본", points[1].x, points[1].y + 20);
+ context.fillText("이익", points[2].x, points[2].y + 20);
+
+ // 회사 지점에 값 표시
+ context.fillText(`(${roeValue}, ${pbrValue}, ${perValue})`, companyPoint.x, companyPoint.y - 10);
+    
+    
+    
+
   function test(){
-    const chart_example = document.querySelector("#chart-example");
+    let corp_name = $("#corp_name").val();
+    console.log(corp_name);
+
+    $("#search_form").attr('onsubmit','return false;');
+    $('#search_error').hide();
+    $('.summary_card').fadeOut();
+    $('.spin-class').show();
     $.ajax({
 			type:'post',   //post 방식으로 전송
 			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
 			data: {
+        corp_name: corp_name,
         csrfmiddlewaretoken: window.CSRF_TOKEN,
       },   //위의 변수에 담긴 데이터를 전송해준다.
 			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
         console.log(data)
 				$(".chart-example").html(data.chart);  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
-			}
+        $("#corp_intro").html(corp_name+" 소개");
+        $("#corp_financial_reports").html(corp_name+" 재무분석")
+        $('.summary_card').fadeIn();
+        let asset;
+        let dept;
+        let equity;
+        let profit;
+        let revenue;
+        let netincome;
+        for (i = 0; i < data.fin_data.length; i++) {
+          if (data.fin_data[i].name=="자산총계"){
+            asset = data.fin_data[i].thisyear;
+          }
+          else if(data.fin_data[i].name=="부채총계"){
+            dept = data.fin_data[i].thisyear;
+          }
+          else if(data.fin_data[i].name=="자본총계"){
+            equity = data.fin_data[i].thisyear;
+          }
+          else if(data.fin_data[i].name=="영업이익"){
+            profit = data.fin_data[i].thisyear;
+          }
+          else if(data.fin_data[i].name=="매출액"){
+            revenue = data.fin_data[i].thisyear;
+          }
+          else if(data.fin_data[i].name=="당기순이익"){
+            netincome = data.fin_data[i].thisyear;
+          }
+        } 
+        
+        drawDeptChart($('#chart-dept')
+        ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)])
+        
+        drawSalesChart($('#chart-sales2')
+        ,[dept,profit,revenue,netincome])
+			},
+      error	: function(xhr, status, error) {  
+        $('#search_error').show();
+      },
+      complete : function(){
+        $('.spin-class').hide();
+        $("#search_form").attr('onsubmit','return test();');
+      }
 		});
   }
 
@@ -711,20 +844,18 @@
 
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
-  </script>
-
-  <script>
     
-    function showPopup() {
-      var popup = document.getElementById("popup");
-      popup.classList.remove("hide");
-      popup.classList.add("show");
+  function showPopup() {
+    var popup = document.getElementById("popup");
+    popup.classList.remove("hide");
+    popup.classList.add("show");
   }
 
   function closePopup() {
       var popup = document.getElementById("popup");
       popup.classList.remove("show");
-      popup.classList.add("hide");}
+      popup.classList.add("hide");
+  }
   // 외부영역 클릭 시 팝업 닫기
   $(document).mouseup(function (e) {
     var popContent = $('#popup');
@@ -732,49 +863,6 @@
         popContent.addClass('hide');
     }
   });
-  
-
-function openNextPopup(currentTitle) {
-  // 현재 팝업 숨김
-  document.getElementById('popup_' + currentTitle).style.display = 'none';
-  
-  // 다음 팝업 표시
-  var nextNewsTitle = getNextNewsTitle(currentTitle);
-  document.getElementById('popup_' + nextNewsTitle).style.display = 'block';
-}
-
-function openPreviousPopup(currentTitle) {
-  // 현재 팝업 숨김
-  document.getElementById('popup_' + currentTitle).style.display = 'none';
-  
-  // 이전 팝업 표시
-  var previousNewsTitle = getPreviousNewsTitle(currentTitle);
-  document.getElementById('popup_' + previousNewsTitle).style.display = 'block';
-}
-
-function getNextNewsTitle(currentTitle) {
-  var currentIndex = newsTitles.indexOf(currentTitle);
-  
-  // 다음 뉴스 제목을 결정
-  if (currentIndex !== -1 && currentIndex < newsTitles.length - 1) {
-    return newsTitles[currentIndex + 1];
-  } else {
-    // 현재 뉴스가 마지막이면 첫 번째 뉴스로 돌아감
-    return newsTitles[0];
-  }
-}
-
-function getPreviousNewsTitle(currentTitle) {
-  var currentIndex = newsTitles.indexOf(currentTitle);
-  
-  // 이전 뉴스 제목을 결정
-  if (currentIndex !== -1 && currentIndex > 0) {
-    return newsTitles[currentIndex - 1];
-  } else {
-    // 현재 뉴스가 첫 번째이면 마지막 뉴스로 돌아감
-    return newsTitles[newsTitles.length - 1];
-  }
-}
 
 </script>
 

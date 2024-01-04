@@ -46,6 +46,7 @@ h1,
 h2,
 .fw-bold {
     font-weight: 700 !important;
+    text-align: center;
 }
 
 h3,
@@ -463,6 +464,7 @@ h6,
 }
 
 .content-container {
+    text-align: left;
     margin: 8rem auto 0;
     margin-bottom: 6%;
   }
@@ -1201,6 +1203,7 @@ hr {
   background-color: #333;
   color: #fff;
   text-align: center;
+  left: -57%;
 }
 .input-file .file-name {
   width: 300px;
@@ -1258,13 +1261,30 @@ hr {
   
 }
 .create{
-  height: 80px;
-  background-color: #3498db;
-  font-size: 20px;
-  border-radius: 15px;
-  border-color:#3498db;
-  color:#ffffff;
-
+  height: 35px;
+    width: 100px;
+    background-color: #3498db;
+    font-size: 17px;
+    border-radius: 10px;
+    position: relative;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+    /* margin-right: 5%; */
+    transition: background-color 0.5s;
+    left: 78%;
+}
+.create-write{
+    height: 80px;
+    background-color: #3498db;
+    font-size: 20px;
+    border-radius: 15px;
+    position: relative;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+    /* margin-right: 5%; */
+    transition: background-color 0.5s;
 }
 .back{
   background-color: #3498db;
@@ -1272,7 +1292,7 @@ hr {
   font-size: 20px;
   margin-right: 10px;
   border-radius: 15px;
-  border-color:#3498db;
+  border: none;
   color:#ffffff;
 }
 .create:hover, .back:hover {
@@ -1350,7 +1370,7 @@ hr {
 }
 .report-btn{
   border-radius: 10%;
-    background-color: rgb(255 99 132);
+    background-color: rgb(0 123 255);
     color: #fff;
     padding: 8px 16px;
     border: none;
@@ -1361,4 +1381,19 @@ hr {
 h-report-title {
   font-size: 24px; /* 원하는 글자 크기로 조절합니다. */
   color: #202942;
+}
+.textset-tit-b{
+    font-size: 25px;
+    width: 15%;
+    height: 10%;
+    margin-bottom: 10%;
+    background: none;
+    border-color: #dee2e6;
+    border-radius: 15px;
+    padding: 11px;
+    transition: background-color 0.5s;
+}
+.textset-tit-b:hover {
+  color: white; /* 마우스를 올렸을 때의 텍스트 색상 변경 (원하는 스타일로 수정 가능) */
+  background-color: #3498db;
 }

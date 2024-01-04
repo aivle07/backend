@@ -292,7 +292,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_gold|intcomma}}원</span>
+                        <span class="h2">{{current_gold|intcomma}}원</span>
                       </div>
                       </div>
                       <br>
@@ -302,7 +302,7 @@
                         <br>
                         <br>
                       <div class="h-exchange-right">
-                        <span class="h3">{{current_gold|intcomma}}원</span>
+                        <span class="h2"id="newVariable"></span>
                   
                       </div>
                       </div>
@@ -381,7 +381,7 @@
               <div class="row align-items-center">
                 <div class="col">
                   <br>
-                  <h2 class="text-white mb-0">금 주가</h2>
+                  <h2 class="h-exchange-left">금 정보</h2>
                   
                 </div>
                 <div class="col">
@@ -393,13 +393,7 @@
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
-                     data-update='{"data":{"datasets":[{"data":[31637411000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">2022</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
               </div>
@@ -420,23 +414,27 @@
               <div class="row align-items-center">
                 <div class="col">
                   <br>
-                  <h2 class="mb-0" id="news-title">챗봇 위치 입니다.</h2>
+                  <h2 class="mb-0" id="news-title">금 Chatbot</h2>
                 </div>
               </div>
             </div>
             <div class="card">
               <div class="card-custom">
-                 <div class="send" >
-                  <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
-                  <button class='send-btn' onclick="sendMessage()">전송</button>
-                  </div>
-                <div class="news-text" id='chatbot_text'>{{chat_answer}}</div>
+                <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
+                <div class="news-text" id='chatbot_conversation'></div>
+                
+              </div>
+            </div>
+            <div class="card-footer-2">
+              <div class="send">
+                <!-- 사용자가 메세지를 입력할 수 있는 텍스트 영역과 전송 버튼 -->
+                <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
+                <button class='send-btn' onclick="sendMessage()">전송</button>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
+        
       <!--ROE, PER, PBR, 부채 등등...재무제표 쉽게 알려주기-->
       <div class="row-2 mt-5">
         <div class="row-2">
@@ -604,7 +602,13 @@
       }
     );
 
+    var currentGoldValue = parseFloat('{{ current_gold }}'.replace(/[^0-9.]/g, ''));
+    var multipliedValue = currentGoldValue * 3.75;
+
+    // 결과를 HTML에 표시
+    $('#newVariable').text(multipliedValue.toLocaleString() + '원');
   });
+
 
   const targetTextarea = document.querySelector('#message-input');
 
@@ -631,22 +635,43 @@
     $("#calc-result-gold").html('');
     $("#calc-result-gold").html(result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원');
   }
-  function sendMessage(){
-    let data = targetTextarea.value
-    $('#chatbot_text').append(data)
-    $.ajax({
-			type:'post',   //post 방식으로 전송
-			url:'/summary/gold_chatbot/',   //데이터를 주고/받을 파일 주소
-			data: {
-        data:data,
-        csrfmiddlewaretoken: window.CSRF_TOKEN,
-      },   //위의 변수에 담긴 데이터를 전송해준다.
-			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
-        console.log(data)
-				$('#chatbot_text').append("<h2>"+data.chat_answer+"</h2>");  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
-			}
-		});
-  }
+
+  $(document).ready(function () {
+    // 페이지가 로드될 때 챗봇 초기 인사말 표시
+    $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 금 정보를 물어보세요!</p>");
+    });
+
+  function sendMessage() {
+      // 사용자가 입력한 질문 가져오기
+      let userQuestion = $('#message-input').val();
+    
+      // 사용자 질문을 대화창에 추가
+      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
+    
+      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
+      $.ajax({
+        type: 'post',
+        url: '/summary/gold_chatbot/',
+        data: {
+          data: userQuestion,
+          csrfmiddlewaretoken: window.CSRF_TOKEN,
+        },
+        success: function (data) {
+          console.log(data);
+    
+          // 챗봇의 답변을 대화창에 추가
+          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
+    
+          // 메시지 전송 후 textarea 비우기
+          $('#message-input').val('');
+    
+          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
+          $('#message-input').attr("placeholder", "메시지를 입력하세요");
+        }
+      });
+    }
+  
+  
     //페이지 새로고침 시 달러,엔화 1단위 계산 결과 출력
     document.addEventListener('DOMContentLoaded', function () {
       // 페이지가 로드될 때 실행되는 함수
