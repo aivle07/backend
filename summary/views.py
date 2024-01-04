@@ -139,15 +139,14 @@ def gold_rate(request):
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
                 
         if user:  # 로그인 한 사용자라면
-            #gold_news = gold_news_info()
+            gold_news = gold_news_info()
             if agent == None:
                  agent = get_gold_data_agent()
             df_gold = get_gold_data()
             current_gold = df_gold['Close'][-1:].values[0]
             return render(request, 'summary/gold_rate.html',{
-               # 'gold_news': gold_news['items'],
+                'gold_news': gold_news['items'],
                 'current_gold': current_gold
-                
             })
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary/gold_rate')
