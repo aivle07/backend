@@ -23,103 +23,102 @@ import urllib.request
 import requests
 import time
 import plotly.offline as opy
+import plotly.graph_objects as go
+import plotly
 
 agent = None
 ###### 이 아래는 view ######
 @api_view(('POST',))
-def test(request):
+def search_corp(request):
     global agent
     user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
     
     if user:
-        name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
-        filter = name_to_code.loc[name_to_code['Name'] == 'SK하이닉스']
+        corp_name = request.POST.get('corp_name')
+        # 여기서 모두 결과를 가져온 후 (corp_news)
+        start = time.time()
+        agent,_ = get_financial_agent(corp_name)
+        end = time.time()
+        print('agent생성 : ',end-start)
         
-        search_param = filter[['Code']].values[0]
+        start = time.time()
+        corp_info = get_corp_info(corp_name)
+        end = time.time()
+        print('기업요약 : ',end-start)
         
-        df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
-        df = df.reset_index().rename(columns={"index": "date"})
+        start = time.time()
+        corp_news = news_info(corp_name)
+        end = time.time()
+        print('뉴스정보추출 : ',end-start)
+    
+        
+        crtfc_key = os.getenv("CRTFC_KEY")
+        financial_data = get_financial_statement(get_corp_code(corp_name,crtfc_key),crtfc_key)
+        
+        stock_data = {}
+        try:
+            #종목코드가 파라미터일 경우
+            df = fdr.DataReader(financial_data[0]['stock_code']).sort_index(ascending=False).head()    
+            df = df.reset_index().rename(columns={"index": "date"})
+            stock_data = df.to_dict(orient='records')
+        except Exception as e:
+            #회사, 주식명이 파라미터일 경우
+            name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
+            filter = name_to_code.loc[name_to_code['Name'] == corp_name]
+            
+            search_param = filter[['Code']].values[0]
+            
+            df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
+            df = df.reset_index().rename(columns={"index": "date"})
+            stock_data = df.to_dict(orient='records')
+        
+        
+        # 재무제표 
+        fin_data = []
+        for data in financial_data:
+            tmp = {}
+            # 이름
+            tmp['name'] =  data['account_nm']
+            # 금년
+            tmp['thisyear'] = int(data['thstrm_amount'].replace(',',''))//1000
+            # 작년
+            tmp['lastyear'] = int(data['frmtrm_amount'].replace(',',''))//1000
+            fin_data.append(tmp)
         
         chart = fdr.chart.plot(df)
-        chart = opy.plot(chart,output_type='div')
+        chart.update_layout(
+            autosize=False,
+            width=300,
+            height=300,
+        )
+        chart = opy.plot(chart,output_type='div',config=dict(
+                    displayModeBar=False
+                ))
 
         return Response({
-            'chart': chart   
+            'corp_info':corp_info, 
+            'corp_news':corp_news['items'],
+            'stock_data' : stock_data,
+            'chart': chart,
+            'fin_data':fin_data,
+            'corp_news' : [{'title':'good1','link':'naver.com','summary':'content','date':'2024-01-02'},
+                            {'title':'good2','link':'naver.com','summary':'content','date':'2024-01-02'},
+                            {'title':'good3','link':'naver.com','summary':'content','date':'2024-01-02'},
+                            {'title':'good4','link':'naver.com','summary':'content','date':'2024-01-02'},
+                            {'title':'good5','link':'naver.com','summary':'content','date':'2024-01-02'}],
         },status=status.HTTP_200_OK)
     else:  # 로그인이 되어 있지 않다면 
         return redirect('/accounts/login/?next=/summary')
     
             
-#대시보드
+#기업 대시보드
 def index(request):
     if request.method == 'GET':  # 요청하는 방식이 GET 방식인지 확인하기
         user = request.user.is_authenticated  # 사용자가 로그인이 되어 있는지 확인하기
         if user:  # 로그인 한 사용자라면
-            ## 여기서 모두 결과를 가져온 후 (corp_news)
-            # start = time.time()
-            # agent,financial_data = get_financial_agent('SK하이닉스')
-            # end = time.time()
-            # print('agent생성 : ',end-start)
             
-            # start = time.time()
-            # corp_info = get_corp_info('SK하이닉스')
-            # end = time.time()
-            # print('기업요약 : ',end-start)
-            
-            # start = time.time()
-            # corp_news = news_info('SK하이닉스')
-            # end = time.time()
-            # print('뉴스정보추출 : ',end-start)
-        
-            # start = time.time()
-            # chat_answer = get_corp_answer(agent,'재무제표에 대해 알려줘')
-            # end = time.time()
-            # print('챗봇 답장 : ',end-start)
-            
-            stock_data = {}
-            try:
-                #종목코드가 파라미터일 경우
-                df = fdr.DataReader('SK하이닉스').sort_index(ascending=False).head()    
-                df = df.reset_index().rename(columns={"index": "date"})
-                stock_data = df.to_dict(orient='records')
-            except Exception as e:
-                #회사, 주식명이 파라미터일 경우
-                name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
-                filter = name_to_code.loc[name_to_code['Name'] == 'SK하이닉스']
-                
-                search_param = filter[['Code']].values[0]
-                
-                df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
-                df = df.reset_index().rename(columns={"index": "date"})
-                stock_data = df.to_dict(orient='records')
-            crtfc_key = os.getenv("CRTFC_KEY")
-            financial_data = get_financial_statement(get_corp_code('SK하이닉스',crtfc_key),crtfc_key)
-            
-            # 재무제표 
-            fin_data = []
-            for data in financial_data:
-                tmp = {}
-                # 이름
-                tmp['name'] =  data['account_nm']
-                # 금년
-                tmp['thisyear'] = int(data['thstrm_amount'].replace(',',''))//1000
-                # 작년
-                tmp['lastyear'] = int(data['frmtrm_amount'].replace(',',''))//1000
-                fin_data.append(tmp)
-            print(fin_data)
             # 여기에 넣기
-            return render(request, 'summary/index.html',
-                          {
-                        #    'corp_info':corp_info, 
-                        #    'corp_news':corp_news['items'],
-                        #    'chat_answer':chat_answer,
-                            'corp_news' : [{'title':'good1','link':'naver.com','summary':'content','date':'2024-01-02'},
-                                           {'title':'good2','link':'naver.com','summary':'content','date':'2024-01-02'},
-                                           {'title':'good3','link':'naver.com','summary':'content','date':'2024-01-02'},
-                                           {'title':'good4','link':'naver.com','summary':'content','date':'2024-01-02'},
-                                           {'title':'good5','link':'naver.com','summary':'content','date':'2024-01-02'}],
-                           'financial_data':fin_data,
-                           'stock_data':stock_data,})
+            return render(request, 'summary/index.html')
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary')
 
