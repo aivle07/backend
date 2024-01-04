@@ -82,14 +82,16 @@
                             <div class="content-container">
                                 <div class="content-container container-md">
                                    <div class="textset content-tit">
-                                     <h2 class="textset-tit">오늘 2문제를 전부 풀었습니다.</h2>
+                                     <h5 class="textset-tit">오늘 2문제를 전부 풀었습니다.
+                                      <br>
+                                      내일도 도전하세요
+                                     </h5>
                                    </div>
                                 </div>
                                 <div class="container-xxl position-relative p-1", id="main">
                                   <div class="container">
                                       <div class="row g-5 align-items-center">
                                           <div class="col-lg-6 text-center text-lg-start">
-                                         
                                           <div class=' label'><div class="text-wrapper" style="z-index:999">
                                             
                                           </div>
@@ -146,18 +148,17 @@
      height: 83px;
    }
    .text-wrapper {
-     position: absolute;
-     top: 80%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-   
-     font-family: "KoHo-SemiBold", Helvetica;
-     font-weight: 600;
-     color: #000000;
-     font-size: 45px;
-     letter-spacing: 0;                                        
-     line-height: 1;
-   }
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "KoHo-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 25px;
+    letter-spacing: 0;
+    line-height: 1;
+    }
    .box{
      width: 414px;
      height:79px;
@@ -166,20 +167,21 @@
      color: #fff;
      background-color: #486eff;
      border: none;
+     
    }
   
    .btn-quiz {
-     
-     padding: 10px 20px;
-     font-size: 22px;
-     border-radius: 5px;
-     cursor: pointer;
-     width: 19%;
-     position: absolute;
-     top: 13%; /* 중앙으로 이동하는 부분 */
-     margin-left: 10.3px;
-     left: 50%; /* 중앙으로 이동하는 부분 */
-     transform: translate(-50%, -50%); 
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 13%;
+    position: absolute;
+    top: 36%; /* 중앙으로 이동하는 부분 */
+    margin-left: 10.3px;
+    left: 50%; /* 중앙으로 이동하는 부분 */
+    transform: translate(-50%, -50%); 
+    font-weight: 400;
    }
 
    .frame .glass-crystal-ring {
@@ -203,18 +205,18 @@
    }
 
    .cube7 {
-     position: absolute;
-     width: 335px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-     height: 480px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-     top: 10%; /* 원하는 위치에 맞게 조절하세요 */
-     left: 13%; /* 원하는 위치에 맞게 조절하세요 */
-   }
+    position: absolute;
+    width: 335px;
+    height: 450px;
+    top: 30%;
+    left: 13%;
+    }
    
    .circle7 {
      position: absolute;
      width: 350px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
      height: 310px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-     top:22%; /* 원하는 위치에 맞게 조절하세요 */
+     top:37%; /* 원하는 위치에 맞게 조절하세요 */
      left: 57%; /* 원하는 위치에 맞게 조절하세요 */
    }
    
@@ -231,7 +233,23 @@
      left: 50%;
    }
    .textset-tit{
-     top:30%;
+     
+     margin-top: 20px; 
+     
    }
-    
+   .content-tit .textset-tit {
+     position: absolute;
+     top: 40%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     font-family: "KoHo-SemiBold", Helvetica;
+     font-weight: 400;
+     color: #000000;
+     font-size: 25px;
+     letter-spacing: 0;
+     line-height: 1;
+     letter-spacing: 3px;
+     line-height: 1.5;
+   }
+   
 </style>
