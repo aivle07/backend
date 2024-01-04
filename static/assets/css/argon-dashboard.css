@@ -244,6 +244,7 @@ img {
 svg {
   overflow: hidden;
   vertical-align: middle;
+  margin-left: 20%;
 }
 
 table {
