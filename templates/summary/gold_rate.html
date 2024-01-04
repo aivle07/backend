@@ -359,16 +359,18 @@
                             <button onclick="appendToInput('calc-input-gold', '4')">4</button>
                             <button onclick="appendToInput('calc-input-gold', '5')">5</button>
                             <button onclick="appendToInput('calc-input-gold', '6')">6</button>
+                            <button onclick="meaningless()" class="meaningless-button" id="calc-input-currency-nomean-button"></button>
                             <br>
                             <button onclick="appendToInput('calc-input-gold', '7')">7</button>
                             <button onclick="appendToInput('calc-input-gold', '8')">8</button>
                             <button onclick="appendToInput('calc-input-gold', '9')">9</button>
+                            <button onclick="meaningless()" class="meaningless-button" id="calc-input-currency-nomean-button"></button>
                             <br>
                             <button onclick="appendToInput('calc-input-gold', '0')">0</button>
                             <button onclick="appendToInput('calc-input-gold', '.')">.</button>
                             <button onclick="removeLastDigit('calc-input-gold')">←</button>
+                            <button onclick="meaningless()" class="meaningless-button" id="calc-input-currency-nomean-button"></button>
                             </div>
-                                
                   </div>
                   </div>
                   </p>
@@ -644,6 +646,7 @@
     $("#calc-result-gold").html(result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 원');
   }
 
+  // 챗봇 js
   $(document).ready(function () {
     // 페이지가 로드될 때 챗봇 초기 인사말 표시
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 금 정보를 물어보세요!</p>");

@@ -359,6 +359,7 @@
                             <button onclick="appendToInput('calc-input-currency', '0')">0</button>
                             <button onclick="appendToInput('calc-input-currency', '.')">.</button>
                             <button onclick="removeLastDigit('calc-input-currency')">←</button>
+                            <button onclick="meaningless()" class="meaningless-button" id="calc-input-currency-nomean-button"></button>
                         </div>
                     </div>
                   </div>
@@ -708,7 +709,7 @@
     var inputId = 'calc-input-currency';
     var resultId = 'calc-result-currency';
     var inputValue = parseFloat(document.getElementById(inputId).value);
-
+  
    // 계산 및 결과 업데이트
    var result;
    if (currentCurrency === 'dollars') {
@@ -829,6 +830,8 @@ calcButtons.forEach(function (button) {
     button.classList.remove('hovered');
   });
 });
+
+
   
   </script>
 </body>
