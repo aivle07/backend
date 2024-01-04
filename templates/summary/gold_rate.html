@@ -320,9 +320,17 @@
                   <br>
                   <span class="h2 font-weight-bold mb-0">금 시세 뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in gold_news  %}
-                      <p class="jb-title">{{news.title}}</p>
-                      <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
+                    {% for news in gold_news %}
+                      <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
+                      <div id="popup" class="hide layer">
+                          <div class="content">
+                              <div class="pop-title">{{news.date}}</div>
+                              <div class="pop-summary">{{news.summary}}
+                                <button onclick="closePopup()" class="custom-end">종료</button>
+                                </div>
+                              <a class="pop-link" target='_blank' href='{{news.link}}'>{{news.link}}</a>
+                          </div>
+                      </div>
                     {% endfor %}
                    
                   </div>
@@ -709,6 +717,24 @@
       document.getElementById(inputId).value = inputValue.slice(0, -1);
     }
   
+    function showPopup() {
+      var popup = document.getElementById("popup");
+      popup.classList.remove("hide");
+      popup.classList.add("show");
+    }
+  
+    function closePopup() {
+        var popup = document.getElementById("popup");
+        popup.classList.remove("show");
+        popup.classList.add("hide");
+    }
+    // 외부영역 클릭 시 팝업 닫기
+    $(document).mouseup(function (e) {
+      var popContent = $('#popup');
+      if (popContent.has(e.target).length === 0) {
+          popContent.addClass('hide');
+      }
+    });
   </script>
 </body>
 </html>
