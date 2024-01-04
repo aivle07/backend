@@ -14,5 +14,5 @@ urlpatterns = [
     path("coin/",views.coin,name="coin"),
     path("exchange_chatbot/",views.exchange_chatbot,name="exchange_chatbot"),
     path("gold_chatbot/",views.gold_chatbot,name="gold_chatbot"),
-    path("test/",views.test),    
+    path("test/",views.search_corp),    
 ]

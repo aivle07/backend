@@ -7,6 +7,7 @@ from random import randint
 from channels.generic.websocket import AsyncWebsocketConsumer
 from urllib.parse import unquote
 import plotly.offline as opy
+from .dictionary import name_to_code
 
 def write_color(value, before_day):
     color = ""
@@ -38,29 +39,29 @@ def get_data(param):
     except Exception as e:
         #회사, 주식명이 파라미터일 경우
         
-        name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
-        search_param = name_to_code.loc[name_to_code['Name'] == search_param].Code
-                
+        # name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
+        # search_param = name_to_code.loc[name_to_code['Name'] == search_param].Code
+        search_param = name_to_code[search_param]
         df = fdr.DataReader(search_param)[-300:]  
         #df = df.reset_index().rename(columns={"index": "date"})
         response_data = df.to_dict(orient='records')
       
     data = []
     # 전날종가
-    before_day = response_data[-2]['Close']
+    before_day = round(response_data[-2]['Close'],2)
     # 현재가격
-    now_value = response_data[-1]['Close']
+    now_value = round(response_data[-1]['Close'],2)
     now_value_color = write_color(now_value, before_day)
     # 오늘 고가
-    today_high = response_data[-1]['High']
+    today_high = round(response_data[-1]['High'],2)
     today_high_color = write_color(today_high, before_day)
     # 오늘 저가
-    today_low = response_data[-1]['Low']
+    today_low = round(response_data[-1]['Low'],2)
     today_low_color = write_color(today_low, before_day)
     # 오늘 거래량
     today_volume = response_data[-1]['Volume']
     # 오늘 시작가격
-    today_open = response_data[-1]['Open']
+    today_open = round(response_data[-1]['Open'],2)
     today_open_color = write_color(today_open, before_day)
     # 등락율
     today_change_rate = "None"
@@ -76,7 +77,7 @@ def get_data(param):
         today_change_rate = str(round(today_change_rate * 100,2)) + "%"
     
     # 전일대비 가격변화
-    price_change = abs(now_value - before_day)
+    price_change = round(abs(now_value - before_day),2)
     price_change_color = write_color(now_value, before_day)
     today_data = {
         "before_day":before_day,
