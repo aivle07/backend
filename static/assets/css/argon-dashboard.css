@@ -21133,7 +21133,7 @@ button.btn:hover {
   display: none;
 }
 
-#popup {
+.popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21148,12 +21148,12 @@ button.btn:hover {
   -webkit-backdrop-filter: blur(4px);
 }
 
-#popup.hide {
+.popup.hide {
   display: none;
 }
 
 
-#popup .content {
+.popup .content {
   padding: 20px;
     background: #fff;
     border-radius: 5px;

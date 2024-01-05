@@ -46,13 +46,6 @@
 </head>
 
 <body class="scrollbar">
-  <!-- Spinner Start -->
-  <div id="spinner" class="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-  </div>
-  <!-- Spinner End -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -206,7 +199,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Dashboard</a>
         
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
@@ -285,7 +278,7 @@
                 <div class="card-2-body shadow">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5>
+                      {% comment %} <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5> {% endcomment %}
                       <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
                       <div class="chart-example">
                       </div>
@@ -302,11 +295,10 @@
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
                     <div class="col">
-                      <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5>
+                      {% comment %} <h5 class="card-2-title text-uppercase text-muted mb-0">기업 소개</h5> {% endcomment %}
                       <span id='corp_intro' class="h2 font-weight-bold mb-0"></span>
                     </div>
-                    <div class="news-text">
-                      {{corp_info}}
+                    <div id="corp_info" class="news-text">
                     </div>
                 </div>
               </div>
@@ -315,40 +307,9 @@
             <div class="col-xl-3 col-lg-6">
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
-                  <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5>
+                  {% comment %} <h5 class="card-2-title text-uppercase text-muted mb-0">현재 날짜 {%now "Y-m-d "%}</h5> {% endcomment %}
                   <span class="h2 font-weight-bold mb-0">뉴스 요약</span>
-                  <div class = "jb-container">
-                    {% for news in corp_news %}
-                      <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
-                      <div id="popup" class="hide layer">
-                          <div class="content">
-                              <div class="pop-title">{{news.date}}</div>
-                              <div class="pop-summary">{{news.summary}}오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
-                                오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐오점뭐
-                                
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                                <button onclick="closePopup()" class="custom-end">종료</button>
-                                </div>
-                              <div class="pop-link">{{news.link}}</div>
-                          </div>
-                      </div>
-                    {% endfor %}
-                    
+                  <div id="corp_news" class = "jb-container">
                   </div>
                 </div>
               </div>
@@ -359,18 +320,16 @@
                   <div class="row">
                     
                     <div class="col">
-                      <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5>
-                      <span class="h2 font-weight-bold mb-0">Recent 5</span>
+                      {% comment %} <h5 class="card-2-title text-uppercase text-muted mb-0">실시간</h5> {% endcomment %}
+                      <span class="h2 font-weight-bold mb-0">국내 지수</span>
                     </div>
                     <div class="col-auto">
                       
                     </div>
                     
                   </div>
-                  <div class = "jb-container">
-                    {% for stock in stock_data  %}
-                      <p class="jb-title">{{stock.Date|date:'y-m-d'}} : {{stock.Close}}원</p>
-                    {% endfor %}
+                  <div id='stock_data' class = "jb-container">
+                    
                   </div>
                   </p>
                 </div>
@@ -812,12 +771,35 @@
             netincome = data.fin_data[i].thisyear;
           }
         } 
+
+        data.corp_news.forEach(function(news,idx){
+          $('#corp_news').append("<p class='jb-title' onclick='showPopup("+idx+")'>"+news.title+"</p> \
+          <div id='popup"+idx+"' class='popup hide layer'> \
+              <div class='content'> \
+                  <div class='pop-title'>"+news.date +"</div> \
+                  <div class='pop-summary'>" + news.summary +" \
+                    <button onclick='closePopup("+idx+")' class='custom-end'>종료</button> \
+                    </div> \
+                  <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
+              </div> \
+          </div>");
+        })
+       
+        $('#corp_info').html(data.corp_info);
+        
+        $('#stock_data').html("<p class='jb-title'>KS11 : "+data.stock_data.KS11[0].Close+" => "+data.stock_data.KS11[1].Close+"</p> \
+                                <a class='nav-link text-center'>변화량 : "+(data.stock_data.KS11[1].Close - data.stock_data.KS11[0].Close).toFixed(2)+"</a> \
+                                <p class='jb-title'>KQ11 : "+data.stock_data.KQ11[0].Close+" => "+data.stock_data.KQ11[1].Close+"</p>  \
+                                <a class='nav-link text-center'>변화량 : "+(data.stock_data.KQ11[1].Close - data.stock_data.KQ11[0].Close).toFixed(2)+"</a> \
+                                <p class='jb-title'>KS200 : "+data.stock_data.KS200[0].Close+" => "+data.stock_data.KS200[1].Close+"</p>\
+                                <a class='nav-link text-center'>변화량 : "+(data.stock_data.KS200[1].Close - data.stock_data.KS200[0].Close).toFixed(2)+"</a>");
+        
         
         drawDeptChart($('#chart-dept')
-        ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)])
+        ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)]);
         
         drawSalesChart($('#chart-sales2')
-        ,[dept,profit,revenue,netincome])
+        ,[dept,profit,revenue,netincome]);
 			},
       error	: function(xhr, status, error) {  
         $('#search_error').show();
@@ -846,14 +828,14 @@
   // 페이지 로딩 시 초기 높이 조절
   adjustTextareaHeight();
     
-  function showPopup() {
-    var popup = document.getElementById("popup");
+  function showPopup(number) {
+    var popup = document.getElementById("popup"+number);
     popup.classList.remove("hide");
     popup.classList.add("show");
   }
 
-  function closePopup() {
-      var popup = document.getElementById("popup");
+  function closePopup(number) {
+      var popup = document.getElementById("popup"+number);
       popup.classList.remove("show");
       popup.classList.add("hide");
   }

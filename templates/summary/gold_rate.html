@@ -321,12 +321,12 @@
                   <span class="h2 font-weight-bold mb-0">금 시세 뉴스 요약</span>
                   <div class = "jb-container">
                     {% for news in gold_news %}
-                      <p class="jb-title" onclick="showPopup()">{{news.title}}</p>
-                      <div id="popup" class="hide layer">
+                      <p class="jb-title" onclick="showPopup({{ forloop.counter }})">{{news.title}}</p>
+                      <div id="popup{{ forloop.counter }}" class="popup hide layer">
                           <div class="content">
                               <div class="pop-title">{{news.date}}</div>
                               <div class="pop-summary">{{news.summary}}
-                                <button onclick="closePopup()" class="custom-end">종료</button>
+                                <button onclick="closePopup({{ forloop.counter }})" class="custom-end">종료</button>
                                 </div>
                               <a class="pop-link" target='_blank' href='{{news.link}}'>{{news.link}}</a>
                           </div>
@@ -717,14 +717,14 @@
       document.getElementById(inputId).value = inputValue.slice(0, -1);
     }
   
-    function showPopup() {
-      var popup = document.getElementById("popup");
+    function showPopup(number) {
+      var popup = document.getElementById("popup"+number);
       popup.classList.remove("hide");
       popup.classList.add("show");
     }
   
-    function closePopup() {
-        var popup = document.getElementById("popup");
+    function closePopup(number) {
+        var popup = document.getElementById("popup"+number);
         popup.classList.remove("show");
         popup.classList.add("hide");
     }
