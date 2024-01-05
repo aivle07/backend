@@ -87,7 +87,7 @@
                                     <a href="{% url 'simulation:myreport' %}" class="investment">나의 투자 현황</a>
                                     <br>
                                     {% if search_message %}
-                                    {{search_message}}
+                                    <span style="color:red;">{{search_message}}</span>
                                     {% endif %}
                                       <div class="main-stock-info">
                                         <span class="stock-name" id="param">{{param}}</span>
@@ -146,7 +146,7 @@
                                                 </div> {% endcomment %}
                                                 <div class="trading-order-spinner" style="margin-top:20px; display:inline-block;">
                                                     <label class="label" style="width:20%; margin-right:10px;font-size:1rem;">수량</label>
-                                                    <input name="count" type="text" style="width:60%; margin:0; padding:0; text-align:right;" value="0">
+                                                    <input name="count" onkeyup="totalPrice();" id="count-val" type="text" style="width:60%; margin:0; padding:0; text-align:right;" value="0">
                                                     <label style="width:5%; text-align:right;">주</label>
                                                     {% if message %}
                                                     {{message}}
@@ -163,7 +163,7 @@
                                                         <span class="unit">원</span>
                                                     </div> {% endcomment %}
                                                     <div class="total-order-price">
-                                                        <label class="label">주문총액</label>
+                                                        <label class="label" id="label">주문총액</label>
                                                         <p class="price">0</p>
                                                         <span class="unit">원</span>
                                                     </div>
@@ -214,7 +214,33 @@
         else{
           alert("주식을 매수합니다!");
           return true;
+        } 
+      }
+
+      //총 금액 이벤트
+      function totalPrice(){
+        let value = document.querySelector("#input-now-value").value;
+        let count = document.querySelector("#count-val").value;
+        let price = document.querySelector(".price");
+        let unit = document.querySelector(".unit");
+        let label = document.querySelector("#label");
+
+        value = parseInt(value);
+        count = parseInt(count);
+
+        if(isNaN(value) || isNaN(count) || count < 0){
+          price.innerText = "1이상의 숫자를 입력하세요";
+          price.style = "color:red;";
+          unit.innerText = "";
+          label.innerText = "";
+          return;
         }
+
+        price.innerText = (value * count).toLocaleString();
+        price.style = "color:black;"
+        unit.innerText = "원";
+        label.innerText = "주문총액";
+
       }
     </script>
 </body>

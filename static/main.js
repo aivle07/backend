@@ -54,21 +54,21 @@ socket.onmessage = function(e){
     // graphData.data.datasets[0].data = djangoData.value[0];
     // now.innerText = djangoData.value[1];
     // 현재가격
-    now_value.innerText = djangoData.value[1].now_value;
+    now_value.innerText = (djangoData.value[1].now_value).toLocaleString();
     now_value.style = "color:" + djangoData.value[1].now_value_color + ";";
 
     // 거래량
-    today_volume.innerText = djangoData.value[1].today_volume;
+    today_volume.innerText = (djangoData.value[1].today_volume).toLocaleString();
 
     // 전날 종가
-    before_day.innerText = djangoData.value[1].before_day;
+    before_day.innerText = (djangoData.value[1].before_day).toLocaleString();
 
     // 오늘 고가
-    today_high.innerText = djangoData.value[1].today_high;
+    today_high.innerText = (djangoData.value[1].today_high).toLocaleString();
     today_high.style = "color:" + djangoData.value[1].today_high_color + ";";
 
     // 전일대비 가격
-    price_change.innerText = djangoData.value[1].price_change;
+    price_change.innerText = (djangoData.value[1].price_change).toLocaleString();
     price_change.style = "color:" + djangoData.value[1].price_change_color + ";";
 
     //등락율
@@ -76,11 +76,11 @@ socket.onmessage = function(e){
     today_change_rate.style = "color:" + djangoData.value[1].today_change_rate_color + ";";
 
     //시작가격
-    today_open.innerText = djangoData.value[1].today_open;
+    today_open.innerText = (djangoData.value[1].today_open).toLocaleString();
     today_open.style = "color:" + djangoData.value[1].today_open_color + ";";
 
     // 오늘 저가
-    today_low.innerText = djangoData.value[1].today_low;
+    today_low.innerText = (djangoData.value[1].today_low).toLocaleString();
     today_low.style = "color:" + djangoData.value[1].today_low_color + ";";
 
 
