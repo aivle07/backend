@@ -61,7 +61,7 @@ def news_summary(link):
 
     prompt = PromptTemplate(
         input_variables=["news"],
-        template="{news}를 3 문장으로 요약해줘.",
+        template="{news}를 10 문장으로 요약해줘.",
     )
     
     llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
