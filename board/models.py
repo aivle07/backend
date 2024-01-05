@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from accounts.models import User
+import os
 
 
 class Post(models.Model):
@@ -13,6 +14,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_file_name(self):
+        return os.path.basename(self.image.name)
+    
+    def get_absolute_url(self):
+        return reverse("board:board-list")
+    
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
