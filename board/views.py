@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from rest_framework.decorators import api_view
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from rest_framework.response import Response
 from .serializers import *
@@ -21,6 +21,7 @@ from rest_framework.permissions import AllowAny
 from .permissions import IsAuthorOrReadOnly
 from rest_framework.renderers import TemplateHTMLRenderer,JSONRenderer,BrowsableAPIRenderer
 from django.core.paginator import Paginator
+
 # Create your views here.
 
 # class BoardViewSet(viewsets.ModelViewSet):
@@ -28,6 +29,9 @@ from django.core.paginator import Paginator
 #     serializers = BoardListSerializerView(queryset)
 
 from django.shortcuts import render
+from .forms import *
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # # 페이지네이션
 # class BoardPageNumberPagination(PageNumberPagination):
@@ -73,7 +77,7 @@ class BoardListAPIView(ListAPIView):
 class BoardRetrieveAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = BoardDetailSerializerView
-    permission_classes = (IsAuthorOrReadOnly,)
+    #permission_classes = (IsAuthorOrReadOnly,)
     
     def retrieve(self, request, pk):
         
@@ -83,8 +87,8 @@ class BoardRetrieveAPIView(RetrieveAPIView):
             "board":instance,
             "commentList":commentList
         }
-        if not request.user.is_admin:
-            self.check_object_permissions(request, instance) # 이것을 qna에 이용
+        # if not request.user.is_admin:
+        #     self.check_object_permissions(request, instance) # 이것을 qna에 이용
         serializer = self.get_serializer(instance=data)
         return render(request,"board/notice_contents.html",{'data' :serializer.data})
     
@@ -100,7 +104,7 @@ class BoardCreateAPIView(CreateAPIView):
     # authentication_classes = [SessionAuthentication]
     queryset = Post.objects.all()
     serializer_class = BoardCreateSerializerView
-    permission_classes = (IsAuthenticated,IsAuthorOrReadOnly)
+    #permission_classes = (IsAuthenticated,IsAuthorOrReadOnly)
     
     def get(self, request):
         return render(request,'board/notice_write.html')
@@ -113,7 +117,37 @@ class BoardCreateAPIView(CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return redirect(reverse("board:board-list"))    
+        return redirect(reverse("board:board-list"))
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        """
+        `.dispatch()` is pretty much the same as Django's regular dispatch,
+        but with extra hooks for startup, finalize, and exception handling.
+        """
+        self.args = args
+        self.kwargs = kwargs
+        request = self.initialize_request(request, *args, **kwargs)
+        self.request = request
+        self.headers = self.default_response_headers  # deprecate?
+
+        try:
+            self.initial(request, *args, **kwargs)
+
+            # Get the appropriate handler method
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(),
+                                  self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+
+            response = handler(request, *args, **kwargs)
+
+        except Exception as exc:
+            response = self.handle_exception(exc)
+
+        self.response = self.finalize_response(request, response, *args, **kwargs)
+        return self.response   
         
 # 수정하기
 class BoardUpdateAPIView(UpdateAPIView):
@@ -149,3 +183,24 @@ class BoardDeleteAPIView(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = BoardDeleteSerializerView
     permission_classes = (IsAuthorOrReadOnly,IsAuthenticated)
+
+@api_view(('POST', 'GET'))
+def board_update(request,pk):
+    post = get_object_or_404(Post,id=pk)
+    if request.method == "POST":
+        # 수정
+        form = PostModelForm(request.POST,request.FILES,instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect(post)
+    else:
+        serializer = BoardUpdateSerializerView(post)
+    return render(request, 
+                  template_name="board/notice_write.html",
+                  context={"data":serializer.data},)
+   
+# 삭제 
+def board_delete(request,category,pk):
+    post = get_object_or_404(Post,id=pk)
+    post.delete()
+    return redirect("board:board-list")

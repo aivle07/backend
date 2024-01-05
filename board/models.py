@@ -15,8 +15,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-    def get_file_name(self):
-        return os.path.basename(self.image.name)
+    def get_image_name(self):
+        return os.path.basename(self.image.path)
     
     def get_absolute_url(self):
         return reverse("board:board-list")

@@ -13,7 +13,7 @@ class BoardRetrieveSerializerView(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source = 'author.username')
     class Meta:
         model = Post
-        fields = ["id","title","content","image","author","create_dt"]
+        fields = ["id","title","content","category","image","author","create_dt"]
         
 # qna 댓글
 class CommentSerializerSub(serializers.ModelSerializer):
