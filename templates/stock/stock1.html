@@ -59,6 +59,7 @@
                   <a href="/summary" class="nav-item nav-link">요약서비스</a>
                   <a href="/report" class="nav-item   nav-link">금융 리포트 요약</a>
                   <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                  <a href="/simulation/?param=삼성전자" class="nav-item nav-link">모의 투자</a>
                   <a href="/board" class="nav-item nav-link">게시판</a>
                 </div>
                 {% if not user.is_authenticated %}
@@ -66,7 +67,6 @@
                 <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                 {% else %}
                     <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
-                    <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
                     <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                     <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                 {% endif %}
@@ -368,10 +368,15 @@
       .slide-header .title {
         font-size: 1.2rem;
         font-weight: 500;
-        /*line-height: 2.4rem;*/
+        /* line-height: 2.4rem; */
         text-align: center;
-      
+        border-bottom: 1px solid #000;
+        margin-top: -10px;
+        margin-bottom: 20px;
+        width: 120%;
+        margin-left: -10%;
       }
+      
       
       .slide-header .btn-close {
           position: absolute;
@@ -420,11 +425,7 @@
         display: flex;
       }
       
-      .tabs-connected-underline.desktop .tab {
-        font-size: 1.4rem;
-        line-height: 3.1rem;
-        color: red;
-      }
+      
       
       .tabs-connected-underline .tab:disabled {
         cursor: unset;
@@ -1021,10 +1022,7 @@
         background-color: var(--neutral);
         border-radius: inherit;
       }
-      .trading-tab-form .result-form .btn-order.bid {
-        background-color: var(--up);
-        color: var(--on-up);
-      }
+      
       
       .trading-tab-form .result-form .btn-order {
         width: 100%;
@@ -1077,7 +1075,7 @@
         caret-color: var(--neutral);
       }
       
-      button {
+      .button {
         display: inline-block;
         font-family: inherit;
         vertical-align: middle;
@@ -1176,6 +1174,10 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-left:88%;
+      }
+      .investment:hover {
+        background-color: #fff;
+        color: #5e72e4;
       }
       
 </style>     

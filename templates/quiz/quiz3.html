@@ -59,19 +59,19 @@
                       <a href="/summary" class="nav-item nav-link">요약서비스</a>
                       <a href="/report" class="nav-item nav-link">금융 리포트 요약</a>
                       <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                      <a href="/simulation/?param=삼성전자" class="nav-item nav-link">모의 투자</a>
                       <a href="/board" class="nav-item nav-link">게시판</a>
                     </div>
                     {% comment %} <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a> {% endcomment %}
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     <!-- 로그인 페이지로 이동하는 버튼 -->
                     {% if not user.is_authenticated %}
-                    <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
-                    <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                        <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                        <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
-                        <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
-                        <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
+                        <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                     {% endif %}
                 </div>
             </nav>
@@ -113,13 +113,76 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-
-        
+        </div>    
     </div>
         <!-- Navbar & Hero End -->
-        
+            <!-- Footer Start -->
+            <div class="container-fluid bg-dark text-body footer wow fadeIn" data-wow-delay="0.1s">
+              <div class="container py-5 px-lg-5">
+                  <div class="row g-5">
+                      <div class="col-md-6 col-lg-3">
+                          <p class="section-title text-white h5 mb-4">주소<span></span></p>
+                          <p><i class="fa fa-map-marker-alt me-3"></i>(주)인천광역시 서구 가정동 인천서구지원센터</p>
+                          <p><i class="fa fa-phone-alt me-3"></i>+010 4526 6794</p>
+                          <p><i class="fa fa-envelope me-3"></i>ImaginationPlus@gmail.com</p>
+                          <div class="d-flex pt-2">
+                              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                              <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                          <p class="section-title text-white h5 mb-4">빠른 검색<span></span></p>
+                          <a class="btn btn-link" href="">메인</a>
+                          <a class="btn btn-link" href="">서비스 소개</a>
+                          <a class="btn btn-link" href="">AI 재무분석</a>
+                          <a class="btn btn-link" href="">금융퀴즈</a>
+                          <a class="btn btn-link" href="">모의 투자</a>
+                          <a class="btn btn-link" href="">게시판</a>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                          <p class="section-title text-white h5 mb-4">(주)우상상플러스<span></span></p>
+                          <a class="btn btn-link" href="">소개</a>
+                          <a class="btn btn-link" href="">업적</a>
+                          <a class="btn btn-link" href="">전략</a>
+                          <a class="btn btn-link" href="">역사</a>
+                          <a class="btn btn-link" href="">오시는길</a>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                          <p class="section-title text-white h5 mb-4">뉴스레터<span></span></p>
+                          <p>AI가 설명해주는 금융 정보 요약 서비스를 받고 싶으면 이메일을 입력하세요</p>
+                          <div class="position-relative w-100 mt-3">
+                              <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="이메일 입력하세요" style="height: 48px;">
+                              <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="container px-lg-5">
+                  <div class="copyright">
+                      <div class="row">
+                          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                              &copy; <a class="border-bottom" href="#">(주)우상상플러스</a>, COPYRIGHTS 우상상플러스. ALL RIGHTS RESERVED.      
+                
+                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                              <br>
+                                <a class="border-bottom" href="/private">|개인정보 처리방침|</a>
+                                <a class="border-bottom" href="/private2">이용약관|</a>
+                          </div>
+                          <div class="col-md-6 text-center text-md-end">
+                              <div class="footer-menu">
+                                  <a href="">메인</a>
+                                  <a href="">ARS안내</a>
+                                  <a href="">고객센터</a>
+                                  <a href="">질문 및 답변</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Footer End -->    
 
 
         <!-- Back to Top -->
@@ -171,19 +234,19 @@
    }
   
    .btn-quiz {
-    padding: 10px 20px;
+    padding: 13px 12px;
     font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
-    width: 13%;
+    width: 16%;
     position: absolute;
-    top: 36%; /* 중앙으로 이동하는 부분 */
+    top: 29%;
     margin-left: 10.3px;
-    left: 50%; /* 중앙으로 이동하는 부분 */
-    transform: translate(-50%, -50%); 
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-weight: 400;
-   }
-
+    text-align: center;
+    }
    .frame .glass-crystal-ring {
      position: relative;
      width: 436px;
@@ -214,9 +277,10 @@
    
    .circle7 {
      position: absolute;
-     width: 350px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
+     width: 380px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
      height: 310px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
      top:41%; /* 원하는 위치에 맞게 조절하세요 */
+     transform: rotate(5deg);
      left: 57%; /* 원하는 위치에 맞게 조절하세요 */
    }
    
@@ -227,19 +291,16 @@
        top: 191px;
        left: 509px;
        background-color: #fff;
+       margin-top:20%;
    }
 
    .quiz-name{
      left: 50%;
-   }
-   .textset-tit{
-     
-     margin-top: 20px; 
-     
+   
    }
    .content-tit .textset-tit {
      position: absolute;
-     top: 40%;
+     top: 19%;
      left: 50%;
      transform: translate(-50%, -50%);
      font-family: "KoHo-SemiBold", Helvetica;
@@ -247,9 +308,9 @@
      color: #000000;
      font-size: 25px;
      letter-spacing: 0;
-     line-height: 1;
      letter-spacing: 3px;
-     line-height: 1.5;
+     line-height: 1.7;
+     text-align: center;
    }
    
 </style>

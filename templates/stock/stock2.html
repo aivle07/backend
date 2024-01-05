@@ -60,6 +60,7 @@
                       <a href="/summary" class="nav-item nav-link">요약서비스</a>
                       <a href="/report" class="nav-item   nav-link">금융 리포트 요약</a>
                       <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                      <a href="/simulation/?param=삼성전자" class="nav-item nav-link">모의 투자</a>
                       <a href="/board" class="nav-item nav-link">게시판</a>
                     </div>
                     {% if not user.is_authenticated %}
@@ -67,7 +68,6 @@
                     <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
                         <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
                         <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                     {% endif %}
@@ -94,14 +94,15 @@
                                     <div class="overlap-group">
                                       <div class="text-wrapper">투자 수익률</div>
                                     </div>
-                                    {% if total.total_profit_and_loss > 0 %}
-                                    <div class="text-wrapper-2" style="color:red;">{{total.total_rate}}</div>
+                                     {% if total.total_profit_and_loss > 0 %}
+                                     <div class="text-wrapper-2" style="color:red;">{{total.total_rate}}</div>
+                                    </div>
                                   </div>
                                   <div class="overlap-2">
                                     <div class="overlap-3">
                                       <div class="text-wrapper-4">손익</div>
                                     </div>
-                                    <div class="text-wrapper-3" style="color:red;">{{total.total_profit_and_loss|intcomma}}</div>
+                                    <div class="text-wrapper-3" style="color:red;">{{total.total_profit_and_loss|intcomma}}원</div>
                                   </div>
                                     {% endif %}
                                     {% if total.total_profit_and_loss == 0 %}
@@ -121,7 +122,7 @@
                                     <div class="overlap-3">
                                       <div class="text-wrapper-4">손익</div>
                                     </div>
-                                    <div class="text-wrapper-3" style="color:blue;">{{total.total_profit_and_loss|intcomma}}</div>
+                                    <div class="text-wrapper-3" style="color:blue;">{{total.total_profit_and_loss|intcomma}}원</div>
                                   </div>
                                     {% endif %}
 
@@ -267,319 +268,329 @@
 
 
 
-  <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        top: 40%;
-      }
-      thead {
-        background-color: #87CEEB;
-        color: white; 
-    }
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    top: 40%;
+  }
 
-      table, th, td {
-        border: 1px solid lightblue;
-      }
+  thead {
+    background-color: #87CEEB;
+    color: white;
+  }
 
-      th, td {
-        padding: 8px;
-        text-align: left;
-      }
+  table, th, td {
+    border: 1px solid lightblue;
+  }
 
-      th {
-        background-color: #f2f2f2;
-      }
-    
-      .overlap-3 {
-        position: absolute;
-        width: 1750px;
-        height: 750px;
-        top: 120px;
-        margin-left: -700px;
-      }
-      .rectangle-21 {
-      width: 655px;
-      height: 656px;
-      top: 191px;
-      left: 509px;
-      background-color: #fff;
-      border-radius: 7px;
-      border: 1px solid;
-      border-color: #fff;
-      position: absolute;
-      }
-      .frame {
-        background-color: #ffffff;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 100%;
-      }
-       
-      .div {
-        background-color: #ffffff;
-        overflow: hidden;
-        width: 14px;
-        height: 187px;
-        position: relative;
-      }
-       
-      .overlap {
-        position: absolute;
-        width: 251px;
-        height: 147px;
-        top: 273px;
-        left: 600px;
-        background-image: url(./img/rectangle-145.svg);
-        background-size: 100% 100%;
-        border: 3px solid lightgray;
-        border-radius: 30px;  
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-       
-      .overlap-group {
-        position: absolute;
-        width: 219px;
-        height: 64px;
-        top: 52px;
-        left: 128px;
-      }
-       
-      .text-wrapper {
-        width: 219px;
-        left: -50px;
-        transform: rotate(0.33deg);
-        font-size: 16px;
-        position: absolute;
-        top: -25px;
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 300;
-        color: #000000;
-        letter-spacing:60;
-        line-height: normal;
-        
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
 
-      }
-       
-      .line {
-        width: 110px;
-        height: 2px;
-        top: 32px;
-        left: 5px;
-        position: absolute;
-        object-fit: cover;
-      }
-       
-      .text-wrapper-2 {
-        position: absolute;
-        width: 183px;
-        top: 70px;
-        left: 85px;
+  th {
+    background-color: #f2f2f2;
+  }
 
-        transform: rotate(0.33deg);
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 300;
-        color: #fc6161;
-        font-size: 36px;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-      .overlap-2 {
-        position: absolute;
-        width: 251px;
-        height: 147px;
-        top: 273px;
-        left: 908px;
-        background-image: url(./img/rectangle-160.svg);
-        background-size: 100% 100%;
-        border: 3px solid lightgray;
-        border-radius: 30px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-       
-      .text-wrapper-3 {
-        width: 326px;
-        top: 66px;
-        left: 98px;
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 400;
-        color: #fc6161;
-        font-size: 33px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-      .overlap-3 {
-        position: absolute;
-        width: 230px;
-        height: 64px;
-        top: 45px;
-        left: 789px;
-      }
-       
-      .text-wrapper-4 {
-        width: 203px;
-        top: -18px;
-        left: 14px;
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 300;
-        color: #000000;
-        font-size: 16px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-      .frame .img {
-        width: 110px;
-        height: 2px;
-        top: 38px;
-        left: 0;
-        position: absolute;
-        object-fit: cover;
-      }
-       
-      .group {
-        position: absolute;
-        width: 2124px;
-        height: 115px;
-        top: 0;
-        left: 0;
-      }
-       
-      .overlap-group-2 {
-        position: relative;
-        width: 2114px;
-        height: 115px;
-        background-image: url(./img/rectangle-1.png);
-        background-size: 100% 100%;
-      }
-      .overlap-8 {
-        position: absolute;
-        width: 417px;
-        height: 84px;
-        top: 319px;
-        left: 129px;
-      }
-       
-      .text-wrapper-17 {
-        width: 142px;
-        top: 7px;
-        left: 2px;
-        font-family: "Inter-Light", Helvetica;
-        font-weight: 300;
-        color: #000000;
-        font-size: 16px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-       
-      .text-wrapper-18 {
-        width: 263px;
-        left: 154px;
-        font-size: 24px;
-        position: absolute;
-        top: 0;
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 400;
-        color: #000000;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-      .overlap-9 {
-        position: absolute;
-        width: 421px;
-        height: 48px;
-        top: 380px;
-        left: 129px;
-      }
-       
-      .text-wrapper-19 {
-        width: 142px;
-        top: 1px;
-        left: 2px;
-        font-family: "Inter-Light", Helvetica;
-        font-weight: 300;
-        color: #000000;
-        font-size: 16px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-       
-      .element {
-        width: 263px;
-        top: 0;
-        left: 158px;
-        font-family: "Inter-Regular", Helvetica;
-        font-weight: 400;
-        color: #000000;
-        font-size: 24px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-       
-      .overlap-10 {
-        position: absolute;
-        width: 417px;
-        height: 53px;
-        top: 315px;
-        left: 159px;
-      }
-       
-      .text-wrapper-20 {
-        width: 142px;
-        top: 6px;
-        left: 0;
-        font-family: "Inter-Light", Helvetica;
-        font-weight: 300;
-        color: #000000;
-        font-size: 24px;
-        position: absolute;
-        letter-spacing: 0;
-        line-height: normal;
-      }
-      .sell-button {
-        background-color: blue;
-        color: white;
-        padding: 10px 30px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 10px 2px;
-        cursor: pointer;
-        border-radius: 10px;
-      }
+  .overlap-3 {
+    position: absolute;
+    width: 1750px;
+    height: 750px;
+    top: 120px;
+    margin-left: -700px;
+  }
+
+  .rectangle-21 {
+    width: 655px;
+    height: 656px;
+    top: 191px;
+    left: 509px;
+    background-color: #fff;
+    border-radius: 7px;
+    border: 1px solid;
+    border-color: #fff;
+    position: absolute;
+  }
+
+  .frame {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .div {
+    background-color: #ffffff;
+    overflow: hidden;
+    width: 14px;
+    height: 187px;
+    position: relative;
+  }
+
+  .overlap {
+    position: absolute;
+    width: 251px;
+    height: 147px;
+    top: 273px;
+    left: 600px;
+    background-image: url(./img/rectangle-145.svg);
+    background-size: 100% 100%;
+    border: 3px solid lightgray;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .overlap-group {
+    position: absolute;
+    width: 219px;
+    height: 64px;
+    top: 52px;
+    left: 128px;
+  }
+
+  .text-wrapper {
+    width: 219px;
+    left: -23%;
+    transform: rotate(0.33deg);
+    font-size: 16px;
+    position: absolute;
+    top: -25px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 300;
+    color: #000000;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .line {
+    width: 110px;
+    height: 2px;
+    top: 32px;
+    left: 5px;
+    position: absolute;
+    object-fit: cover;
+  }
+
   
-      .sell-button:active {
-        background-color: blue;
-      }
-      .mask-group-2 {
-        margin-top: -10%;
-        top: 50px;
-      }
-      .text-wrapper-name {
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        text-align: center;
-        padding: 10px;
-        background-color: #f0f0f0;
-        border-radius: 8px;
-        margin: 20px 0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-bottom: 2px solid #ccc; /* 하단에 2픽셀 두께의 회색 선 추가 */
-        margin-top: -3%;
-        width: 92%;
-        margin-left: 5%;
-      }
-    </style>
+
+  .overlap-2 {
+    position: absolute;
+    width: 251px;
+    height: 147px;
+    top: 273px;
+    left: 908px;
+    background-image: url(./img/rectangle-160.svg);
+    background-size: 100% 100%;
+    border: 3px solid lightgray;
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-wrapper-2,
+  .text-wrapper-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0.33deg);
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 300;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  .text-wrapper-2 {
+    color: #fc6161;
+    margin-top:20px;
+  }
+
+  .text-wrapper-3 {
+    color: #fc6161;
+    margin-top:20px;
+  }
+  
+  /* 다른 부분은 생략합니다. */
+
+
+  .overlap-3 {
+    position: absolute;
+    width: 230px;
+    height: 64px;
+    top: 45px;
+    left: 789px;
+  }
+
+  .text-wrapper-4 {
+    width: 203px;
+    top: -18px;
+    left: 14px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 300;
+    color: #000000;
+    font-size: 16px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .frame .img {
+    width: 110px;
+    height: 2px;
+    top: 38px;
+    left: 0;
+    position: absolute;
+    object-fit: cover;
+  }
+
+  .group {
+    position: absolute;
+    width: 2124px;
+    height: 115px;
+    top: 0;
+    left: 0;
+  }
+
+  .overlap-group-2 {
+    position: relative;
+    width: 2114px;
+    height: 115px;
+    background-image: url(./img/rectangle-1.png);
+    background-size: 100% 100%;
+  }
+
+  .overlap-8 {
+    position: absolute;
+    width: 417px;
+    height: 84px;
+    top: 319px;
+    left: 129px;
+  }
+  
+  .text-wrapper-17 {
+    width: 142px;
+    top: 7px;
+    left: 2px;
+    font-family: "Inter-Light", Helvetica;
+    font-weight: 300;
+    color: #000000;
+    font-size: 16px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+    border-bottom: 1px solid #000;
+    width: 80%;
+    padding: 5px;
+  }
+  
+  .text-wrapper-18 {
+    width: 263px;
+    top: 6px;
+    left: 153px;
+    font-size: 24px;
+    position: absolute;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-left: 10px; /* 여백 조절 */
+  }
+  
+  .overlap-9 {
+    position: absolute;
+    width: 421px;
+    height: 48px;
+    top: 380px;
+    left: 129px;
+  }
+  
+  .text-wrapper-19 {
+    width: 142px;
+    top: 1px;
+    left: 2px;
+    font-family: "Inter-Light", Helvetica;
+    font-weight: 300;
+    color: #000000;
+    font-size: 16px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+    border-bottom: 1px solid #000;
+    width: 80%;
+    padding: 5px;
+  }
+  
+  .element {
+    width: 263px;
+    top: 0;
+    left: 158px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 24px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+    margin-left: 10px; /* 여백 조절 */
+  }
+
+  .overlap-10 {
+    position: absolute;
+    width: 417px;
+    height: 53px;
+    top: 315px;
+    left: 159px;
+  }
+
+  .text-wrapper-20 {
+    width: 142px;
+    top: 6px;
+    left: 0;
+    font-family: "Inter-Light", Helvetica;
+    font-weight: 300;
+    color: #000000;
+    font-size: 24px;
+    position: absolute;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .sell-button {
+    background-color: blue;
+    color: white;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .sell-button:active {
+    background-color: blue;
+  }
+
+  .mask-group-2 {
+    margin-top: -10%;
+    top: 50px;
+  }
+
+  .text-wrapper-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #ccc;
+    margin-top: -3%;
+    width: 92%;
+    margin-left: 5%;
+  }
+</style>
