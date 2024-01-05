@@ -1,5 +1,6 @@
 {%load static%}
 {%load socialaccount %}
+{% load custom_tags %}
 <html lang="ko">
 
 <head>
@@ -30,6 +31,13 @@
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    
+    {% if data.board.author != user.username and not user.is_admin and data.board.category == "Q&A" %}
+    <script>
+        alert("권한이 없습니다.");
+        history.go(-1);
+    </script>
+    {% endif %}
 </head>
 
 <body>
@@ -89,10 +97,14 @@
                     <div class="overlap-3">
                       <div class="overlap-group-wrapper">
                         {% if data.board.image %}
-                            {% comment %} 첨부파일 <a download href='{{data.board.image}}'>{{data.board.get_file_name}}</a><br> {% endcomment %}
-                            <img src="{{data.board.image}}" alt="이미지" style="width:500px; height:300px;"/><br>
+                            첨부파일 <a download href='{{data.board.image}}'>{{data.board.image|get_file_name}}</a><br>
+                            {% comment %} <img src="{{data.board.image}}" alt="이미지" style="width:500px; height:300px;"/><br> {% endcomment %}
                         {% endif %}
-                        {{data.board.content}}
+                        {% if not data.board.image %}
+                        첨부파일 없음<br>
+                        
+                        {% endif %}
+                        {{data.board.content|safe}}
                       </div>
                       </div>
                     </div>
@@ -103,12 +115,33 @@
            
             </div>
           </div>
+          <div class="comment">
+            {% for comment in data.commentList %}
+                <div>
+                    <span> 댓글 번호 :{{comment.id}}</span><br>
+                    <span> 댓글 내용 : {{comment.content}}</span><br>
+                    <span> 댓글 작성일 : {{comment.create_dt}}</span><br>
+                </div>
+            {% endfor %}
+            {% if not data.commentList and data.board.category == "Q&A" %}
+            
+            <div>
+                <span>답변이 아직 작성되지 않았습니다.</span>
+            </div>
+            {% endif %}
+          </div>
           <div class="input-file">
             <div class= btn-notice>
                 <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
                 {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
                 {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
+                
+                {% if data.board.author == user.username or user.is_admin%}
                 <a class="create" href="/board/{{data.board.id}}/update/">수정하기</a>
+                <a class="create" href="/board/{{data.board.category}}/{{data.board.id}}/delete/" onClick="return confirm('정말로 삭제하시겠습니까?');">삭제하기</a>
+                
+                {% endif %}
+                
             </div>
           </div>      
         
