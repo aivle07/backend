@@ -117,15 +117,22 @@
                     <div class="navbar-nav mx-auto py-0">
                         
                         <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                        <a href="javascript:void(0)" class="nav-item nav-link">금융 리포트 요약</a>
+                        <a href="javascript:void(0)" class="nav-item nav-link">금융 리포트</a>
                         <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
                         <a href="/board" class="nav-item nav-link">게시판</a>
                         
                     </div>
-                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
                     <!-- 로그인 페이지로 이동하는 버튼 -->
-                    <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
-                    <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% if not user.is_authenticated %}
+                        <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                        <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% else %}
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
+                        <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
+                        <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
+                        {% comment %} <a href="{% url 'quiz:quiz-list' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">퀴즈</a></li> {% endcomment %}
+                    {% endif %}
                 </div>
             </nav>
             <div class="container-xxl", id="main">
@@ -139,10 +146,13 @@
                                       <br>
                                       <h2 class="textset-subtit">| Title | {{report.title}}</h2>
                                       <br>
+                                        <!--금융리포트 다운로드 -->
                                       <a class="report-font" download href="{{report.file.url}}">📑 금융 리포트 다운로드</a>
+                                      <div id="example1" style="height:30rem;"></div>
                                     </div>
                                 </div>
-                                <!--금융리포트 다운로드 -->
+                              
+                              
                               
                             <div class="container-md">
                                 <div class="custom-container-2">
@@ -280,6 +290,7 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js" integrity="sha512-lDL6DD6x4foKuSTkRUKIMQJAoisDeojVPXknggl4fZWMr2/M/hMiKLs6sqUvxP/T2zXdrDMbLJ0/ru8QSZrnoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
@@ -294,6 +305,10 @@
 </html>
 {% csrf_token %}
 <script>
+  $(function(){
+    
+    PDFObject.embed("{{report.file.url}}","#example1");
+  });
   function sendMessage() {
     // crsf 토큰 가져오기
     var csrftoken = $("[name=csrfmiddlewaretoken]").val();

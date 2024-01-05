@@ -510,6 +510,7 @@
 
   <script>
     let salesChart;
+    let deptChart;
     interestChart = function () {
       var e, a, t = $("#chart-interest");
       var initialData = {
@@ -664,7 +665,7 @@
         backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
       }]
     };
-    a = new Chart(e, {
+    deptChart = new Chart(e, {
       type: "doughnut",
       options: {
         is3D: true,
@@ -858,7 +859,8 @@ svg.append("text")
     $('.summary_card').fadeOut();
     $('.spin-class').show();
     $('#corp_news').html('');
-    $('#chart-sales2').html('');
+    if(salesChart != undefined) salesChart.destroy();
+    if(deptChart != undefined) deptChart.destroy();
     $.ajax({
 			type:'post',   //post 방식으로 전송
 			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
@@ -936,7 +938,7 @@ svg.append("text")
         
         $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
         $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
-        console.log(salesChart);
+        
 			},
       error	: function(xhr, status, error) {  
         $('#search_error').show();
