@@ -36,8 +36,8 @@ def search_corp(request):
     if user:
         corp_name = request.POST.get('corp_name')
         if agent == None:
-                 agent, _ =  get_financial_agent(corp_name)
-                 print('에이전트 생성완료')
+            agent, _ =  get_financial_agent(corp_name)
+            print('에이전트 생성완료')
         # 여기서 모두 결과를 가져온 후 (corp_news)
         
         start = time.time()
@@ -54,12 +54,16 @@ def search_corp(request):
         crtfc_key = os.getenv("CRTFC_KEY")
         financial_data = get_financial_statement(get_corp_code(corp_name,crtfc_key),crtfc_key)
         
-        stock_data = {}
+        stock_data = {            
+            'KS11' : fdr.DataReader('KS11').tail(2).to_dict(orient='records'), # KOSPI 지수 (KRX)
+            'KQ11' : fdr.DataReader('KQ11').tail(2).to_dict(orient='records'), # KOSDAQ 지수 (KRX)
+            'KS200' : fdr.DataReader('KS200').tail(2).to_dict(orient='records'), # KOSPI 200 (KRX)
+        }
         try:
             #종목코드가 파라미터일 경우
             df = fdr.DataReader(financial_data[0]['stock_code']).sort_index(ascending=False).head()    
             df = df.reset_index().rename(columns={"index": "date"})
-            stock_data = df.to_dict(orient='records')
+            
         except Exception as e:
             #회사, 주식명이 파라미터일 경우
             name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
@@ -69,7 +73,6 @@ def search_corp(request):
             
             df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
             df = df.reset_index().rename(columns={"index": "date"})
-            stock_data = df.to_dict(orient='records')
         
         
         # 재무제표 
@@ -100,11 +103,6 @@ def search_corp(request):
             'stock_data' : stock_data,
             'chart': chart,
             'fin_data':fin_data,
-            'corp_news' : [{'title':'good1','link':'naver.com','summary':'content','date':'2024-01-02'},
-                            {'title':'good2','link':'naver.com','summary':'content','date':'2024-01-02'},
-                            {'title':'good3','link':'naver.com','summary':'content','date':'2024-01-02'},
-                            {'title':'good4','link':'naver.com','summary':'content','date':'2024-01-02'},
-                            {'title':'good5','link':'naver.com','summary':'content','date':'2024-01-02'}],
         },status=status.HTTP_200_OK)
     else:  # 로그인이 되어 있지 않다면 
         return redirect('/accounts/login/?next=/summary')
