@@ -83,6 +83,7 @@
                                 </div>
                                 <!--금융리포트 다운로드 -->
                               <a download href="{{report.file.url}}">{{report.get_file_name}}</a>
+                              <div id="example1" style="height:30rem;"></div>
                             <div class="container-md">
                                 <div class="custom-container-2">
                                   <div class="box-container shadow">
@@ -206,6 +207,7 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js" integrity="sha512-lDL6DD6x4foKuSTkRUKIMQJAoisDeojVPXknggl4fZWMr2/M/hMiKLs6sqUvxP/T2zXdrDMbLJ0/ru8QSZrnoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
@@ -220,6 +222,10 @@
 </html>
 {% csrf_token %}
 <script>
+  $(function(){
+    
+    PDFObject.embed("{{report.file.url}}","#example1");
+  });
   function sendMessage() {
     // crsf 토큰 가져오기
     var csrftoken = $("[name=csrfmiddlewaretoken]").val();

@@ -207,3 +207,5 @@ AUTHENTICATION_BACKENDS = [
  
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

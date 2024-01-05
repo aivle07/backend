@@ -8,12 +8,14 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.http import JsonResponse
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 db = None
 summary = None
 # Create your views here.
 @login_required
+@xframe_options_exempt
 def report(request):
     global db, summary
     
