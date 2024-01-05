@@ -911,7 +911,7 @@ svg.append("text")
                   <div class='pop-title'>"+news.title+"</div> \
                   <div class='pop-date'>"+news.date+"</div>\
                   <div class='pop-summary'>" + news.summary +" \
-                    <button onclick='closePopup("+idx+")' class='custom-end'>종료</button> \
+                    <button onclick='closePopup("+idx+")' class='custom-end'>닫기</button> \
                     </div> \
                   <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
               </div> \
@@ -989,7 +989,7 @@ svg.append("text")
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
     });
 
-  function sendMessage() {
+    function sendMessage() {
       // 사용자가 입력한 질문 가져오기
       let userQuestion = $('#message-input').val();
     
@@ -1006,7 +1006,7 @@ svg.append("text")
         },
         success: function (data) {
           console.log(data);
-          
+    
           // 챗봇의 답변을 대화창에 추가
           $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
     
@@ -1015,9 +1015,22 @@ svg.append("text")
     
           // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
           $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+          // 대화창을 맨 아래로 스크롤
+          $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
         }
       });
+
+      // 대화창을 맨 아래로 스크롤
+      $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
     }
+
+    $('.card-custom').on('scroll', function () {
+      if ($('.card-custom').scrollTop() + $('.card-custom').innerHeight() >= $('.card-custom')[0].scrollHeight) {
+        // 맨 아래에 도달한 경우 스크롤을 유지
+        $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+      }
+    });
 
 </script>
 
