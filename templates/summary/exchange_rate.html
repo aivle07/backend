@@ -359,6 +359,7 @@
                             <button onclick="appendToInput('calc-input-currency', '0')">0</button>
                             <button onclick="appendToInput('calc-input-currency', '.')">.</button>
                             <button onclick="removeLastDigit('calc-input-currency')">←</button>
+                            <button onclick="meaningless()" class="meaningless-button" id="calc-input-currency-nomean-button"></button>
                         </div>
                     </div>
                   </div>
@@ -424,7 +425,7 @@
               </div>
             </div>
             <div class="card">
-              <div class="card-custom">
+              <div class="card-custom" style="max-height: 300px; overflow-y: auto;">
                 <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
                 <div class="news-text" id='chatbot_conversation'></div>
                 
@@ -686,9 +687,23 @@
     
           // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
           $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+          // 대화창을 맨 아래로 스크롤
+          $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
         }
       });
+
+      // 대화창을 맨 아래로 스크롤
+      $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
     }
+
+    $('.card-custom').on('scroll', function () {
+      if ($('.card-custom').scrollTop() + $('.card-custom').innerHeight() >= $('.card-custom')[0].scrollHeight) {
+        // 맨 아래에 도달한 경우 스크롤을 유지
+        $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+      }
+    });
+
   var currentCurrency = 'dollars'; // 초기화 달러
 
   // 달러와 엔화의 환율 설정
@@ -708,7 +723,7 @@
     var inputId = 'calc-input-currency';
     var resultId = 'calc-result-currency';
     var inputValue = parseFloat(document.getElementById(inputId).value);
-
+  
    // 계산 및 결과 업데이트
    var result;
    if (currentCurrency === 'dollars') {
@@ -829,6 +844,8 @@ calcButtons.forEach(function (button) {
     button.classList.remove('hovered');
   });
 });
+
+
   
   </script>
 </body>
