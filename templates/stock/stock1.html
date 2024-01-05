@@ -38,7 +38,6 @@
     </script>
     {% endif %}
 </head>
-
 <body>
   <div class="container-xxl bg-white p-0">
       <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -46,7 +45,6 @@
               <span class="sr-only">Loading...</span>
           </div>
       </div>
-
       <div class="container-xxl position-relative p-0" id="home">
           <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
               <a href="/" class="navbar-brand p-0">
@@ -74,7 +72,6 @@
                 {% endif %}
               </div>
           </nav>
-
           <div class="container-xxl" id="main">
               <div class="custom">
                   <div class="container">
@@ -83,12 +80,12 @@
                           <div class="content-container">
                               <div class="main-stock-info" status="up">
                                   <div class="stock-info">
-                                    <form action="" method="get" style="margin-top:40px;">
+                                    <form action="" method="get" style="margin-top:20px;">
                                       <input type="text" name="param" value="{{param|default:''}}" placeholder="검색"/>
                                       <input type="submit" value="검색"/>
-                                      <a href="/stock2" class="investment">나의 투자 현황</a>
                                     </form>
                                     <a href="{% url 'simulation:myreport' %}" class="investment">나의 투자 현황</a>
+                                    <br>
                                     {% if search_message %}
                                     {{search_message}}
                                     {% endif %}
@@ -104,7 +101,7 @@
                                         <span>전일대비</span>
                                         <span class="symbol-image" status="up" id="price-change" style=""></span> 
                                         <span class="middle-point">ㆍ</span>
-                                        <span class="volume-label">거래량</span>
+                                        <span class="volume-label" style="font-size:1.1rem;">거래량</span>
                                         <span class="volume" id="today-volume"></span>
                                       </div>
                                       <div class="chart-ohlcv-wrap">
@@ -113,7 +110,7 @@
                                             <span>시가</span><span id="today-open" style=""></span>
                                             <span>고가</span><span id="today-high" style=""></span>
                                             <span>저가</span><span id="today-low" style=""></span>
-                                            <span>전일종가</span><span id="before-day"></span>   
+                                            <span>전일종가</span><span id="before-day"></span>
                                         </span>
                                       </div>
                                       <div class="sma-legend legend-summary-wrap">
@@ -124,13 +121,9 @@
                                       </div>
                                     </div>
                                   </div><!--stock-info-->
-
-
-                                  <div class="chart-section" style="width:110%" >
-                                  <div class="chart-section" style="width:110%" >
+                                  <div class="chart-section" >
                                       <div class="chart-legend" >
-                                        <div id="chart">
-                                        
+                                        <div id="chart" style="width:130%;">
                                         </div>
                                       </div>
                                       <div class="sell-point" >
@@ -138,12 +131,10 @@
                                           <div class="slide-header">
                                               <h2 class="title" style="font-size: 1.2rem;">주식주문</h2>
                                               <span style="width: 100%; transform: translate(0px); background-color: #000000"></span>
-                                          </div>
-                                              <span style="width: 100%; transform: translate(0px); background-color: #000000"></span>
                                             </div>
                                         </div>                                          
                                         <div class="tabs-connected-underline desktop">
-                                            <button class="tab" style="font-size: 1.2rem;">매수</button>
+                                            <button class="tab" style="font-size: 1.1rem;">매수</button>
                                             <span class="underline" style="width: 100%; transform: translate(0px); background-color: var(--up);"></span>
                                         </div>
                                         <div class="trading-tab-form">
@@ -151,63 +142,49 @@
                                             <form action="" method="get" name="myform">
                                             <div class="form-wrapper quantity-form">
                                                 {% comment %} <div class="header">
-                                                    <p class="label" style="font-size: 1.1rem;">수량</p>
-                                                    
+                                                    <p class="label" style="font-size: 1.1rem;">수량</p>   
                                                 </div> {% endcomment %}
                                                 <div class="trading-order-spinner" style="margin-top:20px; display:inline-block;">
-                                                    <label class="label" style="width:20%; margin-right:10px;">수량</label>
-                                                    <input name="count" type="text" style="width:70%; margin:0; padding:0; text-align:right;" value="0">
+                                                    <label class="label" style="width:20%; margin-right:10px;font-size:1rem;">수량</label>
+                                                    <input name="count" type="text" style="width:60%; margin:0; padding:0; text-align:right;" value="0">
                                                     <label style="width:5%; text-align:right;">주</label>
                                                     {% if message %}
                                                     {{message}}
                                                     {% endif %}
                                                     <input type="hidden" name="commodity" value="{{param}}"/>
                                                     <input id="input-now-value" type="hidden" name="now-value" value=""/>
-                                                    
-                                                </div>
-                                                
+                                                </div>    
                                             </div>
                                             <div class="result-form">
                                                 <div>
+                                                    {% comment %} <div class="buyable-cash">
+                                                        <label class="label">최대</label>
+                                                        <p class="price">9,688,243</p>
+                                                        <span class="unit">원</span>
+                                                    </div> {% endcomment %}
                                                     <div class="total-order-price">
                                                         <label class="label" style="font-size:1rem;">주문총액</label>
                                                         <p class="price">0</p>
-                                                        <span class="unit" style="font-size:1rem;" style="font-size:1rem;">원</span>
+                                                        <span class="unit">원</span>
                                                     </div>
                                                 </div>
-                                                <input type="submit" onclick="return buyStock();" class="btn-order clickable-layer bid" value="매수" />
+                                                <input type="submit" onclick="return buyStock();" class="btn-order clickable-layer bid" style="font-size:1.1rem;"value="매수" />
                                             </div>
                                           </form>
                                           <div>
                                             {% comment %} <a href="{% url 'simulation:myreport' %}">나의 투자 상황 보기</a> {% endcomment %}
                                           </div>
                                         </div>
-                                      </div>
-                                  </div>
-
+                                      </div>                     
                                   </div>
                               </div>
                           </div>
-
-
                       </div>
                   </div>
-
-
-
               </div>
           </div>
       </div>
   </div>
-
-        <!-- Navbar & Hero End -->
-        
-
-
-        <!-- Back to Top -->
-        
-    
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -241,14 +218,7 @@
       }
     </script>
 </body>
-
-
 </html>
-
-
-
-
-
 <style>
       .sell-section {
         width:20%;
@@ -365,7 +335,7 @@
       .volume-label {
           line-height: 1.6rem;
           margin-right: 0.4rem;
-          font-size: 1rem;
+          font-size: 1.1rem;
           color: var(--neutral-tertiary);
       }
       .volume {
@@ -980,7 +950,7 @@
         line-height: 2.4rem;
         font-size: 1.5rem;
         font-weight: 500;
-        font-coler: blue;
+        margin-left: auto;
       }
       
       
@@ -1031,21 +1001,15 @@
       
       .trading-tab-form .result-form .btn-order.bid {
         background-color: red;
-        color: #000000;
-        font-size:1.1rem;
-        font-weight: 800;
+        color: #fff;
+        border: none; /* 초기 상태에서 테두리 없애기 */
+        transition: box-shadow 0.3s ease; /* 그림자 변화에 애니메이션 추가 */
       }
-      
-      .trading-tab-form .result-form .btn-order {
-        width: 70%;
-        height: 3.2rem;
-        line-height: 3.2rem;
-        margin-top: 1.6rem;
-        border-radius: 4px;
-        font-size: 1.4rem;
-        font-weight: 500;
+    
+      .trading-tab-form .result-form .btn-order.bid:active {
+        outline: none; /* 클릭 시 포커스 테두리 없애기 */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 클릭 시 그림자 추가 */
       }
-      
       .clickable-layer:after {
         content: "";
         width: 100%;
@@ -1068,8 +1032,8 @@
         line-height: 3.2rem;
         margin-top: 1.6rem;
         border-radius: 4px;
-        font-size: 1.4rem;
-        font-weight: 500;
+        font-size: 1.2rem;
+        font-weight: 600;
       }
       
       .clickable-layer {
@@ -1171,23 +1135,22 @@
       .chart-legend{
         display: inline-block;
         vertical-align: top;
+        background-color: lightgray;
         margin-top:20px;
-        width: 70%;
-        height: 100px;
+        width: 60%
       }
       .sell-point{
         display: inline-block;
         vertical-align: top;
         margin-top:20px;
-        width: 20%;
+        width: 19%;
+        margin-left:20%;
         border: 1px solid #a6a4a4;
         padding: 20px;
-        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); 
-         
       }
       /*
       .chart-section{
-        
+        background-color: lightgray;
         margin-top:20px;
         width: 70%
       }
@@ -1199,56 +1162,21 @@
         width:23rem;
       }
       .trading-input-gray-box {
-        width: 100%; /* 원래 80% */
+        width: 80%; /* 원래 80% */
         height: 40px; 
         background-color: #ccc; /* 원하는 회색 색상을 설정하세요 */
         border: 1px solid #999; /* 선택 사항: 더 나은 가시성을 위해 테두리를 추가하세요 */
         margin-left: 10%;
       }
-      slide-layout::after {
-        content: ""; /* 가상 요소를 생성합니다. */
-        display: block;
-        width: 100%;
-        height: 1px; /* 선의 높이를 조절하세요 */
-        background-color: #000000; /* 선의 색상을 조절하세요 */
-        margin-top: 50px; /* 선과 주식주문 사이의 간격을 조절하세요 */
-        /* 기타 필요한 스타일 속성 추가 */
-      }
-      .btn-order clickable-layer bid{
-        font-size:1.3rem;
-      }
       .investment {
         max-width: 70px;
         margin: 20px auto;
         padding: 10px;
-        background-color: #edf5ff;
-        border: 1px solid #fff;
+        background-color: #d5eaff;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-left:70%;
+        margin-left:88%;
       }
       
-      slide-layout::after {
-        content: ""; /* 가상 요소를 생성합니다. */
-        display: block;
-        width: 100%;
-        height: 1px; /* 선의 높이를 조절하세요 */
-        background-color: #000000; /* 선의 색상을 조절하세요 */
-        margin-top: 50px; /* 선과 주식주문 사이의 간격을 조절하세요 */
-        /* 기타 필요한 스타일 속성 추가 */
-      }
-      .btn-order clickable-layer bid{
-        font-size:1.3rem;
-      }
-      .investment {
-        max-width: 70px;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #edf5ff;
-        border: 1px solid #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-left:70%;
-      }
 </style>     
       
