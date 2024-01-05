@@ -125,7 +125,7 @@
                                   </div><!--stock-info-->
 
 
-                                  <div class="chart-section" style="width:110%" >
+                                  <div class="chart-section" >
                                       <div class="chart-legend" >
                                         <div id="chart">
                                         
@@ -171,9 +171,9 @@
                                                         <span class="unit">원</span>
                                                     </div> {% endcomment %}
                                                     <div class="total-order-price">
-                                                        <label class="label" style="font-size:1rem;">주문총액</label>
+                                                        <label class="label">주문총액</label>
                                                         <p class="price">0</p>
-                                                        <span class="unit" style="font-size:1rem;">원</span>
+                                                        <span class="unit">원</span>
                                                     </div>
                                                 </div>
                                                 <input type="submit" onclick="return buyStock();" class="btn-order clickable-layer bid" value="매수" />
@@ -1371,23 +1371,11 @@
         width:23rem;
       }
       .trading-input-gray-box {
-        width: 100%; /* 원래 80% */
+        width: 80%; /* 원래 80% */
         height: 40px; 
         background-color: #ccc; /* 원하는 회색 색상을 설정하세요 */
         border: 1px solid #999; /* 선택 사항: 더 나은 가시성을 위해 테두리를 추가하세요 */
         margin-left: 10%;
-      }
-      slide-layout::after {
-        content: ""; /* 가상 요소를 생성합니다. */
-        display: block;
-        width: 100%;
-        height: 1px; /* 선의 높이를 조절하세요 */
-        background-color: #000000; /* 선의 색상을 조절하세요 */
-        margin-top: 50px; /* 선과 주식주문 사이의 간격을 조절하세요 */
-        /* 기타 필요한 스타일 속성 추가 */
-      }
-      .btn-order clickable-layer bid{
-        font-size:1.3rem;
       }
       .investment {
         max-width: 70px;
@@ -1399,5 +1387,6 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin-left:70%;
       }
+      
 </style>     
       
