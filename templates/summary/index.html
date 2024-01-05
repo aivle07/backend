@@ -54,7 +54,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="/">
-        HEY 금융 +
+        <img src="{%static '/assets/img/brand/blue.png' %}" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -452,14 +452,14 @@
 
         </div>
       </div>
-{% comment %} 현재작업 위치 {% endcomment %}
+
       <div class="row-2 mt-5">
         <div class="row-2">
           <div class="col-xl-custom">
             <div class="card-3 card-3-stats mb-4">
               <div class="card-3-body">
-                    <div id="myChart" style="width: 700px; height: 440px;"></div>
-               </div>
+                    <span class="h2 font-weight-bold mb-0" >현재 주가 vs 적정 주가</span>
+              </div>
             </div>
           </div>
 
@@ -470,14 +470,7 @@
                   <div class="card-3-body">
                     <span class="h2 font-weight-bold mb-0">적정 주가</span>
                     <div id="triangleContainer"></div>
-                    <div id="triangle-value"></div> 
-                    <div id="popup" class="hide layer">
-                      <div class="content">
-                          <div class="capital">자본에 대한 설명과 중요한 이유</div>
-                          <div class="stock-price">주가에 대한 설명과 중요한 이유</div>
-                          <div class="profit">이익의 종류와 설명</div>
-                      </div>
-                  </div>
+                    <div id="triangle-value"></div>
                   </div>
                 </div>
               </div>
@@ -525,7 +518,7 @@
         datasets: [{
           label: "금리 값",
           data: [3.25, 5.25],
-          backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(255, 99, 132, 0.7)'] // Adjust colors as needed
+          backgroundColor: ['blue', 'red'] // Adjust colors as needed
         }]
       };
       if (t.length) {
@@ -741,8 +734,7 @@ points = [
 // D3.js를 사용하여 정삼각형 그리기
 var svg = d3.select("#triangleContainer").append("svg")
   .attr("width", 400)
-  .attr("height", 400)
-  .on("click", showPopup);
+  .attr("height", 400);
 
 svg.append("polygon")
   .attr("points", `${points[0].x},${points[0].y} ${points[1].x},${points[1].y} ${points[2].x},${points[2].y}`)
@@ -781,6 +773,22 @@ svg.selectAll("circle")
       .duration(300)
       .attr("fill", "#3498db") // Hover 시의 배경색
       .attr("r", 60); // Hover 시의 크기 확대
+
+    // 팝업 요소 생성
+    const popup = svg.append("foreignObject")
+    .attr("x", d.x - 60)
+    .attr("y", d.y - 80)
+    .attr("width", 120)
+    .attr("height", 120)
+    .append("xhtml:div")
+    .style("background", "white")
+    .style("border", "1px solid #000")
+    .style("padding", "10px")
+    .html(`
+      <strong>Info:</strong><br>
+      Equity: 5555<br>
+      Stock Price: 222<br>
+      Profit: 2222`);
   })
 
   .on("mouseout", function () {
@@ -814,13 +822,13 @@ svg.selectAll("text")
 svg.append("text")
   .attr("x", 50)
   .attr("y", 180)
-  .text(`PBR: ${pbrValue}`)
+  .text(`ROE: ${roeValue}`)
   .attr("fill", "#000000");
 
 svg.append("text")
   .attr("x", 180)
   .attr("y", 350)
-  .text(`ROE: ${roeValue}`)
+  .text(`PBR: ${pbrValue}`)
   .attr("fill", "#000000");
 
 svg.append("text")
@@ -978,7 +986,53 @@ svg.append("text")
     }
   });
 
-  
+  $(document).ready(function () {
+    // 페이지가 로드될 때 챗봇 초기 인사말 표시
+    $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
+    });
+
+    function sendMessage() {
+      // 사용자가 입력한 질문 가져오기
+      let userQuestion = $('#message-input').val();
+    
+      // 사용자 질문을 대화창에 추가
+      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
+    
+      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
+      $.ajax({
+        type: 'post',
+        url: '/summary/corp_chatbot/',
+        data: {
+          data: userQuestion,
+          csrfmiddlewaretoken: window.CSRF_TOKEN,
+        },
+        success: function (data) {
+          console.log(data);
+    
+          // 챗봇의 답변을 대화창에 추가
+          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
+    
+          // 메시지 전송 후 textarea 비우기
+          $('#message-input').val('');
+    
+          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
+          $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+          // 대화창을 맨 아래로 스크롤
+          $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+        }
+      });
+
+      // 대화창을 맨 아래로 스크롤
+      $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+    }
+
+    $('.card-custom').on('scroll', function () {
+      if ($('.card-custom').scrollTop() + $('.card-custom').innerHeight() >= $('.card-custom')[0].scrollHeight) {
+        // 맨 아래에 도달한 경우 스크롤을 유지
+        $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+      }
+    });
 
     
 </script>
