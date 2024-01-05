@@ -22,8 +22,8 @@ def get_exchange():
     return agent
 
 def get_exchange_data():
-    df1 = fdr.DataReader('USD/KRW', "2023-12-01") 
-    df2 = fdr.DataReader('JPY/KRW', "2023-12-01") 
+    df1 = fdr.DataReader('USD/KRW')
+    df2 = fdr.DataReader('JPY/KRW')
     df1['Currency'] = '달러'
     df2['Currency'] = '엔화'
     df1['exchange'] = '환율'

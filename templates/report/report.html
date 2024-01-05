@@ -31,9 +31,68 @@
 
     <!-- Template Stylesheet -->
     <link href="{%static 'css/style.css' %}" rel="stylesheet">
-    <link href="{%static 'assets/css/argon-dashboard.css' %}" rel="stylesheet">
 </head>
 
+<body class="scrollbar">
+<style>
+/* 대화창 스타일링 */
+#chatbot_text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 사용자 질문 스타일링 */
+#chatbot_text p {
+  margin: 5px;
+  padding: 10px;
+  position: relative;
+  border-radius: 10px;
+  font-weight: bold; /* 약간의 볼드 텍스트 */
+  font-size: 13px; /* 글씨 크기를 13px로 조절 */
+}
+
+#chatbot_text p.user-question {
+  text-align: right;
+  margin-left: auto;
+  background-color: #e4f0ff; /* 어두운 하늘색 */
+  color: #333333; /* 흰색 글씨 */
+  letter-spacing: 1px;
+  font-family: 'Malgun Gothic', 'NanumGothic', sans-serif; /* 고딕체 설정 */
+}
+
+#chatbot_text p.user-question::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -14px; /* 수정된 부분 */
+  margin-left: -7px; /* 수정된 부분 */
+  border-style: solid;
+  border-width: 8px;
+  border-color: transparent transparent transparent #e4f0ff;
+}
+
+/* 챗봇 답변 스타일링 */
+#chatbot_text p.chatbot-answer {
+  text-align: left;
+  margin-right: auto;
+  background-color: #f1f3f5; /* 연한 회색 */
+  color: #333333; /* 어두운 회색 글씨 */
+  font-size: 13px; /* 글씨 크기를 13px로 조절 */
+  letter-spacing: 1px;
+  font-family: 'Malgun Gothic', 'NanumGothic', sans-serif; /* 고딕체 설정 */
+}
+
+#chatbot_text p.chatbot-answer::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-right: -1px; /* 수정된 부분 */
+  border-style: solid;
+  border-width: 8px;
+  border-color: transparent #f1f3f5 transparent transparent;
+}
+</style>
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -60,15 +119,22 @@
                     <div class="navbar-nav mx-auto py-0">
                         
                         <a href="/summary" class="nav-item nav-link">요약서비스</a>
-                        <a href="javascript:void(0)" class="nav-item nav-link">금융 리포트 요약</a>
+                        <a href="javascript:void(0)" class="nav-item nav-link">금융 리포트</a>
                         <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
                         <a href="/board" class="nav-item nav-link">게시판</a>
                         
                     </div>
-                    <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a>
                     <!-- 로그인 페이지로 이동하는 버튼 -->
-                    <a href="./examples/register.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
-                    <a href="./examples/login.html" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% if not user.is_authenticated %}
+                        <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
+                        <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
+                    {% else %}
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
+                        <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
+                        <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
+                        {% comment %} <a href="{% url 'quiz:quiz-list' %}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">퀴즈</a></li> {% endcomment %}
+                    {% endif %}
                 </div>
             </nav>
             <div class="container-xxl", id="main">
@@ -78,29 +144,49 @@
                             <div class="content-container">
                                 <div class="content-container container-md">
                                     <div class="textset content-tit">
-                                      <h2 class="textset-tit">{{report.title}}</h2>
+                                      <h2 class="textset-tit">Today's 금융 리포트</h2>
+                                      <br>
+                                      <h2 class="textset-subtit">| Title | {{report.title}}</h2>
+                                      <br>
+                                        <!--금융리포트 다운로드 -->
+                                      <a class="report-font" download href="{{report.file.url}}">📑 금융 리포트 다운로드</a>
+                                      <div id="example1" style="height:30rem;"></div>
                                     </div>
                                 </div>
-                                <!--금융리포트 다운로드 -->
-                              <a download href="{{report.file.url}}">{{report.get_file_name}}</a>
+                              
+                              
+                              
                             <div class="container-md">
                                 <div class="custom-container-2">
                                   <div class="box-container shadow">
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
                                     <!-- 리포트 요약 내용 -->
+                                    <div class="report-title">금융 리포트 AI 요약본</div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
+
                                     <p-1>{{summary}}</p-1>
-                                    
                                   </div>
                                   <div class="box-container-2">
                                     <div class="card-chat-bot">
                                       <div class="card shadow">
-                                        <div class="card-header bg-transparent">
+                                      
                                           <div class="row align-items-center">
                                             <div class="col">
-                                              <h-report-title>무엇이든 물어보세요</h-report-title>
+                                              <br>
+                                              <h-report-title>금융 리포트 Chatbot</h-report-title>
+                                              <br>
+
                                             </div>
                                           </div>
-                                        </div>
-                                        <div class="report-chat">
+                                      
+                                        <div class="report-chat" style="max-height: 1000px; overflow-y: auto; overflow-x: hidden;">
+                                            
                                             <div class="news-text" id='chatbot_text'>{{chat_answer}}</div>
                                         </div>
                                         <div class="card-footer-2">
@@ -206,6 +292,7 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js" integrity="sha512-lDL6DD6x4foKuSTkRUKIMQJAoisDeojVPXknggl4fZWMr2/M/hMiKLs6sqUvxP/T2zXdrDMbLJ0/ru8QSZrnoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'lib/wow/wow.min.js' %}"></script>
     <script src="{% static 'lib/easing/easing.min.js' %}"></script>
     <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
@@ -220,6 +307,10 @@
 </html>
 {% csrf_token %}
 <script>
+  $(function(){
+    
+    PDFObject.embed("{{report.file.url}}","#example1");
+  });
   function sendMessage() {
     // crsf 토큰 가져오기
     var csrftoken = $("[name=csrfmiddlewaretoken]").val();
@@ -249,9 +340,22 @@
   
         // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
         $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+        // 대화창을 맨 아래로 스크롤
+        $('.report-chat').scrollTop($('.report-chat')[0].scrollHeight);
       }
     });
+
+    // 대화창을 맨 아래로 스크롤
+    $('.report-chat').scrollTop($('.report-chat')[0].scrollHeight);
   }
+
+  $('.report-chat').on('scroll', function () {
+    if ($('.report-chat').scrollTop() + $('.report-chat').innerHeight() >= $('.report-chat')[0].scrollHeight) {
+      // 맨 아래에 도달한 경우 스크롤을 유지
+      $('.report-chat').scrollTop($('.report-chat')[0].scrollHeight);
+    }
+  });
 </script>
 <style>
     .opilsol-N24 .content-container {

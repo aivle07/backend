@@ -33,6 +33,7 @@
 
     <!-- Toast UI Editor -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+    
 </head>
 
 <body>
@@ -90,12 +91,15 @@
                     {%endif%}
                 </h2>
               </div>
+              
               <div class="overlap">
+                
                 <div class="overlap-2">
                   <div class="group">
+                    
                     <div class="overlap-3">
                         
-                        <div id="editor"></div>
+                        <div id="editor">{{data.content}}</div>
                     </div>
                   </div>
                   
@@ -104,14 +108,27 @@
            
             </div>
           </div>
-          <div class="input-file">
-            <label for="upload01" class="file-label">파일 업로드</label>
-            <input type="file" name="" id="upload01" class="file-upload" />
-            <div class= btn-notice>
-                <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
-                <button class = "create-write" onclick="sendMessage()">작성하기</button>
+          <form action="" method="post" enctype="multipart/form-data">
+            {% if 'update' in request.path %}
+            <input type="hidden" name="_method" value="put"/> 
+            {%endif%}
+            
+            <label>제목 : </label>
+            <input type="text" id="title" class="title" name="title" value="{{data.title}}"/><br>
+            
+            <input type="hidden" name="category" id="category" class="category" value="Q&A"/><br>
+            {% csrf_token %}
+            {{data}}
+            <div class="input-file">
+                <label for="upload01" class="file-label">파일 업로드</label>
+                <input type="file" name="image" id="upload01" class="file-upload" />
+                <div class= btn-notice>
+                    <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
+                    <input type="submit" onClick="return sendMessage();"  class = "create-write" value="작성하기"/>
+                </div>
+                <input type="hidden" name="content" id="content" value="{{data.content}}"/>
             </div>
-          </div>      
+            </form>      
         
         <!-- Navbar & Hero End -->
         <!-- Footer Start -->
@@ -214,6 +231,49 @@
         });
         
     //editor.getHTML()로 나중에 값 가져오기
+    
+    function sendMessage(){
+        let content = editor.getHTML();
+        document.querySelector("#content").value = content;
+
+        {% if 'update' in request.path %}
+        $('form').submit(function () {
+            var $form = $(this);
+            // hidden input 필드를 찾아 실제 HTTP 메서드를 설정
+            var method = $form.find('[name="_method"]').val();
+            // form의 method 속성을 변경
+            $form.attr('method', method);
+            return true;
+        });
+        {%endif%}
+
+        return true;
+
+        /*
+        let csrftoken = $("[name=csrfmiddlewaretoken]").val();
+        let file = $(".file-upload")[0].files[0];
+
+        let formData = new FormData();
+        formData.append("title",title);
+        formData.append("content",content);
+        formData.append("file",file);
+        formData.append("csrfmiddlewaretoken",csrftoken);
+
+        $.post({
+            url:"{% url 'board:board-create' %}",
+            type:"POST",
+            data:formData,
+            contentType:false,
+            processData:false,
+            success: function(){
+                console.log("작성 완료");
+            }
+
+        })
+        */
+
+    
+    }
     </script>
 </html>
 <style>
