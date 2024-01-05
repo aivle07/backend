@@ -465,8 +465,8 @@ h6,
 
 .content-container {
     text-align: left;
-    margin: 8rem auto 0;
-    margin-bottom: 6%;
+    margin: 5% auto 0;
+    margin-bottom: 1%;
   }
   
 .content-tit .textset-eu {
@@ -479,10 +479,18 @@ h6,
   }
   
 .content-tit .textset-tit {
-    text-align: center;
+    text-align: left;
     line-height: var(--ht-lg);
     font-size: 35px;
   }
+
+.content-tit .textset-subtit {
+  text-align: left;
+  line-height: var(--ht-lg);
+  font-size: 20px;
+  color: #1f5297;
+}
+  
   
 @media (max-width: 922px) {
      .content-container {
@@ -1316,10 +1324,14 @@ hr {
   color: #000;
   text-overflow: ellipsis;
   overflow: hidden;
+  position: relative;
 }
 .box-container p-1 {
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 17px;
+  padding: 5%;
+  text-align: justify;
 }
 .card-chat-bot{
   height: 100%;
@@ -1379,8 +1391,13 @@ hr {
     height: 63px;
 }
 h-report-title {
-  font-size: 24px; /* 원하는 글자 크기로 조절합니다. */
-  color: #202942;
+  font-size: 30px; /* 원하는 글자 크기로 조절합니다. */
+  color: #32325d;
+  font-weight: bold;
+  font-family: inherit;
+  line-height: 1.5;
+  margin-left: 26%;
+  height: 100vh;
 }
 .textset-tit-b{
     font-size: 25px;
@@ -1396,4 +1413,20 @@ h-report-title {
 .textset-tit-b:hover {
   color: white; /* 마우스를 올렸을 때의 텍스트 색상 변경 (원하는 스타일로 수정 가능) */
   background-color: #3498db;
+}
+
+.report-font{
+  color: #000;
+  text-decoration: none;
+}
+
+.report-title {
+  position: absolute;
+  top: 0;
+  font-size: 30px;
+  color: #32325d;
+  font-weight: bold;
+  line-height: 1.5;
+  left: 22%;
+  
 }

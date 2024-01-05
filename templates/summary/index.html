@@ -356,15 +356,15 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
-                    data-update='{"data":{"datasets":[{"data":[{{financial_data.0.thisyear}},{{financial_data.1.thisyear}},{{financial_data.2.thisyear}},{{financial_data.3.thisyear}}]}]}}' data-prefix="￦" data-suffix="K">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
+                     data-prefix="￦" data-suffix="K">
+                      <a id="sales2023" href="#" class="nav-link py-2 px-3 active" data-toggle="tab" onclick="updateSalesChart([1,1,1,1]);return false;">
                         <span class="d-none d-md-block">2023</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
                     <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
-                    data-update='{"data":{"datasets":[{"data":[{{financial_data.0.lastyear}},{{financial_data.1.lastyear}},{{financial_data.2.lastyear}},{{financial_data.3.lastyear}}]}]}}' data-prefix="￦" data-suffix="K">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                     data-prefix="￦" data-suffix="K">
+                      <a id="sales2022" href="#" class="nav-link py-2 px-3" data-toggle="tab" onclick="updateSalesChart([1,1,1,1]);return false;">
                         <span class="d-none d-md-block">2022</span>
                         <span class="d-md-none">W</span>
                       </a>
@@ -383,31 +383,35 @@
             </div>
           </div>
         </div>
+        
         <div class="card-chat-bot">
           <div class="card shadow">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">재무</h6>
-                  <h2 class="mb-0" id="news-title">챗봇 위치 입니다.</h2>
+                  <br>
+                  <h2 class="mb-0" id="news-title">기업 Chatbot</h2>
                 </div>
               </div>
             </div>
             <div class="card">
-              <div class="card-custom scrollbar">
+              <div class="card-custom scrollbar" style="max-height: 300px; overflow-y: auto;">
+                <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
+                <div class="news-text" id='chatbot_conversation'></div>
+                
               </div>
             </div>
             <div class="card-footer-2">
-              <div class="send" >
+              <div class="send">
+                <!-- 사용자가 메세지를 입력할 수 있는 텍스트 영역과 전송 버튼 -->
                 <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
                 <button class='send-btn' onclick="sendMessage()">전송</button>
               </div>
-              <div class="news-text">{{chat_answer}}</div>
             </div>
           </div>
         </div>
       </div>
-
+      
       <!--ROE, PER, PBR, 부채 등등...재무제표 쉽게 알려주기-->
       <div class="row-2 mt-5">
         <div class="row-2">
@@ -505,6 +509,8 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
   <script>
+    let salesChart;
+    let deptChart;
     interestChart = function () {
       var e, a, t = $("#chart-interest");
       var initialData = {
@@ -576,7 +582,7 @@
     
     
   function drawSalesChart(e,data){
-    a = new Chart(e, {
+    salesChart = new Chart(e, {
       type: "bar",
       options: {
         scales: {
@@ -638,7 +644,7 @@
   });
 
   $(document).ready(function () {
-    //$('.summary_card').hide();
+    $('.summary_card').hide();
     $("#chart-dept-card").hover(
       function () {
         $("#chart-dept-title").css("display", "block");
@@ -659,7 +665,7 @@
         backgroundColor: ['warning', '#fb6340'] // Adjust colors as needed
       }]
     };
-    a = new Chart(e, {
+    deptChart = new Chart(e, {
       type: "doughnut",
       options: {
         is3D: true,
@@ -839,16 +845,22 @@ svg.append("text")
   .attr("fill", "#000000");
     
     
-    
+  function updateSalesChart(data){
+    salesChart.data.datasets[0].data = data;
+    salesChart.update();
+  }
 
   function test(){
     let corp_name = $("#corp_name").val();
     console.log(corp_name);
-
+    
     $("#search_form").attr('onsubmit','return false;');
     $('#search_error').hide();
     $('.summary_card').fadeOut();
     $('.spin-class').show();
+    $('#corp_news').html('');
+    if(salesChart != undefined) salesChart.destroy();
+    if(deptChart != undefined) deptChart.destroy();
     $.ajax({
 			type:'post',   //post 방식으로 전송
 			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
@@ -868,24 +880,29 @@ svg.append("text")
         let profit;
         let revenue;
         let netincome;
+        let prev_dept,prev_profit,prev_revenue,prev_netincome;
         for (i = 0; i < data.fin_data.length; i++) {
           if (data.fin_data[i].name=="자산총계"){
             asset = data.fin_data[i].thisyear;
           }
           else if(data.fin_data[i].name=="부채총계"){
             dept = data.fin_data[i].thisyear;
+            prev_dept = data.fin_data[i].lastyear;
           }
           else if(data.fin_data[i].name=="자본총계"){
             equity = data.fin_data[i].thisyear;
           }
           else if(data.fin_data[i].name=="영업이익"){
             profit = data.fin_data[i].thisyear;
+            prev_profit = data.fin_data[i].lastyear;
           }
           else if(data.fin_data[i].name=="매출액"){
             revenue = data.fin_data[i].thisyear;
+            prev_revenue = data.fin_data[i].lastyear;
           }
           else if(data.fin_data[i].name=="당기순이익"){
             netincome = data.fin_data[i].thisyear;
+            prev_netincome = data.fin_data[i].lastyear;
           }
         } 
 
@@ -893,9 +910,10 @@ svg.append("text")
           $('#corp_news').append("<p class='jb-title' onclick='showPopup("+idx+")'>"+news.title+"</p> \
           <div id='popup"+idx+"' class='popup hide layer'> \
               <div class='content'> \
-                  <div class='pop-title'>"+news.date +"</div> \
+                  <div class='pop-title'>"+news.title+"</div> \
+                  <div class='pop-date'>"+news.date+"</div>\
                   <div class='pop-summary'>" + news.summary +" \
-                    <button onclick='closePopup("+idx+")' class='custom-end'>종료</button> \
+                    <button onclick='closePopup("+idx+")' class='custom-end'>닫기</button> \
                     </div> \
                   <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
               </div> \
@@ -917,6 +935,10 @@ svg.append("text")
         
         drawSalesChart($('#chart-sales2')
         ,[dept,profit,revenue,netincome]);
+        
+        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
+        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
+        
 			},
       error	: function(xhr, status, error) {  
         $('#search_error').show();
@@ -964,7 +986,53 @@ svg.append("text")
     }
   });
 
-  
+  $(document).ready(function () {
+    // 페이지가 로드될 때 챗봇 초기 인사말 표시
+    $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
+    });
+
+    function sendMessage() {
+      // 사용자가 입력한 질문 가져오기
+      let userQuestion = $('#message-input').val();
+    
+      // 사용자 질문을 대화창에 추가
+      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
+    
+      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
+      $.ajax({
+        type: 'post',
+        url: '/summary/corp_chatbot/',
+        data: {
+          data: userQuestion,
+          csrfmiddlewaretoken: window.CSRF_TOKEN,
+        },
+        success: function (data) {
+          console.log(data);
+    
+          // 챗봇의 답변을 대화창에 추가
+          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
+    
+          // 메시지 전송 후 textarea 비우기
+          $('#message-input').val('');
+    
+          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
+          $('#message-input').attr("placeholder", "메시지를 입력하세요");
+
+          // 대화창을 맨 아래로 스크롤
+          $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+        }
+      });
+
+      // 대화창을 맨 아래로 스크롤
+      $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+    }
+
+    $('.card-custom').on('scroll', function () {
+      if ($('.card-custom').scrollTop() + $('.card-custom').innerHeight() >= $('.card-custom')[0].scrollHeight) {
+        // 맨 아래에 도달한 경우 스크롤을 유지
+        $('.card-custom').scrollTop($('.card-custom')[0].scrollHeight);
+      }
+    });
 
 </script>
 

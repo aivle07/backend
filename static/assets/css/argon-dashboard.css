@@ -20858,6 +20858,7 @@ pre>code.highlight {
   counter-increment: item;
   font-weight: bold;
   padding:5px;
+  text-align: left;
 
 }
 .jb-title:before {

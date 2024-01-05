@@ -327,7 +327,7 @@
                             <div class="pop-title">{{news.title}}</div>
                               <div class="pop-date">{{news.date}}</div>
                               <div class="pop-summary">{{news.summary}}
-                                <button onclick="closePopup({{ forloop.counter }})" class="custom-end">종료</button>
+                                <button onclick="closePopup({{ forloop.counter }})" class="custom-end">닫기</button>
                                 </div>
                               <a class="pop-link" target='_blank' href='{{news.link}}'>{{news.link}}</a>
                           </div>
@@ -473,6 +473,57 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
+    function drawSalesChart(e,data){
+      salesChart = new Chart(e, {
+        type: "bar",
+        options: {
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  lineWidth: 1,
+                  color: Charts.colors.gray[900],
+                  zeroLineColor: Charts.colors.gray[900],
+                },
+                ticks: {
+                  callback: function (e) {
+                    if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR');
+                  },
+                },
+              },
+            ],
+          },
+          tooltips: {
+            callbacks: {
+              label: function (e, a) {
+                var t = a.datasets[e.datasetIndex].label || "",
+                  o = e.yLabel,
+                  n = "";
+                return (
+                  1 < a.datasets.length &&
+                    (n +=
+                      '<span class="popover-body-label mr-auto">' +
+                      t +
+                      "</span>"),
+                  (n += '<span class="popover-body-value">' + o.toLocaleString('ko-KR') + "원</span>")
+                );
+              },
+            },
+          },
+        },
+        data: {
+          labels: ["1g", "1돈=3.75g"],
+          datasets: [
+            {
+              label: "Performance",
+              data: data,
+              borderWidth: 10,
+              borderColor: "rgba(255, 99, 132, 1)",
+            },
+          ],
+        },
+      })
+    }
     
     DeptChart = function () {
       var e, a, t = $("#chart-dept");
@@ -576,6 +627,7 @@
   $(document).ready(function () {
     // 페이지가 로드될 때 챗봇 초기 인사말 표시
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 금 정보를 물어보세요!</p>");
+    drawSalesChart($('#chart-sales2'),[Number({{current_gold}}),Number({{current_gold}})*Number(3.75)])
     });
 
   function sendMessage() {
