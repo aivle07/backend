@@ -20858,6 +20858,7 @@ pre>code.highlight {
   counter-increment: item;
   font-weight: bold;
   padding:5px;
+  text-align: left;
 
 }
 .jb-title:before {
@@ -21158,7 +21159,7 @@ button.btn:hover {
   display: none;
 }
 
-#popup {
+.popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21173,13 +21174,13 @@ button.btn:hover {
   -webkit-backdrop-filter: blur(4px);
 }
 
-#popup.hide {
+.popup.hide {
   display: none;
 }
 
 
-#popup .content {
-    padding: 20px;
+.popup .content {
+  padding: 20px;
     background: #fff;
     border-radius: 5px;
     height: 90%;

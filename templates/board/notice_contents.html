@@ -88,7 +88,8 @@
                     <div class="overlap-3">
                       <div class="overlap-group-wrapper">
                         {% if data.board.image %}
-                            <img src='{{data.board.image}}' alt='게시판 이미지'/>
+                            {% comment %} 첨부파일 <a download href='{{data.board.image}}'>{{data.board.get_file_name}}</a><br> {% endcomment %}
+                            <img src="{{data.board.image}}" alt="이미지" style="width:500px; height:300px;"/><br>
                         {% endif %}
                         {{data.board.content}}
                       </div>
@@ -104,7 +105,9 @@
           <div class="input-file">
             <div class= btn-notice>
                 <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
-                <button class = "create" onclick="location.href='{{request.path}}update'">수정하기</button>
+                {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
+                {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
+                <a class="create" href="/board/{{data.board.id}}/update/">수정하기</a>
             </div>
           </div>      
         

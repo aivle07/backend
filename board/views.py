@@ -1,5 +1,7 @@
 from collections import OrderedDict
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from rest_framework.response import Response
 from .serializers import *
 from .models import *
@@ -67,7 +69,7 @@ class BoardListAPIView(ListAPIView):
 
     
     
-# 상세보기
+# 상세보기 -완-
 class BoardRetrieveAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = BoardDetailSerializerView
@@ -93,7 +95,7 @@ class BoardRetrieveAPIView(RetrieveAPIView):
         return self.retrieve(request, pk)
     
         
-# 작성하기
+# 작성하기 -완-
 class BoardCreateAPIView(CreateAPIView):
     # authentication_classes = [SessionAuthentication]
     queryset = Post.objects.all()
@@ -102,9 +104,16 @@ class BoardCreateAPIView(CreateAPIView):
     
     def get(self, request):
         return render(request,'board/notice_write.html')
-    
+
     def perform_create(self, serializer):
-        serializer.save(author = self.request.user)      
+        serializer.save(author = self.request.user)
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return redirect(reverse("board:board-list"))    
         
 # 수정하기
 class BoardUpdateAPIView(UpdateAPIView):
@@ -126,6 +135,7 @@ class BoardUpdateAPIView(UpdateAPIView):
     
         
     def put(self, request, board, pk):
+        
         instance = self.get_object(board, pk)
         serializer = BoardUpdateSerializerView(instance, data=request.data)
         if serializer.is_valid():
