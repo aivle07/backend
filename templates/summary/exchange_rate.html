@@ -318,11 +318,19 @@
                   <br>
                   <span class="h2 font-weight-bold mb-0">환율 뉴스 요약</span>
                   <div class = "jb-container">
-                    {% for news in exchange_news  %}
-                      <p class="jb-title">{{news.title}}</p>
-                      <div class="jb-text">{{news.link}}{{news.summary}}{{news.date}}</div>
-                    {% endfor %}
-                   
+                    {% for news in exchange_news %}
+                    <p class="jb-title" onclick="showPopup({{ forloop.counter }})">{{news.title}}</p>
+                    <div id="popup{{ forloop.counter }}" class="popup hide layer">
+                        <div class="content">
+                          <div class="pop-title">{{news.title}}</div>
+                            <div class="pop-date">{{news.date}}</div>
+                            <div class="pop-summary">{{news.summary}}
+                              <button onclick="closePopup({{ forloop.counter }})" class="custom-end">종료</button>
+                              </div>
+                            <a class="pop-link" target='_blank' href='{{news.link}}'>{{news.link}}</a>
+                        </div>
+                    </div>
+                  {% endfor %}                   
                   </div>
                 </div>
               </div>
@@ -387,15 +395,15 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
-                    data-update='{"data":{"datasets":[{"data":[38408688000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
+                    data-prefix="$" data-suffix="k">
+                      <a href="#" id="dollor_chart_btn" class="nav-link py-2 px-3 active" data-toggle="tab" >
                         <span class="d-none d-md-block">달러</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
                     <li class="nav-item" data-toggle="chart" data-target="#chart-sales2"
-                     data-update='{"data":{"datasets":[{"data":[31637411000,2000,1000,5000]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
+                      data-prefix="$" data-suffix="k">
+                      <a href="#" id="yen_chart_btn" class="nav-link py-2 px-3" data-toggle="tab">
                         <span class="d-none d-md-block">엔화</span>
                         <span class="d-md-none">W</span>
                       </a>
@@ -466,6 +474,15 @@
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script type="text/javascript"> window.CSRF_TOKEN = "{{ csrf_token }}"; </script>
   <script>
+    var salesChart;
+    var dollor_dataset = {
+      label : [],
+      data : [],
+    };
+    var yen_dataset = {
+      label : [],
+      data : [],
+    };
     DeptChart = function () {
       var e, a, t = $("#chart-dept");
       var initialData = {
@@ -579,10 +596,81 @@
   }
   
 
-
+  function drawSalesChart(e,dataset){
+    salesChart = new Chart(e, {
+      type: "line",
+      options: {
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                lineWidth: 1,
+                color: Charts.colors.gray[900],
+                zeroLineColor: Charts.colors.gray[900],
+              },
+              ticks: {
+                callback: function (e) {
+                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR');
+                },
+              },
+            },
+          ],
+        },
+        tooltips: {
+          callbacks: {
+            label: function (e, a) {
+              var t = a.datasets[e.datasetIndex].label || "",
+                o = e.yLabel,
+                n = "";
+              return (
+                1 < a.datasets.length &&
+                  (n +=
+                    '<span class="popover-body-label mr-auto">' +
+                    t +
+                    "</span>"),
+                (n += '<span class="popover-body-value">' + o.toLocaleString('ko-KR') + "원</span>")
+              );
+            },
+          },
+        },
+      },
+      data: {
+        labels: dataset.label,
+        datasets: [
+          {
+            label: "Performance",
+            data: dataset.data,
+            borderWidth: 3,
+            borderColor: "rgba(255, 99, 132, 1)",
+            tension: 0.2,
+          },
+        ],
+      },
+    })
+  }
+  function updateSalesChart(dataset){
+    salesChart.data.labels = dataset.label;
+    salesChart.data.datasets[0].data = dataset.data;
+    salesChart.update();
+  }
   $(document).ready(function () {
+    
+    {%for d_data in dollor%}
+      dollor_dataset.label.push("{{d_data.Date|date:'Y-m-d'}}");
+      dollor_dataset.data.push(Number({{d_data.Close}}));
+    {%endfor%}
+    {%for y_data in yen%}
+      yen_dataset.label.push("{{y_data.Date|date:'Y-m-d'}}");
+      yen_dataset.data.push(Number({{y_data.Close}})*100);
+    {%endfor%}
+     
+    
+    $("#dollor_chart_btn").attr('onclick',"updateSalesChart(dollor_dataset);return false;");
+    $("#yen_chart_btn").attr('onclick',"updateSalesChart(yen_dataset);return false;");
     // 페이지가 로드될 때 챗봇 초기 인사말 표시
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 환율 정보를 물어보세요!</p>");
+     
+     drawSalesChart($('#chart-sales2'),dollor_dataset);
     });
 
   function sendMessage() {
@@ -769,7 +857,25 @@ calcButtons.forEach(function (button) {
   });
 });
 
+ 
+function showPopup(number) {
+  var popup = document.getElementById("popup"+number);
+  popup.classList.remove("hide");
+  popup.classList.add("show");
+}
 
+function closePopup(number) {
+    var popup = document.getElementById("popup"+number);
+    popup.classList.remove("show");
+    popup.classList.add("hide");
+}
+// 외부영역 클릭 시 팝업 닫기
+$(document).mouseup(function (e) {
+  var popContent = $('#popup');
+  if (popContent.has(e.target).length === 0) {
+      popContent.addClass('hide');
+  }
+});
   
   </script>
 </body>
