@@ -70,7 +70,7 @@ def index(request):
         # chart = plot(chart, output_type='div', include_plotlyjs=False)
         chart = 1
     except:
-        search_message = "상품명을 정확히 입력하세요."
+        search_message = "종목명을 정확히 입력하세요."
         return render(request, "stock/stock1.html", context={"param":param,
                                                                "search_message":search_message,
                                                                "now":now,})
