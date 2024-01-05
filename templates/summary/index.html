@@ -147,18 +147,19 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/summary/real_estate">
-              <i class="ni ni-bullet-list-67 text-red"></i> 부동산
+            <a class="nav-link " href="/summary/exchange_rate">
+              <i class="ni ni-bullet-list-67 text-red"></i> 환율
             </a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link " href="/summary/gold_rate">
               <i class="ni ni-bullet-list-67 text-red"></i> 금
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/summary/exchange_rate">
-              <i class="ni ni-bullet-list-67 text-red"></i> 환율
+            <a class="nav-link " href="/summary/real_estate">
+              <i class="ni ni-bullet-list-67 text-red"></i> 부동산(Comming soon)
             </a>
           </li>
           <li class="nav-item">
@@ -387,16 +388,13 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <br>
-                  <h2 class="mb-0" id="news-title">재무제표 Chatbot</h2>
+                  <h6 class="text-uppercase text-muted ls-1 mb-1">재무</h6>
+                  <h2 class="mb-0" id="news-title">챗봇 위치 입니다.</h2>
                 </div>
               </div>
             </div>
             <div class="card">
-              <div class="card-custom">
-                <!-- 사용자 질문과 챗봇 답변을 표시하는 대화창 -->
-                <div class="news-text" id='chatbot_conversation'></div>
-                
+              <div class="card-custom scrollbar">
               </div>
             </div>
             <div class="card-footer-2">
@@ -404,9 +402,11 @@
                 <textarea class="send-text" placeholder="메세지를 입력하세요" id="message-input"></textarea>
                 <button class='send-btn' onclick="sendMessage()">전송</button>
               </div>
+              <div class="news-text">{{chat_answer}}</div>
             </div>
           </div>
         </div>
+      </div>
 
       <!--ROE, PER, PBR, 부채 등등...재무제표 쉽게 알려주기-->
       <div class="row-2 mt-5">
@@ -454,8 +454,7 @@
           <div class="col-xl-custom">
             <div class="card-3 card-3-stats mb-4">
               <div class="card-3-body">
-                    <h5 class="card-3-title text-uppercase text-muted mb-0">URL</h5>
-                    <span class="h2 font-weight-bold mb-0" >금융 용어 100선</span>
+                    <span class="h2 font-weight-bold mb-0" >현재 주가 vs 적정 주가</span>
               </div>
             </div>
           </div>
@@ -465,9 +464,9 @@
               <div class="card-3-body">
                 <div class="row-2">
                   <div class="card-3-body">
-                    <h5 class="card-3-title text-uppercase text-muted mb-0">비율(%)</h5>
-                    <span class="h2 font-weight-bold mb-0">자본 및 부채</span>
-                    <canvas id="triangleCanvas" width="400" height="400"></canvas>
+                    <span class="h2 font-weight-bold mb-0">적정 주가</span>
+                    <div id="triangleContainer"></div>
+                    <div id="triangle-value"></div>
                   </div>
                 </div>
               </div>
@@ -555,7 +554,27 @@
         }), e.find("canvas").attr("width", "100").attr("height", "100"), e.data("chart", a)
       }
     }();
-
+ 
+    
+    // PBR/PER 계산 함수
+    function calculatePBRPER() {
+      // 여기에 계산 로직 추가
+      return 4.5; // 예시 값
+    }
+    
+    // EPS/BPS 계산 함수
+    function calculateEPSBPS() {
+      // 여기에 계산 로직 추가
+      return 3.8; // 예시 값
+    }
+    
+    // ROE 계산 함수
+    function calculateROE() {
+      // 여기에 계산 로직 추가
+      return 5.2; // 예시 값
+    }
+    
+    
   function drawSalesChart(e,data){
     a = new Chart(e, {
       type: "bar",
@@ -619,7 +638,7 @@
   });
 
   $(document).ready(function () {
-    $('.summary_card').hide();
+    //$('.summary_card').hide();
     $("#chart-dept-card").hover(
       function () {
         $("#chart-dept-title").css("display", "block");
@@ -643,15 +662,16 @@
     a = new Chart(e, {
       type: "doughnut",
       options: {
+        is3D: true,
         responsive: true,
         maintainAspectRatio: true,
+        cutoutPercentage: 20,
         legend: {
           display: true,
           position: 'right',
           labels: {
             fontColor: 'black'
           }
-          
         },
         tooltips: {
           callbacks: {
@@ -676,50 +696,147 @@
       data: initialData
     })
   }
- // 회사의 Roe, PBR, PER 값을 설정
- var roeValue = 0.8;
- var pbrValue = 1.2;
- var perValue = 1.5;
 
- // 삼각형 각 꼭지점 좌표
- var points = [
-   { x: 200, y: 50 },
-   { x: 100, y: 300 },
-   { x: 300, y: 300 }
- ];
 
- // 삼각형 내부 지점 계산
- var companyPoint = {
-   x: (roeValue * points[0].x + pbrValue * points[1].x + perValue * points[2].x) / (roeValue + pbrValue + perValue),
-   y: (roeValue * points[0].y + pbrValue * points[1].y + perValue * points[2].y) / (roeValue + pbrValue + perValue)
- };
+// 회사의 Roe, PBR, PER 값을 설정
+var roeValue = 0.8;
+var pbrValue = 1.2;
+var perValue = 1.5;
+var equity = 5;
+var stockprice = 10;
+var profit = 20;
 
- var canvas = document.getElementById("triangleCanvas");
- var context = canvas.getContext("2d");
+// 삼각형 각 꼭지점 좌표
+var points = [
+  { x: 200, y: 100 },
+  { x: 100, y: 300 },
+  { x: 300, y: 300 }
+];
 
- // 삼각형 그리기
- context.beginPath();
- context.moveTo(points[0].x, points[0].y);
- context.lineTo(points[1].x, points[1].y);
- context.lineTo(points[2].x, points[2].y);
- context.closePath();
- context.strokeStyle = "#FF0000";  // 삼각형 선 색상
- context.stroke();
+// 정삼각형의 각 꼭지점 좌표
+var centerX = (points[0].x + points[1].x + points[2].x) / 3;
+var centerY = (points[0].y + points[1].y + points[2].y) / 3;
 
- // 회사 지점 그리기
- context.beginPath();
- context.arc(companyPoint.x, companyPoint.y, 5, 0, 2 * Math.PI, false);
- context.fillStyle = "#0000FF";  // 회사 지점 색상
- context.fill();
+var sideLength = 280; // 정삼각형의 한 변의 길이
 
- // 각 꼭지점에 지표 값 표시
- context.fillStyle = "#000000";  // 텍스트 색상
- context.fillText("주가", points[0].x, points[0].y - 10);
- context.fillText("자본", points[1].x, points[1].y + 20);
- context.fillText("이익", points[2].x, points[2].y + 20);
+points = [
+  { x: centerX, y: centerY - Math.sqrt(3) * sideLength / 3 },
+  { x: centerX - sideLength / 2, y: centerY + Math.sqrt(3) * sideLength / 6 },
+  { x: centerX + sideLength / 2, y: centerY + Math.sqrt(3) * sideLength / 6 }
+];
 
- // 회사 지점에 값 표시
- context.fillText(`(${roeValue}, ${pbrValue}, ${perValue})`, companyPoint.x, companyPoint.y - 10);
+// D3.js를 사용하여 정삼각형 그리기
+var svg = d3.select("#triangleContainer").append("svg")
+  .attr("width", 400)
+  .attr("height", 400);
+
+svg.append("polygon")
+  .attr("points", `${points[0].x},${points[0].y} ${points[1].x},${points[1].y} ${points[2].x},${points[2].y}`)
+  .attr("stroke", "#000000")
+  .attr("fill", "none")
+  .attr("stroke-width", 5); // 선 굵기 설정
+
+// 각 꼭지점에 지표 값 표시
+
+
+// 각 꼭지점에 원 도형 그리기
+svg.append("defs").append("filter")
+    .attr("id", "shadow")
+    .append("feDropShadow")
+    .attr("dx", 0)
+    .attr("dy", 4)
+    .attr("stdDeviation", 2)
+    .attr("flood-color", "#888888");
+
+svg.selectAll("circle")
+  .data(points)
+  .enter().append("circle")
+  .attr("cx", d => d.x)
+  .attr("cy", d => d.y)
+  .attr("r", 50)  // 원의 반지름
+  .attr("fill", (d, i) => ["#ff7473", "#ffc952", "#47b8e0"][i])
+  .attr("filter", "url(#shadow)") // 그림자 효과
+  .each(function (d) {
+    // 각 원의 원래 색상 저장
+    d3.select(this).attr("data-original-fill", d3.select(this).attr("fill") );
+  })
+  .on("mouseover", function (event, d) {
+    // Hover 시의 동작
+    d3.select(this)
+      .transition()
+      .duration(300)
+      .attr("fill", "#3498db") // Hover 시의 배경색
+      .attr("r", 60); // Hover 시의 크기 확대
+
+    // 팝업 요소 생성
+    const popup = svg.append("foreignObject")
+    .attr("x", d.x - 60)
+    .attr("y", d.y - 80)
+    .attr("width", 120)
+    .attr("height", 120)
+    .append("xhtml:div")
+    .style("background", "white")
+    .style("border", "1px solid #000")
+    .style("padding", "10px")
+    .html(`
+      <strong>Info:</strong><br>
+      Equity: 5555<br>
+      Stock Price: 222<br>
+      Profit: 2222`);
+  })
+
+  .on("mouseout", function () {
+    // Hover가 끝날 때의 동작
+    d3.select(this)
+      .transition()
+      .duration(300)
+      .attr("fill", function () {
+        // 원래 색상으로 복원
+        return d3.select(this).attr("data-original-fill");
+      })
+      .attr("r", 50); // 원래 크기로 복원
+
+    // 팝업 요소 제거
+    svg.select("foreignObject").remove();
+  });
+
+svg.selectAll("text")
+  .data(points)
+  .enter().append("text")
+  .attr("x", d => d.x)
+  .attr("y", d => d.y+2)
+  .text((d, i) => ["주가", "자본", "이익"][i])
+  .attr("fill", "#000000")
+  .attr("text-anchor", "middle") // 텍스트를 가운데 정렬
+  .attr("dominant-baseline", "middle")// 텍스트를 수직 및 수평 중앙에 정렬
+  .style("font-size", "30px") // 텍스트의 크기 조절
+  .style("font-weight", "bold");
+
+// 각 변에 위치한 회사 지점에 값 표시
+svg.append("text")
+  .attr("x", 50)
+  .attr("y", 180)
+  .text(`ROE: ${roeValue}`)
+  .attr("fill", "#000000");
+
+svg.append("text")
+  .attr("x", 180)
+  .attr("y", 350)
+  .text(`PBR: ${pbrValue}`)
+  .attr("fill", "#000000");
+
+svg.append("text")
+  .attr("x", 310)
+  .attr("y", 180)
+  .text(`PER: ${perValue}`)
+  .attr("fill", "#000000");
+
+
+  svg.append("text")
+  .attr("x", 310)
+  .attr("y", 180)
+  .text(`PER: ${perValue}`)
+  .attr("fill", "#000000");
     
     
     
@@ -727,7 +844,7 @@
   function test(){
     let corp_name = $("#corp_name").val();
     console.log(corp_name);
-    $('#chatbot_conversation').html("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
+
     $("#search_form").attr('onsubmit','return false;');
     $('#search_error').hide();
     $('.summary_card').fadeOut();
@@ -847,40 +964,8 @@
     }
   });
 
-  $(document).ready(function () {
-    // 페이지가 로드될 때 챗봇 초기 인사말 표시
-    $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
-    });
+  
 
-  function sendMessage() {
-      // 사용자가 입력한 질문 가져오기
-      let userQuestion = $('#message-input').val();
-    
-      // 사용자 질문을 대화창에 추가
-      $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
-    
-      // AJAX를 사용하여 서버에 질문을 전송하고 답변을 받아오는 부분
-      $.ajax({
-        type: 'post',
-        url: '/summary/corp_chatbot/',
-        data: {
-          data: userQuestion,
-          csrfmiddlewaretoken: window.CSRF_TOKEN,
-        },
-        success: function (data) {
-          console.log(data);
-          
-          // 챗봇의 답변을 대화창에 추가
-          $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
-    
-          // 메시지 전송 후 textarea 비우기
-          $('#message-input').val('');
-    
-          // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
-          $('#message-input').attr("placeholder", "메시지를 입력하세요");
-        }
-      });
-    }
 </script>
 
 </body>

@@ -78,8 +78,9 @@
                     <div class="container">
                       <div class="row g-5 align-items-center">
 
-                            <div class="content-container">
+                            <div class="content-container2">
                                 <div class="content-container container-md">
+                                    <div class="text-wrapper-name">나의 투자 현황</div>    
                                   {% for total in total_calc %}
                                   <div class="overlap-8">
                                     <div class="text-wrapper-17">매입금액</div>
@@ -110,7 +111,7 @@
                                     <div class="overlap-3">
                                       <div class="text-wrapper-4">손익</div>
                                     </div>
-                                    <div class="text-wrapper-3" style="color:black;">{{total.total_profit_and_loss|intcomma}}</div>
+                                    <div class="text-wrapper-3" style="color:black;">{{total.total_profit_and_loss|intcomma}}원</div>
                                   </div>
                                     {% endif %}
                                     {% if total.total_profit_and_loss < 0 %}
@@ -332,8 +333,9 @@
         left: 600px;
         background-image: url(./img/rectangle-145.svg);
         background-size: 100% 100%;
-        border: 5px solid lightgray;
+        border: 3px solid lightgray;
         border-radius: 30px;  
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
        
       .overlap-group {
@@ -356,6 +358,7 @@
         color: #000000;
         letter-spacing:60;
         line-height: normal;
+        
 
       }
        
@@ -372,7 +375,7 @@
         position: absolute;
         width: 183px;
         top: 70px;
-        left: 108px;
+        left: 85px;
 
         transform: rotate(0.33deg);
         font-family: "Inter-Regular", Helvetica;
@@ -391,8 +394,9 @@
         left: 908px;
         background-image: url(./img/rectangle-160.svg);
         background-size: 100% 100%;
-        border: 5px solid lightgray;
+        border: 3px solid lightgray;
         border-radius: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
        
       .text-wrapper-3 {
@@ -559,7 +563,23 @@
       .sell-button:active {
         background-color: blue;
       }
-      .mask-group-2{
-        top:50px;
+      .mask-group-2 {
+        margin-top: -10%;
+        top: 50px;
+      }
+      .text-wrapper-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #ccc; /* 하단에 2픽셀 두께의 회색 선 추가 */
+        margin-top: -3%;
+        width: 92%;
+        margin-left: 5%;
       }
     </style>
