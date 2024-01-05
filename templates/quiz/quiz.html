@@ -105,13 +105,12 @@
                                             {{question}}<br>
 
                                             {% endif %}
+                                            <a href="{% url 'quiz:quiz-list' %}" type="button" class="btn-quiz">다음 퀴즈</a>
                                           </div>
                                         </div>
                                           <div class="position-relative w-100 mt-3">           
                                           </div>
-                                          <div>
-                                              <a href="{% url 'quiz:quiz-list' %}" type="button" class="btn-quiz">다음 퀴즈</a>
-                                          </div>
+                                          
                                       </div>
                                       <div class="container-xxl py-6" id="about">
                                       <div class="mask-group-2">
@@ -224,83 +223,82 @@
           height: 83px;
         }
         .text-wrapper {
-          position: absolute;
-          top: 5%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          font-family: "KoHo-SemiBold", Helvetica;
-          font-weight: 300;
-          color: #000000;
-          font-size: 20px;
-          letter-spacing: 3px;
-          line-height: 1.5;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: "KoHo-SemiBold", Helvetica;
+            font-weight: 300;
+            color: #000000;
+            font-size: 20px;
+            letter-spacing: 3px;
+            line-height: 1.5;
+            text-align: center;
+            /* margin-top: 2%; */
         }
         .box{
           width: 414px;
           height:79px;
         } 
-        .btn-quiz{
-          color: #fff;
-          background-color: #486eff;
-          border: none;
-          text-align: center;
-
+        .btn-quiz {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 20px auto;
+            background-color: #486eff;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+            margin-top: 20%;
         }
-
-      .btn-quiz {
-        padding: 10px 20px;
-        font-size: 18px;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 13%;
-        position: absolute;
-        top: 43%; /* 중앙으로 이동하는 부분 */
-        margin-left: 10.3px;
-        left: 50%; /* 중앙으로 이동하는 부분 */
-        transform: translate(-50%, -50%); 
-        text-align: center;
-      }
-
-    .frame .glass-crystal-ring {
-      position: relative;
-      width: 436px;
-      height: 340px;
-      margin-top: -530.3px;
-      transform: rotate(25deg);
-      object-fit: cover;
-      top: 70%; 
-      left: 10%;  
-    }
+        
+        .btn-quiz:hover {
+            background-color: #365fc7;
+        }
+        
+        
+        .frame .glass-crystal-ring {
+          position: relative;
+          width: 436px;
+          height: 340px;
+          margin-top: -530.3px;
+          transform: rotate(25deg);
+          object-fit: cover;
+          top: 70%; 
+          left: 10%;  
+        }
+        
+        .frame .subtract {
+          position: absolute;
+          width: 453px;
+          height: 326px;
+          top: -2053px;
+          left: 2135px;
+          transform: rotate(25deg);
+        }
+        
+        .mask-group-2{
+            position: static;
+            width: 655px;
+            top: 191px;
+            left: 509px;
+            background-color: #fff;
+        }
     
-    .frame .subtract {
-      position: absolute;
-      width: 453px;
-      height: 326px;
-      top: -2053px;
-      left: 2135px;
-      transform: rotate(25deg);
-    }
+        .quiz-name{
+          left: 50%;
+        }
+        
     
-    .mask-group-2{
-        position: static;
-        width: 655px;
-        top: 191px;
-        left: 509px;
-        background-color: #fff;
-    }
-
-    .quiz-name{
-      left: 50%;
-    }
-    
-
-    .answer {
-      margin-top: 10%;
-      text-align: center; /* Optionally, center the text within the container */
-      font-size: 26px; /* Adjust font size as needed */
-      font-weight: 600; /* Optionally, adjust font weight */
-      color: #000000; /* Optionally, adjust text color */
-    }
-
-
+        .answer {
+            margin-top: 16%;
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #000000;
+            top: 50%;
+        }
 </style>

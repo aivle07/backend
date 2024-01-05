@@ -122,7 +122,7 @@
             
             <div class="checkbox-wrapper">
                 <input type="radio" id="optionX" class="checkbox-input2" name="answer" value="X">
-                <label for="optionX" class="text-wrapper-13">x</label>
+                <label for="optionX" class="text-wrapper-13">X</label>
             </div>
           </form>   
          </div>  
@@ -149,42 +149,6 @@
               <script src="{% static 'js/main.js' %}"></script>
           <!-- Code injected by live-server -->
   <script>
-// <![CDATA[  <-- For SVG support
-/*
-if ('WebSocket' in window) {
-  (function () {
-    function refreshCSS() {
-      var sheets = [].slice.call(document.getElementsByTagName("link"));
-      var head = document.getElementsByTagName("head")[0];
-      for (var i = 0; i < sheets.length; ++i) {
-        var elem = sheets[i];
-        var parent = elem.parentElement || head;
-        parent.removeChild(elem);
-        var rel = elem.rel;
-        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-          var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-          elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-        }
-        parent.appendChild(elem);
-      }
-    }
-    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-    var address = protocol + window.location.host + window.location.pathname + '/ws';
-    var socket = new WebSocket(address);
-    socket.onmessage = function (msg) {
-      if (msg.data == 'reload') window.location.reload();
-      else if (msg.data == 'refreshcss') refreshCSS();
-    };
-    if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-      console.log('Live reload enabled.');
-      sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-    }
-  })();
-}
-else {
-  console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-}
-*/
  function showPopup() {
   $('#popup').removeClass('hide');
 } 
@@ -235,7 +199,6 @@ $(document).mouseup(function (e) {
   }
   .frame .overlap-wrapper {
     background-color: #ffffff;
-    overflow: hidden;
     width: 1403px;
     height: 1023px;
   }
@@ -474,18 +437,19 @@ $(document).mouseup(function (e) {
     border-radius: 7px;
     border: 1px solid;
     border-color: #fff;
-    z-index:-1;
+    z-index:1;
   }
   .rectangle-6 {
     position: absolute;
     width: 565px;
     height: 206px;
     top: 201px;
-    left: 569px;
+    left: 555px;
     background-color: #f5f5f5;
     border-radius: 7px;
     border: 1px solid;
     border-color: #f5f5f5;
+    z-index:90;
   }
   .frame .text-wrapper-9 {
     width: 186px;
@@ -493,38 +457,43 @@ $(document).mouseup(function (e) {
     left: 578px;
     font-weight: 500;
     color: #000000;
-    font-size: 24px;
+    font-size: 29px;
     position: absolute;
     letter-spacing: 0;
     line-height: normal;
+    z-index:99;
   }
   .frame .p {
     width: 513px;
     top: 229px;
-    left: 600px;
+    left: 580px;
     font-family: "Inter-Medium", Helvetica;
     font-weight: 500;
     color: #000000;
     font-size: 18px;
     position: absolute;
     letter-spacing: 0;
-    line-height: normal;
+    line-height: 2;
+    z-index: 99;
   }
   .frame .rectangle-7 {
     position: absolute;
     width: 314px;
     height: 59px;
-    top: 704px;
+    top: 694px;
     left: 689px;
     background-color: #486eff;
     color: #fff;
     border-radius: 7px;
     border: none;
-    transition: box-shadow 0.3s ease; /* 그림자 변화에 애니메이션 추가 */
-  }
+    transition: box-shadow 0.3s ease;
+    z-index: 1;
+    text-align: center;
+    font-size:18px;
+    }
   
   .frame .rectangle-7:active {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 클릭 시 그림자 추가 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* 클릭 시 그림자 추가 */
   }
   .frame .text-wrapper-10 {
     position: absolute;
@@ -586,25 +555,27 @@ $(document).mouseup(function (e) {
     position: absolute;
     width: 118px;
     top: -37px;
-    left: 36px;
+    left: 39px;
     font-family: "Inter-Medium", Helvetica;
     color: #000000;
     font-size: 30px;
     letter-spacing: 0;
     line-height: normal;
+    z-index:99;
   }
   
   .frame .text-wrapper-13 {
     position: absolute;
     width: 118px;
-    top: -215px;
-    left: 36px;
+    top: -202px;
+    left: 39px;
     font-family: "Inter-Medium", Helvetica;
     font-weight: 500;
     color: #000000;
-    font-size: 40px;
+    font-size: 30px;
     letter-spacing: 0;
     line-height: normal;
+    z-index:99;
   }
   
   .frame .line-2 {
@@ -620,7 +591,8 @@ $(document).mouseup(function (e) {
     position: absolute;
     display: flex;
     align-items: center;
-    margin-top: 550px;
+    margin-top: 510px;
+    margin-left:-5%;
   }
 
   
@@ -628,11 +600,13 @@ $(document).mouseup(function (e) {
     margin-right: 9px;
     margin-top:-40px;
     top:50%; 
+    z-index:99;
   }
 
   .checkbox-input2 {
     margin-right: 40px;
     margin-top: -700%;
+    z-index:99;
   }
 
  
@@ -654,7 +628,7 @@ $(document).mouseup(function (e) {
     height: 480px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
     top: -62%; /* 원하는 위치에 맞게 조절하세요 */
     margin-top: -690.3px;
-    margin-left: -610.3px;
+    margin-left: -550.3px;
     margin-bottom: 15px;
     left: 13%; /* 원하는 위치에 맞게 조절하세요 */
     transform: rotate(25deg);
@@ -663,14 +637,14 @@ $(document).mouseup(function (e) {
   
   .circle7 {
     position: absolute;
-    width: 350px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-    height: 310px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
+    width: 400px;
+    height: 310px;
     transform: rotate(25deg);
-    margin-top: -200.3px;
-    margin-left: 150.3px;
-    top:-62%; /* 원하는 위치에 맞게 조절하세요 */
-    left: 57%; /* 원하는 위치에 맞게 조절하세요 */
-    z-index:-1;
+    margin-top: -300.3px;
+    margin-left: 60.3px;
+    top: -62%;
+    left: 57%;
+    z-index: -1;
   }
   #popup {
     display: flex;
