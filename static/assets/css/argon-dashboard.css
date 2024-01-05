@@ -244,7 +244,7 @@ img {
 svg {
   overflow: hidden;
   vertical-align: middle;
-  margin-left: 20%;
+  margin-left:20%;
 }
 
 table {
@@ -21190,6 +21190,11 @@ button.btn:hover {
     justify-content: center;
     align-items: center;
 }
+#popup .content .capital{
+  height: 30%;
+  width: 30%;
+}
+
 .custom-end {
   background-color: #3498db; /* 배경색 */
   color: #fff; /* 텍스트 색상 */
@@ -21378,4 +21383,7 @@ button.btn:hover {
   margin-bottom: 5%;
   left: 27%;
   top: 28%;
+}
+#triangleContainer{
+  margin-left: 20px;
 }

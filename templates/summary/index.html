@@ -55,7 +55,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="/">
-        <img src="{%static '/assets/img/brand/blue.png' %}" class="navbar-brand-img" alt="...">
+        HEY 금융 +
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -483,14 +483,14 @@
 
         </div>
       </div>
-
+{% comment %} 현재작업 위치 {% endcomment %}
       <div class="row-2 mt-5">
         <div class="row-2">
           <div class="col-xl-custom">
             <div class="card-3 card-3-stats mb-4">
               <div class="card-3-body">
-                    <span class="h2 font-weight-bold mb-0" >현재 주가 vs 적정 주가</span>
-              </div>
+                    <div id="myChart" style="width: 700px; height: 440px;"></div>
+               </div>
             </div>
           </div>
 
@@ -501,7 +501,14 @@
                   <div class="card-3-body">
                     <span class="h2 font-weight-bold mb-0">적정 주가</span>
                     <div id="triangleContainer"></div>
-                    <div id="triangle-value"></div>
+                    <div id="triangle-value"></div> 
+                    <div id="popup" class="hide layer">
+                      <div class="content">
+                          <div class="capital">자본에 대한 설명과 중요한 이유</div>
+                          <div class="stock-price">주가에 대한 설명과 중요한 이유</div>
+                          <div class="profit">이익의 종류와 설명</div>
+                      </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -547,7 +554,7 @@
         datasets: [{
           label: "금리 값",
           data: [3.25, 5.25],
-          backgroundColor: ['blue', 'red'] // Adjust colors as needed
+          backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(255, 99, 132, 0.7)'] // Adjust colors as needed
         }]
       };
       if (t.length) {
@@ -763,7 +770,8 @@ points = [
 // D3.js를 사용하여 정삼각형 그리기
 var svg = d3.select("#triangleContainer").append("svg")
   .attr("width", 400)
-  .attr("height", 400);
+  .attr("height", 400)
+  .on("click", showPopup);
 
 svg.append("polygon")
   .attr("points", `${points[0].x},${points[0].y} ${points[1].x},${points[1].y} ${points[2].x},${points[2].y}`)
@@ -802,22 +810,6 @@ svg.selectAll("circle")
       .duration(300)
       .attr("fill", "#3498db") // Hover 시의 배경색
       .attr("r", 60); // Hover 시의 크기 확대
-
-    // 팝업 요소 생성
-    const popup = svg.append("foreignObject")
-    .attr("x", d.x - 60)
-    .attr("y", d.y - 80)
-    .attr("width", 120)
-    .attr("height", 120)
-    .append("xhtml:div")
-    .style("background", "white")
-    .style("border", "1px solid #000")
-    .style("padding", "10px")
-    .html(`
-      <strong>Info:</strong><br>
-      Equity: 5555<br>
-      Stock Price: 222<br>
-      Profit: 2222`);
   })
 
   .on("mouseout", function () {
@@ -851,13 +843,13 @@ svg.selectAll("text")
 svg.append("text")
   .attr("x", 50)
   .attr("y", 180)
-  .text(`ROE: ${roeValue}`)
+  .text(`PBR: ${pbrValue}`)
   .attr("fill", "#000000");
 
 svg.append("text")
   .attr("x", 180)
   .attr("y", 350)
-  .text(`PBR: ${pbrValue}`)
+  .text(`ROE: ${roeValue}`)
   .attr("fill", "#000000");
 
 svg.append("text")
@@ -865,16 +857,6 @@ svg.append("text")
   .attr("y", 180)
   .text(`PER: ${perValue}`)
   .attr("fill", "#000000");
-
-
-  svg.append("text")
-  .attr("x", 310)
-  .attr("y", 180)
-  .text(`PER: ${perValue}`)
-  .attr("fill", "#000000");
-    
-    
-    
 
   function test(){
     let corp_name = $("#corp_name").val();
@@ -975,11 +957,77 @@ svg.append("text")
         popContent.addClass('hide');
     }
   });
-
-  
-
 </script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    // Google Charts 로드
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
 
+    function drawChart() {
+      // 가상의 데이터 (적절한 값으로 대체 필요)
+      var pbr = 1.25;
+      var per = 10; // 동종업계의 per 의 평균을 계산해서 넣어야 함. 우선 10 default 고정
+      var eps = 1795;
+      var roe = 0.0968;
+      var bps = 8;
+      
+      var currentPrice = 18000;
+      var pbrPer = eps*per;
+      var epsBps = pbr*bps;
+      var roe = eps * roe * 100;
+
+      // 각각의 적정주가 계산 (적절한 방법으로 대체 필요)
+      var fairValuePBRPER = pbrPer;
+      var fairValueEPSBPS = epsBps;
+      var fairValueROE = roe;
+
+      // 데이터 배열 생성
+      var data = google.visualization.arrayToDataTable([
+        ['항목', '적정주가', '현재주가', '주가 차이'],
+        ['PBR/PER', fairValuePBRPER, currentPrice, Math.abs(fairValuePBRPER - currentPrice)],
+        ['ROE', fairValueROE, currentPrice, Math.abs(fairValuePBRPER - currentPrice)],
+      ]);
+
+      // 차트 옵션 설정
+      var options = {
+        title: '주요지표 분석으로 본 현재 주가의 타당성',
+        titleTextStyle: {
+          fontSize: 20, // 원하는 크기로 설정
+          bold: true     // 굵게 설정 여부 (true 또는 false)
+        },
+        chartArea: {width: '65%', marginRight: '20%'},
+        hAxis: {
+          title: '항목',
+          minValue: 0
+        },
+        annotations: {
+          alwaysOutside: true,
+          textStyle: {
+            fontSize: 12,
+            auraColor: 'none',
+            color: '#555'
+          },
+          vertical: true
+        },
+        legend: {
+          position: 'bottom' // 'top', 'bottom', 'left', 'right' 중 선택
+        },
+        series: {
+          0: {color: '#3366cc'},  // '예상주가' color
+          1: {color: '#dc3912'},    // '현재주가' color
+          2: {type: 'line', color: 'orange', lineDashStyle: [4, 4], lineWidth: 10} // '주가 차이' color
+        },
+        seriesType: 'bars'
+      };
+
+      // Combo 차트 생성
+      var chart = new google.visualization.ComboChart(document.getElementById('myChart'));
+
+      // 차트 그리기
+      chart.draw(data, options);
+    }
+  </script>
 </body>
 </html>
 
