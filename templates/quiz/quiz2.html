@@ -76,7 +76,7 @@
       <!-- Navbar & Hero End -->
         <div class="frame">
          <div class="overlap-3 rectangle-21 shadow">
-          <div class="text-wrapper">퀴즈 History</div>
+          <div class="text-wrapper">Quiz History</div>
           <p class="element">
             {% if not history %}
             <small>아직 푼 문제가 없습니다.</small>
@@ -95,11 +95,11 @@
           </div>
           <div class="rectangle-5 shadow"></div>
           <div class="rectangle-6"></div>
-          <div class="text-wrapper-9">Q</div>
+          <div class="text-wrapper-9">Quiz</div>
           <form action="" method="post">
             {% csrf_token %}
             <div class="input-box">
-              <p class="p text-wrapper-7 ">{{quiz.question}}</p>
+              <p class="p text-wrapper-7 ">Q. {{quiz.question}}</p>
               <input type="hidden" name="id" value="{{quiz.id}}"/>
               <input type="hidden" name="question" value="{{quiz.question}}"/>
             </div>
@@ -236,16 +236,13 @@ $(document).mouseup(function (e) {
     left: 2px;
   }
   .frame .text-wrapper {
-    position: absolute;
-    width: 251px;
-    top: 0;
-    left: 17px;
     font-family: "Inter-Black", Helvetica;
-    font-weight: 800;
+    font-weight: bold;
     color: #000000;
     font-size: 24px;
     letter-spacing: 0;
     line-height: 1.5;
+    padding:5%;
   }
   .frame .line {
     width: 268px;
@@ -348,11 +345,10 @@ $(document).mouseup(function (e) {
     object-fit: cover;
   }
   .frame .overlap-3 {
-    position: absolute;
-    width: 250px;
+    width: 350px;
     height: 656px;
     top: 140px;
-    left: 7%;
+    left: 3%;
     z-index:1;
   }
   .frame .rectangle {
@@ -363,16 +359,14 @@ $(document).mouseup(function (e) {
     left: 0;
   }
   .frame .element {
-    position: absolute;
-    width: 180px;
-    top: 54px;
-    left: 21px;
     font-family: "Inter-Medium", Helvetica;
     font-weight: 500;
     color: #000000;
     font-size: 18px;
     letter-spacing: 0;
     line-height: normal;
+    padding:5%;
+    text-align:justify;
   }
   
   .frame .span {
@@ -455,9 +449,9 @@ $(document).mouseup(function (e) {
     width: 186px;
     top: 154px;
     left: 578px;
-    font-weight: 500;
+    font-weight: bold;
     color: #000000;
-    font-size: 29px;
+    font-size: 24px;
     position: absolute;
     letter-spacing: 0;
     line-height: normal;
@@ -475,6 +469,7 @@ $(document).mouseup(function (e) {
     letter-spacing: 0;
     line-height: 2;
     z-index: 99;
+    text-align: justify;
   }
   .frame .rectangle-7 {
     position: absolute;
