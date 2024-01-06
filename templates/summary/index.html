@@ -1087,7 +1087,8 @@
     function sendMessage() {
       // 사용자가 입력한 질문 가져오기
       let userQuestion = $('#message-input').val();
-    
+      // 메시지 전송 후 textarea 비우기
+      $('#message-input').val('');
       // 사용자 질문을 대화창에 추가
       $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
     
@@ -1105,8 +1106,7 @@
           // 챗봇의 답변을 대화창에 추가
           $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
     
-          // 메시지 전송 후 textarea 비우기
-          $('#message-input').val('');
+          
     
           // placeholder를 다시 보이도록 설정 (생략 가능하나 추가하면 더 확실함)
           $('#message-input').attr("placeholder", "메시지를 입력하세요");

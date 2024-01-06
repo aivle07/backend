@@ -400,7 +400,7 @@
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales2" 
                     data-update='{"data":{"datasets":[{"data":[38408688000,2000,5000,9000]}]}}' data-prefix="$" data-suffix="k">
                       <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">2023</span>
+                        <span class="d-none d-md-block">{% now "Y" %}</span>
                         <span class="d-md-none">M</span>
                       </a>
                     </li>
@@ -634,6 +634,9 @@
     // 사용자가 입력한 질문 가져오기
     let userQuestion = $('#message-input').val();
   
+    // 메시지 전송 후 textarea 비우기
+    $('#message-input').val('');
+
     // 사용자 질문을 대화창에 추가
     $('#chatbot_conversation').append("<p class='user-question'>" + userQuestion + "</p>");
   
@@ -651,8 +654,6 @@
             // 챗봇의 답변을 대화창에 추가
             $('#chatbot_conversation').append("<p class='chatbot-answer'>" + data.chat_answer + "</p>");
 
-            // 메시지 전송 후 textarea 비우기
-            $('#message-input').val('');
 
             // placeholder를 다시 보이도록 설정
             $('#message-input').attr("placeholder", "메시지를 입력하세요");
