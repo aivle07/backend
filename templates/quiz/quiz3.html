@@ -86,29 +86,16 @@
                                       <br>
                                       내일도 도전하세요
                                      </h5>
+                                     <a href="/" type="button" class="btn-quiz">메인홈 가기</a>
                                    </div>
                                 </div>
                                 <div class="container-xxl position-relative p-1", id="main">
-                                  <div class="container">
-                                      <div class="row g-5 align-items-center">
-                                          <div class="col-lg-6 text-center text-lg-start">
-                                          <div class=' label'><div class="text-wrapper" style="z-index:999">
-                                            
-                                          </div>
-                                        </div>
-                                          <div class="position-relative w-100 mt-3">           
-                                          </div>
-                            
-                                          <div>
-                                              <a href="/" type="button" class="btn-quiz">메인홈 가기</a>
-                                          </div>
-                                      </div>
-                                      <div class="container-xxl py-6" id="about">
+                                  <div class="container"> 
                                       <div class="mask-group-2">
                                       <div class="image7"><img class="cube7" src="{% static 'img/cube7 1.png' %}"/></div>
                                       <div class="image7"><img class="circle7" src="{% static 'img/circle7 1.png' %}"/></div>
-                            </div>
-                        </div>
+                                  </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -212,7 +199,7 @@
    }
    .text-wrapper {
     position: absolute;
-    top: 30%;
+    top: 28%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: "KoHo-SemiBold", Helvetica;
@@ -226,27 +213,26 @@
      width: 414px;
      height:79px;
    } 
-   .btn-quiz{
-     color: #fff;
-     background-color: #486eff;
-     border: none;
-     
-   }
-  
+   
+
+
    .btn-quiz {
-    padding: 13px 12px;
-    font-size: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 16%;
-    position: absolute;
-    top: 29%;
-    margin-left: 10.3px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 400;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 20px auto;
+    background-color: #486eff;
+    color: #fff;
     text-align: center;
-    }
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    margin-top: 32%;
+   }
+   .btn-quiz:hover {
+     background-color: #365fc7;
+   }
    .frame .glass-crystal-ring {
      position: relative;
      width: 436px;
@@ -269,20 +255,20 @@
 
    .cube7 {
     position: absolute;
-    width: 335px;
+    width: 385px;
     height: 450px;
-    top: 30%;
+    top: -10%;
     left: 13%;
     }
-   
-   .circle7 {
-     position: absolute;
-     width: 380px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-     height: 310px; /* 예시값, 이미지 크기에 맞게 조절하세요 */
-     top:41%; /* 원하는 위치에 맞게 조절하세요 */
-     transform: rotate(5deg);
-     left: 57%; /* 원하는 위치에 맞게 조절하세요 */
-   }
+    
+  .circle7 {
+    position: absolute;
+    width: 430px;
+    height: 310px;
+    top: 17%;
+
+    left: 57%;
+  }
    
    
    .mask-group-2{
@@ -299,18 +285,18 @@
    
    }
    .content-tit .textset-tit {
-     position: absolute;
-     top: 19%;
-     left: 50%;
-     transform: translate(-50%, -50%);
-     font-family: "KoHo-SemiBold", Helvetica;
-     font-weight: 400;
-     color: #000000;
-     font-size: 25px;
-     letter-spacing: 0;
-     letter-spacing: 3px;
-     line-height: 1.7;
-     text-align: center;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "KoHo-SemiBold", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 25px;
+    letter-spacing: 0;
+    letter-spacing: 3px;
+    line-height: 1.7;
+    text-align: center;
    }
    
 </style>

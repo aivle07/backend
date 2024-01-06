@@ -33,7 +33,12 @@
 
     <!-- Toast UI Editor -->
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-    
+    {% if 'update' in request.path and data.author != user.username %}
+    <script>
+        alert("권한이 없습니다.");
+        history.go(-1);
+    </script>
+    {% endif %}
 </head>
 
 <body>
@@ -99,7 +104,7 @@
                     
                     <div class="overlap-3">
                         
-                        <div id="editor">{{data.content}}</div>
+                        <div id="editor">{{data.content|safe}}</div>
                     </div>
                   </div>
                   
@@ -108,25 +113,28 @@
            
             </div>
           </div>
+          <!-- form 안에 있는 input태그들은 절대로 밖으로 배치하지 말 것-->
           <form action="" method="post" enctype="multipart/form-data">
-            {% if 'update' in request.path %}
-            <input type="hidden" name="_method" value="put"/> 
-            {%endif%}
             
             <label>제목 : </label>
             <input type="text" id="title" class="title" name="title" value="{{data.title}}"/><br>
             
             <input type="hidden" name="category" id="category" class="category" value="Q&A"/><br>
             {% csrf_token %}
-            {{data}}
+            
             <div class="input-file">
                 <label for="upload01" class="file-label">파일 업로드</label>
                 <input type="file" name="image" id="upload01" class="file-upload" />
+                <input type="hidden" name="content" id="content" value="{{data.content}}"/>
                 <div class= btn-notice>
                     <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
-                    <input type="submit" onClick="return sendMessage();"  class = "create-write" value="작성하기"/>
-                </div>
-                <input type="hidden" name="content" id="content" value="{{data.content}}"/>
+                    {% if 'update' in request.path %}
+                    <input type="submit" onClick="return sendMessage();"  class = "create-write" value="수정완료"/> 
+                    {%else%}
+                    <input type="submit" onClick="return sendMessage();"  class = "create-write" value="작성하기"/> 
+                    {%endif%}
+                    
+                </div>   
             </div>
             </form>      
         
@@ -235,17 +243,6 @@
     function sendMessage(){
         let content = editor.getHTML();
         document.querySelector("#content").value = content;
-
-        {% if 'update' in request.path %}
-        $('form').submit(function () {
-            var $form = $(this);
-            // hidden input 필드를 찾아 실제 HTTP 메서드를 설정
-            var method = $form.find('[name="_method"]').val();
-            // form의 method 속성을 변경
-            $form.attr('method', method);
-            return true;
-        });
-        {%endif%}
 
         return true;
 
