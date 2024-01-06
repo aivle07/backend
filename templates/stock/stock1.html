@@ -66,7 +66,7 @@
                 <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                 <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                 {% else %}
-                    <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
+                    <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
                     <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                     <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                 {% endif %}
@@ -80,7 +80,7 @@
                           <div class="content-container">
                               <div class="main-stock-info" status="up">
                                   <div class="stock-info">
-                                    <form action="" method="get" style="margin-top:20px;">
+                                    <form action="" method="get">
                                       <input type="text" name="param" value="{{param|default:''}}" placeholder="검색"/>
                                       <input type="submit" value="검색"/>
                                     </form>
@@ -135,7 +135,8 @@
                                         </div>                                          
                                         <div class="tabs-connected-underline desktop">
                                             <button class="tab" style="font-size: 1.1rem;">매수</button>
-                                            <span class="underline" style="width: 100%; transform: translate(0px); background-color: var(--up);"></span>
+                                            <span class="underline"></span>
+                                            <span class="underline2"></span>
                                         </div>
                                         <div class="trading-tab-form">
                                             
@@ -198,6 +199,8 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'main.js' %}"></script>
     <script>
+
+      
       function buyStock() {
         {% if not user.is_authenticated %}
           alert("로그인 후 이용가능합니다.");
@@ -212,7 +215,7 @@
           return false;
         }
         else{
-          alert("주식을 매수합니다!");
+          alert("주식을 매수합니다");
           return true;
         } 
       }
@@ -388,7 +391,7 @@
         position: relative;
         overflow: hidden;
         white-space: nowrap;
-        margin-top:-3rem;
+        margin-top: 5%;
       }
       
       .slide-header .title {
@@ -451,7 +454,7 @@
         display: flex;
       }
       
-      
+    
       
       .tabs-connected-underline .tab:disabled {
         cursor: unset;
@@ -460,9 +463,12 @@
       .tabs-connected-underline .tab {
         width: 100%;
         font-weight: 500;
-        border-bottom: 1px solid red;
+        border-bottom: 3px solid red;
         cursor: pointer;
+        font-size: 1.1rem;
+        color: red;
       }
+      
       
       .tabs-connected-underline .underline {
         position: absolute;
@@ -473,7 +479,10 @@
         width: 104px;
         transform: translate(0px);
         background-color: red;
+        border-bottom: 3px solid red;
       }
+      
+      
       
       .trading-tab .trading-tab-form {
         
@@ -939,7 +948,7 @@
       }
       
       .trading-tab-form .result-form {
-        margin-top: 60px;
+        margin-top: 70px;
         font-size: 0.6rem;
         margin-bottom: 20px;
       }
@@ -949,6 +958,7 @@
       .trading-tab-form .result-form .total-order-price {
         display: flex;
         align-items: center;
+        font-size:0.8rem;
       }
       
       .trading-tab-form .result-form .buyable-cash {
@@ -962,20 +972,20 @@
       .trading-tab-form .label,
       .trading-tab-form .unit {
         line-height: 2.4rem;
-        font-size: 1.3rem;
+        font-size: 1rem;
         color: var(--neutral-secondary);
       }
       
       .trading-tab-form .result-form .buyable-cash .price {
         line-height: 2rem;
         margin-left: 4px;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: var(--primary);
       }
       
       .trading-tab-form .result-form .total-order-price .price {
-        line-height: 2.4rem;
-        font-size: 1.5rem;
+        line-height: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 500;
         margin-left: auto;
       }
@@ -993,29 +1003,17 @@
       .trading-tab-form .result-form .total-order-price .unit {
         line-height: 2.4rem;
         font-size: 1rem;
-        margin-left: 4px;
+        margin-right:3%;
+
       }
       
       .trading-tab-form .label,
       .trading-tab-form .unit {
         line-height: 2.4rem;
-        font-size: 1.3rem;
+        font-size: 1rem;
         color: var(--neutral-secondary);
       }
-      
-      .trading-tab-form .result-form .total-order-price .price {
-        line-height: 2.4rem;
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-left: auto;
-      }
-      
-      .trading-tab-form .result-form .total-order-price .unit {
-        line-height: 2.4rem;
-        font-size: 1.3rem;
-        margin-left: 4px;
-      }
-      
+  
       .trading-tab-form .result-form .total-order-price {
         justify-content: space-between;
       }
@@ -1035,7 +1033,7 @@
     
       .trading-tab-form .result-form .btn-order.bid:active {
         outline: none; /* 클릭 시 포커스 테두리 없애기 */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 클릭 시 그림자 추가 */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* 클릭 시 그림자 추가 */
       }
       .clickable-layer:after {
         content: "";
@@ -1171,6 +1169,7 @@
         margin-left:20%;
         border: 1px solid #a6a4a4;
         padding: 20px;
+        margin-bottom:10%;
       }
       /*
       .chart-section{
@@ -1203,7 +1202,7 @@
       }
       .investment:hover {
         background-color: #fff;
-        color: #5e72e4;
+        color: #000000;
       }
       
 </style>     

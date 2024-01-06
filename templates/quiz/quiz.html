@@ -79,45 +79,45 @@
                 <div class="custom">
                     <div class="container">
                         <div class="row g-5 align-items-center">
-                            <div class="content-container">
-                                <div class="content-container container-md">
-                                  <div class="answer">
-                                    {% if question %}
-                                    
-                                    {% endif %}
-                                    {% if judge == "O" %}
-                                    정답입니다.⭕️<br>
-                                    
-                                    {% else %}
-                                    오답입니다.❌<br>
-                      
-                                    {% endif %}
-                                  </div>
-                                </div>
-                                <div class="container-xxl position-relative p-1", id="main">
-                                  <div class="container">
-                                      <div class="row g-5 align-items-center">
-                                       
-                                          <div class="col-lg-6 text-center text-lg-start">
-                                          <div class=' label'><div class="text-wrapper" style="z-index:999">
-                                            {% if question %}
+                                <div class="content-container">
+                                    <div class="content-container container-md">
+                                    <div class="answer">
+                                        {% if question %}
+                                        
+                                        {% endif %}
+                                        {% if judge == "O" %}
+                                        정답입니다.⭕️<br>
+                                        
+                                        {% else %}
+                                        오답입니다.❌<br>
+                        
+                                        {% endif %}
+                                    </div>
+                                    </div>
+                                    <div class="container-xxl position-relative p-1", id="main">
+                                    <div class="container">
+                                        <div class="row g-5 align-items-center">
+                                        
+                                            <div class="col-lg-6 text-center text-lg-start">
+                                            <div class=' label'><div class="text-wrapper" style="z-index:999">
+                                                {% if question %}
 
-                                            {{question}}<br>
+                                                {{question}}<br>
 
-                                            {% endif %}
-                                            <a href="{% url 'quiz:quiz-list' %}" type="button" class="btn-quiz">다음 퀴즈</a>
-                                          </div>
+                                                {% endif %}
+                                                <a href="{% url 'quiz:quiz-list' %}" type="button" class="btn-quiz">다음 퀴즈</a>
+                                            </div>
+                                            </div>
+                                            <div class="position-relative w-100 mt-3">           
+                                            </div>
+                                            
                                         </div>
-                                          <div class="position-relative w-100 mt-3">           
-                                          </div>
-                                          
-                                      </div>
-                                      <div class="container-xxl py-6" id="about">
-                                      <div class="mask-group-2">
-                                      {% comment %} <div class="image7"><img class="cube7" src="{% static 'img/cube7 1.png' %}"/></div>
-                                      <div class="image7"><img class="circle7" src="{% static 'img/circle7 1.png' %}"/></div> {% endcomment %}
+                                        <div class="container-xxl py-6" id="about">
+                                        <div class="mask-group-2">
+                                        {% comment %} <div class="image7"><img class="cube7" src="{% static 'img/cube7 1.png' %}"/></div>
+                                        <div class="image7"><img class="circle7" src="{% static 'img/circle7 1.png' %}"/></div> {% endcomment %}
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
               </div>
@@ -233,7 +233,7 @@
             font-size: 20px;
             letter-spacing: 3px;
             line-height: 1.5;
-            text-align: center;
+            text-align: justify;
             /* margin-top: 2%; */
         }
         .box{

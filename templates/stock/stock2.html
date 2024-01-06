@@ -67,7 +67,7 @@
                     <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                     <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}</a></li>
+                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
                         <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                     {% endif %}
@@ -155,7 +155,7 @@
                                       </div>
                                       <div class="container-xxl py-6" id="about">
                                       <div class="mask-group-2">
-                                        <p>{{time}} 기준</p>
+                                        <p>{{time}} 기준 거래 내역</p>
                                         <table>
                                          <thead>
                                             <tr>
@@ -217,12 +217,10 @@
                                               alert("매도하기 위해서는 최소 1개 이상 체크해야합니다.");
                                               return false;
                                             }else{
-                                              alert("주식을 매도합니다!");
+                                              alert("주식을 매도합니다");
                                               return true;
                                             }
                                             // 매도하기 버튼이 클릭되었을 때 수행할 동작을 정의합니다.
-                                            
-                                            // 실제로는 여기에 매도 로직을 추가해야 합니다.
 
                                           }
                                         </script>
@@ -339,7 +337,7 @@
     background-size: 100% 100%;
     border: 3px solid lightgray;
     border-radius: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .overlap-group {
@@ -385,7 +383,7 @@
     background-size: 100% 100%;
     border: 3px solid lightgray;
     border-radius: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .text-wrapper-2,
@@ -396,7 +394,7 @@
     transform: translate(-50%, -50%) rotate(0.33deg);
     font-family: "Inter-Regular", Helvetica;
     font-weight: 300;
-    font-size: 36px;
+    font-size: 32px;
     letter-spacing: 0;
     line-height: normal;
   }
@@ -478,7 +476,8 @@
     position: absolute;
     letter-spacing: 0;
     line-height: normal;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #b4b4b4;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: 80%;
     padding: 5px;
   }
@@ -516,7 +515,8 @@
     position: absolute;
     letter-spacing: 0;
     line-height: normal;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #b4b4b4;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     width: 80%;
     padding: 5px;
   }
@@ -574,7 +574,7 @@
   }
 
   .mask-group-2 {
-    margin-top: -10%;
+    margin-top: 0%;
     top: 50px;
   }
 
@@ -589,7 +589,6 @@
     margin: 20px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid #ccc;
-    margin-top: -3%;
     width: 92%;
     margin-left: 5%;
   }
