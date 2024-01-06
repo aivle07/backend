@@ -244,7 +244,6 @@ img {
 svg {
   overflow: hidden;
   vertical-align: middle;
-  margin-left:20%;
 }
 
 table {
@@ -15904,7 +15903,7 @@ a.btn-icon-only {
 .footer {
   background: #f7fafc;
   padding: 2.5rem 0;
-  margin-top: 100px;
+  margin-top: 30%;
 }
 
 .footer .col-footer .heading {
@@ -17577,7 +17576,7 @@ textarea[resize="horizontal"] {
 
 .navbar-search .form-control {
   width: 270px;
-  background-color: transparent;
+  background-color: #5fa8e100;
 }
 
 .navbar-search-dark .input-group {
@@ -20800,6 +20799,15 @@ pre>code.highlight {
   padding-left: 15px;
   max-height: 50%;
 }
+.col-xl-custom2{
+  max-width: 100%;
+  position: relative;
+  width: 98.5%;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-height: 50%;
+}
 .chart-dept{
   height: 400px;
 }
@@ -20812,10 +20820,22 @@ pre>code.highlight {
   flex-direction: row;
   justify-content: center
 }
+.row-3 {
+  width: 103.9%;
+  display: flex;
+  margin-right: -15px;
+
+  margin-left: -15px;
+  align-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 .row-2 > * {
   flex : 200px; /* 고정된 크기로 설정 (예: 200px) */
 }
-
+.roe{
+  max-width: 100%;
+}
 .card-3 {
   position: relative;
   display: flex;
@@ -20833,15 +20853,48 @@ pre>code.highlight {
   height: 470px;
   overflow: hidden;
 }
+#expandButton {
+  width: 50%;
+  transform: translate(50%);
+  height: 68px;
+  background-color: #fff;
+  border: none;
+  font-size: 0px;
+  position: relative;
+  cursor: pointer;
+}
+
+#expandButton::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  border: 1px solid #b8b8b8;
+  border-width: 0 4px 4px 0;
+  margin-left: -2px;
+  padding: 15px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+#expandButton:active {
+  outline: none;
+}
+
+
+
 .card-4-body {
-  padding: 1.5rem;
+    padding: 1.5rem;
     height: 470px;
     overflow: hidden;
     display: flex;
-    align-content: flex-end;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  max-height: 90%;
+
+    justify-content: space-between;
 }
 
 /*종석이가 원하는 기능 구현*/
@@ -21386,5 +21439,5 @@ button.btn:hover {
   top: 28%;
 }
 #triangleContainer{
-  margin-left: 20px;
+  position: absolute;
 }
