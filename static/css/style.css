@@ -1318,13 +1318,14 @@ hr {
   display: flex;
   background-color: #f0faff;
   width: 45%;
-  height: 800px;
+  height: 500px;
   padding: 2%;
   border-radius: 10px;
   color: #000;
   text-overflow: ellipsis;
   overflow: hidden;
   position: relative;
+  margin-top: 10%
 }
 .box-container p-1 {
   overflow: hidden;
@@ -1332,6 +1333,7 @@ hr {
   font-size: 17px;
   padding: 5%;
   text-align: justify;
+  margin-top: 12%
 }
 .card-chat-bot{
   height: 100%;
@@ -1345,6 +1347,7 @@ hr {
 .box-container-2 {
   width: 45%;
   height: 800px;
+  margin-top: 10%;
   /* background-color: #2320da; */
 }
 .summary-chat{
@@ -1357,7 +1360,7 @@ hr {
   height: 100%;
 }
 .report-chat{
-  height: 657.32px;
+  height: 350px;
   border: 1px solid #f4f4f4;
 }
 .send-report{
@@ -1422,13 +1425,12 @@ h-report-title {
 
 .report-title {
   position: absolute;
-  top: 0;
+  top: 3%;
   font-size: 30px;
   color: #32325d;
   font-weight: bold;
   line-height: 1.5;
-  left: 22%;
-  
+  left: 22%;  
 }
 /* 아래의 모든 코드는 영역::코드로 사용 */
 .pop-summary::-webkit-scrollbar,

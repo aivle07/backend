@@ -234,6 +234,7 @@
         if(isNaN(value) || isNaN(count) || count < 0){
           price.innerText = "1이상의 숫자를 입력하세요";
           price.style = "color:red;";
+          price.style.fontSize = "16px"; // 글자 크기 작게 설정
           unit.innerText = "";
           label.innerText = "";
           return;
@@ -241,6 +242,7 @@
 
         price.innerText = (value * count).toLocaleString();
         price.style = "color:black;"
+        price.style.fontSize = "24px"; // 글자 크기 작게 설정
         unit.innerText = "원";
         label.innerText = "주문총액";
 
