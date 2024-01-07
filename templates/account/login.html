@@ -193,6 +193,14 @@
                                     {%for error in form.login.errors %}
                                       <div class="sub-tt text-danger">{{error}}</div>
                                     {% endfor%}
+                                    
+                                  </p>
+                                  <p>
+                                    {% for error in form.non_field_errors %}
+                                      <div class="sub-tt text-danger">
+                                          <strong>{{ error|escape }}</strong>
+                                      </div>
+                                    {% endfor %}
                                   </p>
                                   <p class="sub-tt">* 가입하실 때 사용하셨던 이메일을 입력해주세요.</p>
                               </div>
