@@ -13147,7 +13147,7 @@ a.text-danger:focus {
 }
 
 .text-light {
-  color: #adb5bd !important;
+  color: #fff !important;
 }
 
 a.text-light:hover,
@@ -20752,7 +20752,7 @@ pre>code.highlight {
 
 .custom-join{
   text-align: center;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 10%;
 }
 
@@ -21469,4 +21469,19 @@ button.btn:hover {
 #corp_intro:hover + #corp_info {
   visibility: visible;
   opacity: 1;
+}
+.btn-join-btn{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: rgb(141 185 232);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 60%;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
 }

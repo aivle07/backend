@@ -69,7 +69,7 @@
                         <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                         <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
                         {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
                         <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
@@ -200,8 +200,9 @@
         <div class="container-xxl py-6" id="features">
             <div class="container">
                 <div class="mx-auto text-center wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                    <h1 class="mb-3">Advanced Features</h1>
-                    <p class="mb-5">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit clita duo justo</p>
+                    <h1 class="mb-3">다양한 금융 데이터와 AI 지원</h1>
+                    <p class="mb-5">
+                        Hey, 금융은 다양한 금융 데이터와 AI 기반 요약을 통해 금융 입문자들이 복잡한 금융 용어를 쉽게 이해하고 신속한 정보를 얻을 수 있게 지원합니다.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -332,6 +333,7 @@
                                 <div class="d-flex justify-content-between mb-3"><span>금융 상식 퀴즈</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 재무 제표 분석</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 환율과 금 분석</span><i class="fa fa-times text-danger pt-1"></i></div>
+                                <div class="d-flex justify-content-between mb-3"><span>금융 리포트</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 챗봇 대화</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>모의 투자</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <a href="" class="btn btn-dark rounded-pill py-2 px-4 mt-3">시작하기</a>
@@ -344,7 +346,7 @@
                                 <h4 class="text-white mt-2">Premium</h4>
                                 <div class="text-white">
                                     <span class="align-top fs-4 fw-bold">￦</span>
-                                    <h1 class="d-inline display-6 text-dark mb-0"> 7,900</h1>
+                                    <h1 class="d-inline display-6 text-dark mb-0"> 4,900</h1>
                                     <span class="align-baseline">/ 월</span>
                                 </div>
                             </div>
@@ -353,6 +355,7 @@
                                 <div class="d-flex justify-content-between mb-3"><span>금융 상식 퀴즈</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 재무 제표 분석</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 환율과 금 분석</span><i class="fa fa-check text-success pt-1"></i></div>
+                                <div class="d-flex justify-content-between mb-3"><span>금융 리포트</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 챗봇 대화</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>모의 투자</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <a href="" class="btn btn-primary rounded-pill py-2 px-4 mt-3">시작하기</a>
@@ -365,7 +368,7 @@
                                 <h4 class="text-white mt-2">Standard</h4>
                                 <div class="text-white">
                                     <span class="align-top fs-4 fw-bold">￦</span>
-                                    <h1 class="d-inline display-6 text-primary mb-0">4,900</h1>
+                                    <h1 class="d-inline display-6 text-primary mb-0">2,900</h1>
                                     <span class="align-baseline">/ 월</span>
                                 </div>
                             </div>
@@ -374,6 +377,7 @@
                                 <div class="d-flex justify-content-between mb-3"><span>금융 상식 퀴즈</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 재무 제표 분석</span><i class="fa fa-check text-success pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 환율과 금 분석</span><i class="fa fa-check text-success pt-1"></i></div> 
+                                <div class="d-flex justify-content-between mb-3"><span>금융 리포트</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>AI 챗봇 대화</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <div class="d-flex justify-content-between mb-3"><span>모의 투자</span><i class="fa fa-times text-danger pt-1"></i></div>
                                 <a href="" class="btn btn-dark rounded-pill py-2 px-4 mt-3">시작하기</a>
@@ -482,7 +486,7 @@
                             </div>
                             <div class="ms-3">
                                 <p class="mb-2">이메일</p>
-                                <h5 class="mb-0">@gmail.com</h5>
+                                <h5 class="mb-0">ImaginationPlus@gmail.com</h5>
                             </div>
                         </div>
                         <div class="d-flex mb-0">
@@ -507,7 +511,7 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">ImaginationPlus@gmail.com</label>
+                                        <label for="email">@gmail.com</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -554,7 +558,7 @@
                         <p class="section-title text-white h5 mb-4">빠른 검색<span></span></p>
                         <a class="btn btn-link" href="">메인</a>
                         <a class="btn btn-link" href="">서비스 소개</a>
-                        <a class="btn btn-link" href="">AI 재무분석</a>
+                        <a class="btn btn-link" href="">요약서비스</a>
                         <a class="btn btn-link" href="">금융퀴즈</a>
                         <a class="btn btn-link" href="">모의 투자</a>
                         <a class="btn btn-link" href="">게시판</a>

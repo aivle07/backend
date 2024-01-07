@@ -64,6 +64,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav mx-auto py-0">
+                        <a href="#about" class="nav-item nav-link">서비스 소개</a>
                         <a href="/summary" class="nav-item nav-link">요약서비스</a>
                         <a href="/report" class="nav-item nav-link">금융 리포트 요약</a>
                         <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
@@ -98,12 +99,17 @@
               </div>
               
               <div class="overlap">
-                
                 <div class="overlap-2">
-                  <div class="group">
-                    
-                    <div class="overlap-3">
+                  <div class="group10">
+                    <form class="form name" action="" method="post" enctype="multipart/form-data">
+            
+                        <label>제목 : </label>
+                        <input type="text" id="title" class="title-3" name="title" value="{{data.title}}"/><br>
                         
+                        <input type="hidden" name="category" id="category" class="category" value="Q&A"/><br>
+                        {% csrf_token %}
+                    </div>
+                    <div class="overlap-3">        
                         <div id="editor">{{data.content|safe}}</div>
                     </div>
                   </div>
@@ -115,12 +121,6 @@
           </div>
           <!-- form 안에 있는 input태그들은 절대로 밖으로 배치하지 말 것-->
           <form action="" method="post" enctype="multipart/form-data">
-            
-            <label>제목 : </label>
-            <input type="text" id="title" class="title" name="title" value="{{data.title}}"/><br>
-            
-            <input type="hidden" name="category" id="category" class="category" value="Q&A"/><br>
-            {% csrf_token %}
             
             <div class="input-file">
                 <label for="upload01" class="file-label">파일 업로드</label>
@@ -190,10 +190,9 @@
                             &copy; <a class="border-bottom" href="#">(주)</a>, COPYRIGHTS 우상상플러스. ALL RIGHTS RESERVED.      
 							
 							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							 <a class="border-bottom" href="https://htmlcodex.com">개인정보 처리방침|</a>
-                             <a class="border-bottom" href="https://htmlcodex.com">개인정보 처리위탁현황|</a>
-                             <a class="border-bottom" href="https://htmlcodex.com">신용정보제공 활용에 대한 고객권리|</a>
-                             <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+							  <br>
+                              <a class="border-bottom" href="/private">|개인정보 처리방침|</a>
+                              <a class="border-bottom" href="/private2">이용약관|</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">

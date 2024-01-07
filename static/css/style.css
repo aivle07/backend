@@ -482,6 +482,7 @@ h6,
     text-align: left;
     line-height: var(--ht-lg);
     font-size: 35px;
+    margin-top: 10%;
   }
 
 .content-tit .textset-subtit {
@@ -672,9 +673,17 @@ h6,
     border-radius: 15px;
     border: 1px solid;
     border-color: #8dd0ed;
-    margin-top: 23%;
   }
-  
+  .screen .overlap-3-1 {
+    position: relative;
+    width: 1189px;
+    height: 482px;
+    background-color: #f5fcff;
+    border-radius: 15px;
+    border: 1px solid;
+    border-color: #8dd0ed;
+    margin-top:10%;
+  }
   .screen .overlap-group-wrapper {
     position: absolute;
     width: 481px;
@@ -1187,7 +1196,7 @@ hr {
 }
 .title-notice{
   text-align: center;
-  margin-top: 23%;
+  margin-top: 13%;
 }
 .input-file {
   display: inline-block;
@@ -1448,4 +1457,29 @@ h-report-title {
 .pop-summary::-webkit-scrollbar-track,
 .scrollbar::-webkit-scrollbar-track {
   background: rgba(33, 122, 244, .1); /* 스크롤바 뒷 배경 색상 */
+}
+
+.tableset-inner{
+  margin-bottom:25%;
+  margin-top:3%;
+}
+.create2{
+  height: 35px;
+  width: 100px;
+  background-color: #3498db;
+  font-size: 17px;
+  border-radius: 10px;
+  position: relative;
+  color: #ffffff;
+  border: none;
+  padding: 5px;
+  /* margin-right: 5%; */
+  transition: background-color 0.5s;
+  left: 92%;
+}
+.group10{
+  margin-top:15%;
+}
+.title-3{
+  width: 95%;
 }
