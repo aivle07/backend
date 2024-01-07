@@ -1,5 +1,5 @@
 from django import forms
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm,ResetPasswordForm,ResetPasswordKeyForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 
 class MyCustomSignupForm(SignupForm):
@@ -60,3 +60,19 @@ class MyCustomSocialSignupForm(SocialSignupForm):
         user.name = self.cleaned_data['name']
         user.save()
         return user
+    
+class MyResetPasswordForm(ResetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(MyResetPasswordForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control'
+            })
+
+class MyResetPasswordKeyForm(ResetPasswordKeyForm):
+    def __init__(self, *args, **kwargs):
+        super(MyResetPasswordKeyForm, self).__init__(*args, **kwargs)
+        for fieldname, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'form-control'
+            })

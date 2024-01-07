@@ -61,7 +61,9 @@ INSTALLED_APPS = [
 
 #allauth 설정
 # Password validation
-ACCOUNT_FORMS = {'signup': 'accounts.forms.MyCustomSignupForm'}
+ACCOUNT_FORMS = {'signup': 'accounts.forms.MyCustomSignupForm',
+                 'reset_password': 'accounts.forms.MyResetPasswordForm',
+                 'reset_password_from_key': 'accounts.forms.MyResetPasswordKeyForm',}
 AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
