@@ -115,6 +115,7 @@
            
             </div>
           </div>
+          
           <div class="comment">
             {% for comment in data.commentList %}
                 <div>
@@ -123,13 +124,15 @@
                     <span> 댓글 작성일 : {{comment.create_dt}}</span><br>
                 </div>
             {% endfor %}
+
             {% if not data.commentList and data.board.category == "Q&A" %}
             
-            <div>
+            <div class="reply">
                 <span>답변이 아직 작성되지 않았습니다.</span>
             </div>
             {% endif %}
           </div>
+          
           <div class="input-file">
             <div class= btn-notice>
                 <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
