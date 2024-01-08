@@ -193,36 +193,27 @@
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
-
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
+                  <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block text-white">{{user.name}}님 반갑습니다.</a></li>
                 </div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
-              </div>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
+                <h6 class="text-overflow m-0">환영합니다!</h6>
+              </div>     
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+                <span>설정</span>
               </a>
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+                <span>활동</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="/accounts/logout" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
-                <span>Logout</span>
+                <span>로그아웃</span>
               </a>
             </div>
           </li>
@@ -439,9 +430,41 @@
             <div class="col-xl-custom2">
               <div class="card-3 card-3-stats mb-4" >
                 <div class="card-4-body" id="expandableCard">
-                  <div id="triangleContainer"></div>
+                  <div id="triangleContainer" style="float:left;"></div>
                   <div id="triangle-value"></div>
-                  <div id="myChart" style="width: 500px; height: 440px; max-width:500px; max-heigth:440px;"></div>
+                  <div id="myChart" style="width: 500px; height: 440px; max-width:500px; float:left; max-heigth:440px;"></div>
+                    <table class="triangle-text">
+                      <tr>
+                        <td><strong>1.</strong></td>
+                        <td>SKT, KT, 하이닉스, 전력공사 같은 기업들은 기업의 성장 가능성보다는 주로 회사의 실적이 주가를 결정 지으므로 대체적으로 PBR이 낮은 편에 속한다.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>2.</strong></td>
+                        <td>벤처기업, 바이오업계, 제약회사 등은 실적보다는 미래의 성장가능성이 주로 주가를 결정 짓는다. 이 회사들은 BPR이 굉장히 높다.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>3.</strong></td>
+                        <td>ROE (자기자본이익률) : <strong>높을수록 좋음</strong> ⬆️ : 높은 ROE는 기업이 효과적으로 자본을 활용하고 있다는 것을 나타내며 투자자에게 긍정적인 신호입니다.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>4.</strong></td>
+                        <td>PBR (주가순자산비율): <strong>낮을수록 좋음</strong> ⬇️ : 낮은 PBR은 주가가 자본에 비해 저평가되어 있다는 신호로 가치투자에 유리합니다.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>5.</strong></td>
+                        <td>PER (주가수익비율) : <strong>낮을수록 좋음</strong> ⬇️ : 낮은 PER은 주가 대비 수익이 높다는 것을 의미하며, 저평가 기업을 찾을 때 유용합니다.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>6.</strong></td>
+                        <td>BPS (주당순자산가치) : <strong>높을수록 좋음</strong> ⬆️ : 높은 BPS는 주당 자산가치가 높다는 것을 나타내어 가치투자에 <strong>긍정적입니다</strong>.</td>
+                      </tr>
+                      <tr>
+                        <td><strong>7.</strong></td>
+                        <td>EPS (주당순이익) : <strong>높을수록 좋음</strong> ⬆️ : 높은 EPS는 주당 이익이 높다는 것을 의미하며 투자자에게 <strong>긍정적입니다</strong></td>
+                      </tr>
+                    </table>
+                  
+                
                 </div>
                 <button id="expandButton">Expand</button>
               </div>
@@ -1146,20 +1169,16 @@
       var bps = financial_values.BPS[1];
       
       var currentPrice = current_price;
-      var pbrPer = eps*per;
-      var epsBps = pbr*bps;
-      var roe = eps * roe * 100;
+      var epsPer = eps*per;
+      var pbrBps = pbr*bps;
+      var roe = (eps/roe) * 100;
 
-      // 각각의 적정주가 계산 (적절한 방법으로 대체 필요)
-      var fairValuePBRPER = pbrPer;
-      var fairValueEPSBPS = epsBps;
-      var fairValueROE = roe;
 
       // 데이터 배열 생성
       var data = google.visualization.arrayToDataTable([
         ['항목', '적정주가', '현재주가', '주가 차이'],
-        ['PBR/PER', fairValuePBRPER, currentPrice, Math.abs(fairValuePBRPER - currentPrice)],
-        ['ROE', fairValueROE, currentPrice, Math.abs(fairValueROE - currentPrice)],
+        ['EPS x PER', epsPer, currentPrice, Math.abs(epsPer - currentPrice)],
+        ['ROE', roe, currentPrice, Math.abs(roe - currentPrice)],
       ]);
 
       // 차트 옵션 설정
@@ -1200,7 +1219,24 @@
       // 차트 그리기
       chart.draw(data, options);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var usernames = document.querySelector('#username');
+      var fullname = usernames.textContent.trim();
+      //var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+      var nameLength = fullname.length - 8;
+      var maskedName = fullname.substring(0, nameLength-1) + '*' + fullname.substring(nameLength, fullname.length - 1);
+      usernames.innerText = maskedName;
+      /*
+      usernames.forEach(function(userElement) {
+          var fullname = userElement.textContent.trim();
+          var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+          userElement.innerText = maskedName + '님 반갑습니다.';
+      });
+      */
+    });
   </script>
+  
 
 </body>
 </html>
