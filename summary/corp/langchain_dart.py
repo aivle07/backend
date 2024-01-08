@@ -106,6 +106,7 @@ def get_corp_info(corp_name):
     result = llmchain.run(corp_name)
 
     return result
+
 if __name__ == '__main__':
     # ROE, PBR, PER
     start = time.time()
@@ -114,7 +115,7 @@ if __name__ == '__main__':
     # result = get_info(f_agent, corp_name='삼성전자')
     #result = get_corp_answer(f_agent, question='현재 SK하이닉스 주식이 14만원인데 재무제표를 보고 적절한지 알려주라')
     print(end - start)
-    result = get_corp_info("삼성전자")
+    result = get_corp_answer(agent=f_agent, question='이 기업의 재무제표를 보고 중요한 값들을 넣어서 한문단으로 설명해주라.')
     print(result)
     
     # print(end_1 - start_1)

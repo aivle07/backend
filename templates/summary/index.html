@@ -53,8 +53,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/">
-        <img src="{%static '/assets/img/brand/blue.png' %}" class="navbar-brand-img" alt="...">
+      <a href="/" class="navbar-brand p-0">
+        <h1 class="m-0">Hey, 금융</h1>
+        <!-- <img src="img/logo.png" alt="Logo"> -->
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -282,7 +283,8 @@
                       <span id='corp_intro' class="h2 font-weight-bold mb-0"></span>
                       <div id="corp_info" class="news-text tooltiptext "></div>
                     </div>
-                    <div id="재무랭체인" class="news-text"></div>
+                    <div id="financial_summary" class="news-text">
+                    </div>
                 </div>
               </div>
             </div>
@@ -673,9 +675,9 @@
 
 
   // 회사의 Roe, PBR, PER 값을 설정
-  var roeValue = 0.8;
-  var pbrValue = 1.2;
-  var perValue = 1.5;
+  var roe;
+  var pbr;
+  var per;
   var equity = 5;
   var stockprice = 10;
   var profit = 20;
@@ -883,32 +885,10 @@
         `;
     }
     }
+   
+  // 각 변에 위치한 회사 지점에 값 표시-------> 이게 삼각형에 들어가는 값들
+
   
-  // 각 변에 위치한 회사 지점에 값 표시
-  svg.append("text")
-    .attr("x", 50)
-    .attr("y", 180)
-    .text(`ROE: ${roeValue}`)
-    .attr("fill", "#000000");
-  
-  svg.append("text")
-    .attr("x", 180)
-    .attr("y", 350)
-    .text(`PBR: ${pbrValue}`)
-    .attr("fill", "#000000");
-  
-  svg.append("text")
-    .attr("x", 310)
-    .attr("y", 180)
-    .text(`PER: ${perValue}`)
-    .attr("fill", "#000000");
-  
-  
-    svg.append("text")
-    .attr("x", 310)
-    .attr("y", 180)
-    .text(`PER: ${perValue}`)
-    .attr("fill", "#000000");
     
     
   function updateSalesChart(data){
@@ -972,7 +952,7 @@
           }
         } 
 
-        data.corp_news.forEach(function(news,idx){
+        {% comment %} data.corp_news.forEach(function(news,idx){
           $('#corp_news').append("<p class='jb-title' onclick='showPopup("+idx+")'>"+news.title+"</p> \
           <div id='popup"+idx+"' class='popup hide layer'> \
               <div class='content'> \
@@ -984,10 +964,11 @@
                   <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
               </div> \
           </div>");
-        })
+        }) {% endcomment %}
        
         $('#corp_info').html(data.corp_info);
-        
+        $('#financial_summary').html(data.financial_summary);
+
         $('#stock_data').html("<p class='jb-title'>KS11 : "+data.stock_data.KS11[0].Close+" => "+data.stock_data.KS11[1].Close+"</p> \
                                 <a class='nav-link text-center'>변화량 : "+(data.stock_data.KS11[1].Close - data.stock_data.KS11[0].Close).toFixed(2)+"</a> \
                                 <p class='jb-title'>KQ11 : "+data.stock_data.KQ11[0].Close+" => "+data.stock_data.KQ11[1].Close+"</p>  \
@@ -1005,6 +986,13 @@
         $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
         $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
         
+        roe.text('ROE: '+data.financial_values.ROE[1]);
+      
+        pbr.text('PBR: '+data.financial_values.PBR[1]);
+      
+        per.text('PER: '+data.financial_values.PER[1]);
+
+        drawChart(data.stock_data.current_price,data.financial_values)
 			},
       error	: function(xhr, status, error) {  
         $('#search_error').show();
@@ -1055,6 +1043,23 @@
   $(document).ready(function () {
     // 페이지가 로드될 때 챗봇 초기 인사말 표시
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
+      roe = svg.append("text")
+        .attr("x", 50)
+        .attr("y", 180)
+        .text('ROE: ')
+        .attr("fill", "#000000");
+      
+      pbr = svg.append("text")
+        .attr("x", 180)
+        .attr("y", 350)
+        .text('PBR: ')
+        .attr("fill", "#000000");
+      
+      per = svg.append("text")
+        .attr("x", 310)
+        .attr("y", 180)
+        .text('PER: ')
+        .attr("fill", "#000000");
     });
 
     function sendMessage() {
@@ -1131,15 +1136,15 @@
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
-      // 가상의 데이터 (적절한 값으로 대체 필요)
-      var pbr = 1.25;
-      var per = 10; // 동종업계의 per 의 평균을 계산해서 넣어야 함. 우선 10 default 고정
-      var eps = 1795;
-      var roe = 0.0968;
-      var bps = 8;
+    function drawChart(current_price,financial_values) {
+      // 가상의 데이터 (적절한 값으로 대체 필요) ----->두 번째 넣을 값
+      var pbr = financial_values.PBR[1];
+      var per = financial_values.PER[1]; // 동종업계의 per 의 평균을 계산해서 넣어야 함. 우선 10 default 고정
+      var eps = financial_values.EPS[1];
+      var roe = financial_values.ROE[1];
+      var bps = financial_values.BPS[1];
       
-      var currentPrice = 18000;
+      var currentPrice = current_price;
       var pbrPer = eps*per;
       var epsBps = pbr*bps;
       var roe = eps * roe * 100;

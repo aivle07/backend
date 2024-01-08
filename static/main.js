@@ -92,11 +92,5 @@ socket.onmessage = function(e){
 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    var usernames = document.querySelectorAll('.username');
-    usernames.forEach(function(userElement) {
-        var fullname = userElement.textContent.trim();
-        var maskedName = fullname.substring(0, fullname.length - 1) + '*';
-        userElement.textContent = maskedName + '님 반갑습니다.';
-    });
-});
+
+

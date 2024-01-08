@@ -48,7 +48,7 @@
         <div class="container-xxl position-relative p-0" id="home">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="/" class="navbar-brand p-0">
-                    <h1 class="m-0">Hey! 금융+</h1>
+                    <h1 class="m-0">Hey, 금융</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -67,7 +67,7 @@
                     <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                     <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        <a href="#" id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
                         <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                     {% endif %}

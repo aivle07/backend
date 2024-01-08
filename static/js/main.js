@@ -88,3 +88,18 @@
     
 })(jQuery);
 
+document.addEventListener('DOMContentLoaded', function() {
+    var usernames = document.querySelector('#username');
+    var fullname = usernames.textContent.trim();
+    //var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+    var nameLength = fullname.length - 8;
+    var maskedName = fullname.substring(0, nameLength-1) + '*' + fullname.substring(nameLength, fullname.length - 1);
+    usernames.innerText = maskedName;
+    /*
+    usernames.forEach(function(userElement) {
+        var fullname = userElement.textContent.trim();
+        var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+        userElement.innerText = maskedName + '님 반갑습니다.';
+    });
+    */
+});

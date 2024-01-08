@@ -6,6 +6,8 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_types import AgentType
 from dotenv import load_dotenv
+from datetime import datetime
+
 load_dotenv()
 
 # 금 정보 agent 생성함수
@@ -36,16 +38,20 @@ def get_gold_data():
     nan_rows = df_gold[df_gold.isna().any(axis=1)].index
 
     df_gold.dropna(inplace=True)
+    df_gold.reset_index(inplace=True)
+    if df_gold['Date'][-1:].values[0] != datetime.today().strftime("%Y-%m-%d"):
+        df_gold['Date'][-1:].values[0] = datetime.today().strftime("%Y-%m-%d")
     
     df_usa = fdr.DataReader('USD/KRW',"2023-12-01")
+    
     df_usa.drop(nan_rows, inplace=True)
+    df_usa.reset_index(inplace=True)
     
     df_gold['Open'] = df_gold['Open'] / 31.1034768 * df_usa['Open'] / 0.9999
     df_gold['High'] = df_gold['High'] / 31.1034768 * df_usa['High'] / 0.9999
     df_gold['Low'] = df_gold['Low'] / 31.1034768 * df_usa['Low'] / 0.9999
     df_gold['Close'] = df_gold['Close'] / 31.1034768 * df_usa['Close'] / 0.9999
     df_gold = df_gold.round(2)
-    df_gold.reset_index(inplace=True)
     df_gold['Date'] = pd.to_datetime(df_gold['Date'])
     df_gold['Year'] = df_gold['Date'].dt.year
     df_gold['Month'] = df_gold['Date'].dt.month
