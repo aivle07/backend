@@ -522,7 +522,13 @@ h6,
     justify-content: center;
     width: 100%;
   }
-  
+  .screen .div {
+    background-color: #ffffff;
+    overflow: hidden;
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+  }
   .screen .div-contents {
     background-color: #ffffff;
     overflow: hidden;
