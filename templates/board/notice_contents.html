@@ -40,7 +40,7 @@
     {% endif %}
 </head>
 
-<body>
+<body class="scrollbar">
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -109,44 +109,48 @@
                       </div>
                     </div>
                   </div>
-                  
+                <div class="comment-wrapper scrollbar"></div>
+                  <div class="comment scrollbar">
+                    {% for comment in data.commentList %}
+                        <div class="comment-item">
+                            <span class="comment-info">댓글 번호: {{comment.id}}</span><br>
+                            <span class="comment-content">댓글 내용: {{comment.content}}</span><br>
+                            <span class="comment-date">댓글 작성일: {{comment.create_dt}}</span><br>
+                        </div>
+                    {% endfor %}
+                
+                    {% if not data.commentList and data.board.category == "Q&A" %}
+                        <div class="reply">
+                            <span>답변이 아직 작성되지 않았습니다.</span>
+                        </div>
+                    {% endif %}
+                    </div>
                 </div>
+                </div>
+                
               </div>
            
             </div>
-          </div>
-          
-          <div class="comment">
-            {% for comment in data.commentList %}
-                <div>
-                    <span> 댓글 번호 :{{comment.id}}</span><br>
-                    <span> 댓글 내용 : {{comment.content}}</span><br>
-                    <span> 댓글 작성일 : {{comment.create_dt}}</span><br>
+            <div class="input-file">
+                <div class= btn-notice>
+                    <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
+                    {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
+                    {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
+                    
+                    {% if data.board.author == user.username or user.is_admin%}
+                    <a class="create" href="/board/{{data.board.id}}/update/">수정하기</a>
+                    <a class="create" href="/board/{{data.board.category}}/{{data.board.id}}/delete/" onClick="return confirm('정말로 삭제하시겠습니까?');">삭제하기</a>
+                    
+                    {% endif %}
+                    
                 </div>
-            {% endfor %}
-
-            {% if not data.commentList and data.board.category == "Q&A" %}
-            
-            <div class="reply">
-                <span>답변이 아직 작성되지 않았습니다.</span>
-            </div>
-            {% endif %}
+              </div>      
           </div>
+
           
-          <div class="input-file">
-            <div class= btn-notice>
-                <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
-                {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
-                {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
-                
-                {% if data.board.author == user.username or user.is_admin%}
-                <a class="create" href="/board/{{data.board.id}}/update/">수정하기</a>
-                <a class="create" href="/board/{{data.board.category}}/{{data.board.id}}/delete/" onClick="return confirm('정말로 삭제하시겠습니까?');">삭제하기</a>
-                
-                {% endif %}
-                
-            </div>
-          </div>      
+        
+          
+
         
         <!-- Navbar & Hero End -->
         <!-- Footer Start -->

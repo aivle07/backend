@@ -21484,5 +21484,19 @@ button.btn:hover {
   width: 60%;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-
+.triangle-text{
+  background-color: #f7f8fd;
+    padding: 2%;
+    text-align: justify;
+    position: relative;
+    margin-top: 5%;
+    border-radius: 5px;
+    margin-left:10%;
 }
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 10px; /* Adjust this value to set the margin between td elements */
+}
+

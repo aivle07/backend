@@ -1198,7 +1198,12 @@ hr {
   margin-top: 13%;
 }
 .input-file {
-  display: inline-block;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15%;
+  /* margin-bottom: 77px; */
+  bottom: 8px;
+  position: relative;
 }
 
 .input-file [type="file"] {
@@ -1235,7 +1240,7 @@ hr {
 .input-file {
   display: flex;
   justify-content: flex-end;
-  margin-right: 5%;
+  margin-right: 15%;
 }
 
 .input-file [type="file"] {
@@ -1482,6 +1487,57 @@ h-report-title {
 .title-3{
   width: 95%;
 }
-.reply{
-  font-size: 100px;
+
+.comment-wrapper {
+  max-height: 200px; /* 댓글이 표시될 최대 높이를 지정 */
+  overflow-y: auto; /* Y 축으로 스크롤이 가능하도록 설정 */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.comment {
+  margin-top: 11%;
+  overflow-y: auto;
+  max-height: 45%;
+}
+
+.comment-item {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.comment-info {
+  font-weight: bold;
+  color: #3366cc; /* 파란색 */
+}
+
+.comment-content {
+  margin-top: 5px;
+}
+
+.comment-date {
+  color: #888;
+  font-size: 12px;
+}
+
+.reply {
+  color: #777;
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.no-reply {
+  border: 2px dashed #aaa;
+  padding: 15px;
+  text-align: center;
+  color: #888;
+}
+
+.no-reply span {
+  font-weight: bold;
+  font-size: 16px;
 }
