@@ -1,6 +1,7 @@
 from urllib.parse import urlencode
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+from .corp.langchain_value import *
 from .corp.langchain_dart import *
 from .corp.langchain_news import *
 from .exchange.exchange_final import *
@@ -45,10 +46,10 @@ def search_corp(request):
         end = time.time()
         print('기업요약 : ',end-start)
         
-        start = time.time()
-        corp_news = news_info(corp_name)
-        end = time.time()
-        print('뉴스정보추출 : ',end-start)
+        # start = time.time()
+        # corp_news = news_info(corp_name)
+        # end = time.time()
+        # print('뉴스정보추출 : ',end-start)
     
         
         crtfc_key = os.getenv("CRTFC_KEY")
@@ -74,7 +75,7 @@ def search_corp(request):
             df = fdr.DataReader(search_param).sort_index(ascending=False).head()    
             df = df.reset_index().rename(columns={"index": "date"})
         
-        
+        stock_data['current_price'] = df['Close'][-1:].values[0]
         # 재무제표 
         fin_data = []
         for data in financial_data:
@@ -96,13 +97,18 @@ def search_corp(request):
         chart = opy.plot(chart,output_type='div',config=dict(
                     displayModeBar=False
                 ))
+        
+        financial_values = get_financial_values(corp_name=corp_name)
 
+        financial_summary = get_corp_answer(agent=agent, question='이 기업의 재무제표를 보고 중요한 값들을 넣어서 한문단으로 설명해주라.')
         return Response({
             'corp_info':corp_info, 
-            'corp_news':corp_news['items'],
+            #'corp_news':corp_news['items'],
             'stock_data' : stock_data,
             'chart': chart,
             'fin_data':fin_data,
+            'financial_values': financial_values,
+            'financial_summary': financial_summary,
         },status=status.HTTP_200_OK)
     else:  # 로그인이 되어 있지 않다면 
         return redirect('/accounts/login/?next=/summary')
