@@ -59,6 +59,7 @@
                       <a href="/summary" class="nav-item nav-link">요약서비스</a>
                       <a href="/report" class="nav-item nav-link">금융 리포트 요약</a>
                       <a href="/quiz" class="nav-item nav-link">금융 퀴즈</a>
+                      <a href="/simulation/?param=삼성전자" class="nav-item nav-link">모의 투자</a>
                       <a href="/board" class="nav-item nav-link">게시판</a>
                     </div>
                     {% comment %} <a href="#pricing" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">구독하기</a> {% endcomment %}
@@ -68,8 +69,7 @@
                     <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                     <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#" id="username" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">{{user.username}}님 반갑습니다.</a></li>
-                        <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li> 
+                        <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>     
                         <a href="/accounts/logout" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->
                     {% endif %}
@@ -699,6 +699,10 @@
    }
    .textset-tit{
      top:30%;
+   }
+   .tit{
+    margin-top:5%;
+    margin-bottom:5%;
    }
     
 </style>
