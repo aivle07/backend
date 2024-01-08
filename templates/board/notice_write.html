@@ -127,7 +127,7 @@
                 <input type="file" name="image" id="upload01" class="file-upload" />
                 <input type="hidden" name="content" id="content" value="{{data.content}}"/>
                 <div class= btn-notice>
-                    <button class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
+                    <button type="button" class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
                     {% if 'update' in request.path %}
                     <input type="submit" onClick="return sendMessage();"  class = "create-write" value="수정완료"/> 
                     {%else%}

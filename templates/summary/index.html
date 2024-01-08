@@ -194,7 +194,7 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block text-white">{{user.name}}님 반갑습니다.</a></li>
+                  <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block text-white">{{user.name}}님 반갑습니다.</a>
                 </div>
               </div>
             </a>
@@ -433,37 +433,57 @@
                   <div id="triangleContainer" style="float:left;"></div>
                   <div id="triangle-value"></div>
                   <div id="myChart" style="width: 500px; height: 440px; max-width:500px; float:left; max-heigth:440px;"></div>
-                    <table class="triangle-text">
-                      <tr>
-                        <td><strong>1.</strong></td>
-                        <td>SKT, KT, 하이닉스, 전력공사 같은 기업들은 기업의 성장 가능성보다는 주로 회사의 실적이 주가를 결정 지으므로 대체적으로 PBR이 낮은 편에 속한다.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>2.</strong></td>
-                        <td>벤처기업, 바이오업계, 제약회사 등은 실적보다는 미래의 성장가능성이 주로 주가를 결정 짓는다. 이 회사들은 BPR이 굉장히 높다.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>3.</strong></td>
-                        <td>ROE (자기자본이익률) : <strong>높을수록 좋음</strong> ⬆️ : 높은 ROE는 기업이 효과적으로 자본을 활용하고 있다는 것을 나타내며 투자자에게 긍정적인 신호입니다.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>4.</strong></td>
-                        <td>PBR (주가순자산비율): <strong>낮을수록 좋음</strong> ⬇️ : 낮은 PBR은 주가가 자본에 비해 저평가되어 있다는 신호로 가치투자에 유리합니다.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>5.</strong></td>
-                        <td>PER (주가수익비율) : <strong>낮을수록 좋음</strong> ⬇️ : 낮은 PER은 주가 대비 수익이 높다는 것을 의미하며, 저평가 기업을 찾을 때 유용합니다.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>6.</strong></td>
-                        <td>BPS (주당순자산가치) : <strong>높을수록 좋음</strong> ⬆️ : 높은 BPS는 주당 자산가치가 높다는 것을 나타내어 가치투자에 <strong>긍정적입니다</strong>.</td>
-                      </tr>
-                      <tr>
-                        <td><strong>7.</strong></td>
-                        <td>EPS (주당순이익) : <strong>높을수록 좋음</strong> ⬆️ : 높은 EPS는 주당 이익이 높다는 것을 의미하며 투자자에게 <strong>긍정적입니다</strong></td>
-                      </tr>
-                    </table>
-                  
+                  <table class="triangle-text">
+                    <tr>
+                      <td><strong>1.</strong></td>
+                      <td><strong>ROE (자기자본이익률)</strong> : <strong>⬆️ 높을수록 좋음</strong>  : 높은 ROE는 기업이 효과적으로 자본을 활용하고 있다는 것을 나타내며 투자자에게 긍정적인 신호입니다.
+                        <br>회사의 순이익이 <strong>100억</strong>이고 <strong>ROE가 10%</strong>이면 자기자본 수익률은 <strong>10억</strong>입니다.<br>
+                        시가총액이 200억이면 <strong>PBR은 200억 / 10억 = 20</strong>이 됩니다. 따라서 주가는 자기자본 수익의 20배입니다.`</td>
+                    </tr>
+                    <tr>
+                      <td><strong>2.</strong></td>
+                      <td><strong>PER (주가수익비율)</strong> : <strong>⬇️ 낮을수록 좋음</strong> : 낮은 PER은 주가 대비 수익이 높다는 것을 의미하며, 저평가 기업을 찾을 때 유용합니다.<br>
+                        <strong>PER이 20</strong>이라면 주가 대비 순이익이 20배입니다. 주가는 <strong>10억 × 20 = 200억</strong>이 됩니다.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>3.</strong></td>
+                      <td><strong>PBR (주가순자산비율)</strong>: <strong>⬇️ 낮을수록 좋음</strong>  : 낮은 PBR은 주가가 자본에 비해 저평가되어 있다는 신호로 가치투자에 유리합니다.<br>
+                        <strong>PBR이 2</strong>라는 것은 주가가 순자산에 비해 2배 비쌌다는 것을 의미합니다. 자기자본이 100억이면 주가는 <strong>100억 × 2 = 200억</strong>이 됩니다.</td>
+                
+                    </tr>
+                    <tr>
+                      <td><strong>4.</strong></td>
+                      <td><strong>BPS (주당순자산가치)</strong> : <strong>⬆️ 높을수록 좋음</strong>  : 높은 BPS는 주당 자산가치가 높다는 것을 나타내어 가치투자에 긍정적입니다.</td>
+                
+                    </tr>
+                    <tr>
+                      <td><strong>5.</strong></td>
+                      <td><strong>EPS (주당순이익)</strong> : <strong>⬆️ 높을수록 좋음</strong> : 높은 EPS는 주당 이익이 높다는 것을 의미하며 투자자에게 긍정적입니다.</td>
+                
+                    </tr>
+                    <tr>
+                      <td><strong>6.</strong></td>
+                      <td>SKT, KT, 하이닉스, 전력공사 같은 기업들은 기업의 성장 가능성보다는 주로 회사의 실적이 주가를 결정 지으므로 대체적으로 PBR이 낮은 편에 속한다.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>7.</strong></td>
+                      <td>벤처기업, 바이오업계, 제약회사 등은 실적보다는 미래의 성장가능성이 주로 주가를 결정 짓는다. 이 회사들은 BPR이 굉장히 높다.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>8.</strong></td>
+                      <td>코스피는 한국 증권 거래소(KRX)에서 거래되는 대표적인 주식 시장으로, 대기업의 종목들이 주로 상장돼 있습니다. 코스닥은 코스피와 함께 한국의 또 다른 증권 거래소로, 중소기업들의 주식이 주로 거래됩니다.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>9.</strong></td>
+                      <td>금리는 돈의 시간 가치를 나타내는 지표로, 대출이나 예금 시에 발생하는 이자율을 의미합니다. 중앙 은행이 정책금리를 조절하여 경제의 안정을 유지하고 소비 및 투자 활동을 조절합니다.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>10.</strong></td>
+                      <td>매수는 주식이나 다른 자산을 구매하는 행위를 말합니다. 투자자는 자산의 가격이 상승할 것으로 예상하면 매수를 선택하여 보유하거나 가격이 떨어질 때 팔 수 있습니다.
+                        매도는 보유 중인 주식이나 자산을 판매하는 행위를 의미합니다. 투자자는 가격이 상승한 시점에 매도하여 수익을 얻거나, 손실을 최소화하기 위해 가격이 하락할 것으로 예상될 때 팔 수 있습니다.
+                      </td>
+                    </tr>
+                  </table>
                 
                 </div>
                 <button id="expandButton">Expand</button>
@@ -587,8 +607,9 @@
                 zeroLineColor: Charts.colors.gray[900],
               },
               ticks: {
+                beginAtZero:false,
                 callback: function (e) {
-                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
+                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "M";
                 },
               },
             },
@@ -606,7 +627,7 @@
                     '<span class="popover-body-label mr-auto">' +
                     t +
                     "</span>"),
-                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
+                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "M</span>")
               );
             },
           },
@@ -637,7 +658,7 @@
   });
 
   $(document).ready(function () {
-    $('.summary_card').hide();
+    //$('.summary_card').hide();
     $("#chart-dept-card").hover(
       function () {
         $("#chart-dept-title").css("display", "block");
@@ -975,7 +996,7 @@
           }
         } 
 
-        {% comment %} data.corp_news.forEach(function(news,idx){
+        data.corp_news.forEach(function(news,idx){
           $('#corp_news').append("<p class='jb-title' onclick='showPopup("+idx+")'>"+news.title+"</p> \
           <div id='popup"+idx+"' class='popup hide layer'> \
               <div class='content'> \
@@ -987,7 +1008,7 @@
                   <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
               </div> \
           </div>");
-        }) {% endcomment %}
+        })
        
         $('#corp_info').html(data.corp_info);
         $('#financial_summary').html(data.financial_summary);
@@ -1004,10 +1025,10 @@
         ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)]);
         
         drawSalesChart($('#chart-sales2')
-        ,[dept,profit,revenue,netincome]);
+        ,[dept/1000,profit/1000,revenue/1000,netincome/1000]);
         
-        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
-        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
+        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept/1000,profit/1000,revenue/1000,netincome/1000]+"]);return false;");
+        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept/1000,prev_profit/1000,prev_revenue/1000,prev_netincome/1000]+"]);return false;");
         
         roe.text('ROE: '+data.financial_values.ROE[1]);
       

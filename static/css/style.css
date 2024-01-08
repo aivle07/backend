@@ -1525,6 +1525,11 @@ h-report-title {
 }
 
 .reply {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
   color: #777;
   font-style: italic;
   margin-top: 10px;
