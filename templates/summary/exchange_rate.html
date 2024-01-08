@@ -609,6 +609,7 @@
                 zeroLineColor: Charts.colors.gray[900],
               },
               ticks: {
+                beginAtZero: false,
                 callback: function (e) {
                   if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR');
                 },
