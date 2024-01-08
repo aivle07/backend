@@ -564,8 +564,9 @@
                 zeroLineColor: Charts.colors.gray[900],
               },
               ticks: {
+                beginAtZero:false,
                 callback: function (e) {
-                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
+                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "M";
                 },
               },
             },
@@ -583,7 +584,7 @@
                     '<span class="popover-body-label mr-auto">' +
                     t +
                     "</span>"),
-                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
+                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "M</span>")
               );
             },
           },
@@ -981,10 +982,10 @@
         ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)]);
         
         drawSalesChart($('#chart-sales2')
-        ,[dept,profit,revenue,netincome]);
+        ,[dept/1000,profit/1000,revenue/1000,netincome/1000]);
         
-        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
-        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
+        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept/1000,profit/1000,revenue/1000,netincome/1000]+"]);return false;");
+        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept/1000,prev_profit/1000,prev_revenue/1000,prev_netincome/1000]+"]);return false;");
         
         roe.text('ROE: '+data.financial_values.ROE[1]);
       
