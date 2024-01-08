@@ -204,13 +204,29 @@
                           </div>
                         </div>
                       </div>
-
                       <div class="form-group">
                         <div class="input-box-group">
                           <div class="input-box clearfix">
                             <div class="input-group">
+                              Hey,금융의 서비스 약관에 모두 동의합니다.
+                              <input type="checkbox" name="agree_both" class="form-check-input"
+                              id="id_agree_both">
+                            </div>
+                            <p>
+                              {%for error in form.agree_terms.errors %}
+                                 <div class="sub-tt text-danger">{{error}}</div>
+                              {% endfor%}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-box-group">
+                          <div class="input-box clearfix">
+                            <div class="input-group"> 
                               {{form.agree_terms.label}}
                               {{form.agree_terms}}
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick="openView('/private2')">[보기]</a>
                             </div>
                             <p>
                               {%for error in form.agree_terms.errors %}
@@ -226,6 +242,7 @@
                           <div class="input-box clearfix">
                             <div class="input-group">
                               {{form.agree_marketing.label}}{{form.agree_marketing}}
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:void(0);' onclick="openView('/private')">[보기]</a>
                             </div>
                             <p>
                               {%for error in form.agree_marketing.errors %}
@@ -252,15 +269,42 @@
       </div><!-- end table -->
     </div><!-- end container-->
 
+<!--   Core   -->
+<script src="{%static '/assets/js/plugins/jquery/dist/jquery.min.js' %}"></script>
+<script src="{%static '/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script>
+  function openView(url){
+    var popupW = 1000;
+    var popupH = 800;
+    var left = Math.ceil((window.screen.width - popupW)/2);
+    var top = Math.ceil((window.screen.height - popupH)/2);
+    window.open(url,'','width='+popupW+',height='+popupH+',left='+left+',top='+top+',scrollbars=yes,resizable=no,toolbar=no,titlebar=no,menubar=no,location=no')			
+   }
+  
+  $("#id_agree_both").click(function(){
+    var checked = $('#id_agree_both').is(':checked');
 
-
-
-
-
-
-
-
-
-
-
-
+    $('input:checkbox').prop('checked',checked);
+  }
+)
+$("#id_agree_terms").click(function(){
+  var checked1 = $('#id_agree_terms').is(':checked');
+  var checked2 = $('#id_agree_marketing').is(':checked');
+  if(checked1 & checked2){
+    $("#id_agree_both").prop('checked',true);
+  }
+  else{
+    $("#id_agree_both").prop('checked',false);
+  }
+})
+$("#id_agree_marketing").click(function(){
+  var checked1 = $('#id_agree_terms').is(':checked');
+  var checked2 = $('#id_agree_marketing').is(':checked');
+  if(checked1 & checked2){
+    $("#id_agree_both").prop('checked',true);
+  }
+  else{
+    $("#id_agree_both").prop('checked',false);
+  }
+})
+</script>
