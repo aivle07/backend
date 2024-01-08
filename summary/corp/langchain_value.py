@@ -43,7 +43,7 @@ def get_selected_financial_data(corp_code, crtfc_key, bsns_year='2023', reprt_co
 
     if result.status_code == 200:
         data = result.json()
-
+        
         if 'list' in data:
             # 필요한 항목만 선택
             selected_data = [
@@ -56,7 +56,9 @@ def get_selected_financial_data(corp_code, crtfc_key, bsns_year='2023', reprt_co
                 if item['account_nm'] in ['자산총계', '부채총계', '당기순이익', '자본총계']
             ]
 
-            return selected_data
+            stock_number = data['list'][0]['stock_code']
+            
+            return selected_data, stock_number
         else:
             return None
     else:
@@ -95,14 +97,14 @@ def get_financial_values(corp_name):
     cp_code = get_corp_code(corp_name=corp_name, crtfc_key=crtfc_key)
     
     # 2023년 2분기 재무제표 데이터
-    financial_data_2 = get_selected_financial_data(corp_code=cp_code,crtfc_key=crtfc_key,reprt_code='11012')
+    financial_data_2, stock_number = get_selected_financial_data(corp_code=cp_code,crtfc_key=crtfc_key,reprt_code='11012')
     columns = list(financial_data_2[0].keys())
     financial_df_2 = pd.DataFrame(financial_data_2, columns=columns)
     financial_df_2.drop_duplicates(subset='account_nm', keep='last', inplace=True)
     financial_df_2.reset_index(drop=True, inplace=True)
     
     # 2023년 3분기 재무제표 데이터
-    financial_data_3 = get_selected_financial_data(corp_code=cp_code,crtfc_key=crtfc_key,reprt_code='11014')
+    financial_data_3,_ = get_selected_financial_data(corp_code=cp_code,crtfc_key=crtfc_key,reprt_code='11014')
     columns = list(financial_data_3[0].keys())
     financial_df_3 = pd.DataFrame(financial_data_3, columns=columns)
     financial_df_3.drop_duplicates(subset='account_nm', keep='last', inplace=True)
@@ -112,7 +114,12 @@ def get_financial_values(corp_name):
     stock_n, stock_n_2 = get_stock(corp_code=cp_code,crtfc_key=crtfc_key,reprt_code='11012')
     stock_n = float(stock_n.replace(',', ''))
     stock_n_2 = float(stock_n_2.replace(',', ''))
+    
     # 주가
+    stock_2 = fdr.DataReader(stock_number,'2023-06-30', '2023-06-30')
+    stock_2 = stock_2['Close'].values[0]
+    stock_3 = fdr.DataReader(stock_number,'2023-09-27', '2023-09-27')
+    stock_3 = stock_3['Close'].values[0]
     
     # 순자산 계산
     # '자산총계'와 '부채총계'를 찾아 순자산 계산
@@ -148,10 +155,21 @@ def get_financial_values(corp_name):
     # ROE = (순이익 / 자기자본) x 100
     roe_2 = round((net_profit_2 / equity_2) * 100, 2)
     roe_3 = round((net_profit_3 / equity_3) * 100, 2)
+    
+    # PER = (주가 / 주당순이익)
+    per_2 = round(stock_2 / eps_2, 2)
+    per_3 = round(stock_3 / eps_3, 2)
+    
+    # PBR = (주가 / 주당순자산가치)
+    pbr_2 = round(stock_2 / navps_2, 2)
+    pbr_3 = round(stock_3 / navps_3, 2)
+    
+    values_dict = {'BPS': [bps_2, bps_3], 'EPS': [eps_2, eps_3], 'ROE': [roe_2, roe_3], 'PER': [per_2, per_3], 'PBR':[pbr_2, pbr_3]}
+    
 
-    return financial_data_3, financial_df_3, stock_n
+    return values_dict
 
 if __name__ == '__main__':
-    f_data,f_df,s_n = get_financial_values(corp_name='KT')
-    print(f_df)
+    values_dict = get_financial_values(corp_name='삼성전자')
+    print(values_dict)
     
