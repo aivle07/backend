@@ -1,6 +1,7 @@
 {%load static%}
 {%load socialaccount %}
 {% load custom_tags %}
+{% load utils %}
 <html lang="ko">
 
 <head>
@@ -116,7 +117,7 @@
                         <div class="comment-item">
                             <span class="comment-info">댓글 번호: {{comment.id}}</span><br>
                             <span class="comment-content">댓글 내용: {{comment.content}}</span><br>
-                            <span class="comment-date">댓글 작성일: {{comment.create_dt}}</span><br>
+                            <span class="comment-date">댓글 작성일: {{comment.create_dt|iso_to_date|date:'Y-m-d A H:i'}}</span><br>
                         </div>
                     {% endfor %}
                 
