@@ -157,9 +157,11 @@ def gold_rate(request):
                  agent = get_gold_data_agent()
             df_gold = get_gold_data()
             current_gold = df_gold['Close'][-1:].values[0]
+            
             return render(request, 'summary/gold_rate.html',{
                 'gold_news': gold_news['items'],
-                'current_gold': current_gold
+                'current_gold': current_gold,
+                'gold_data' : df_gold.to_dict(orient='records'),
             })
         else:  # 로그인이 되어 있지 않다면 
             return redirect('/accounts/login/?next=/summary/gold_rate')

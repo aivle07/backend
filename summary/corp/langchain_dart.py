@@ -109,7 +109,7 @@ def get_corp_info(corp_name):
 if __name__ == '__main__':
     # ROE, PBR, PER
     start = time.time()
-    f_agent = get_financial_agent(corp_name='SK하이닉스')
+    f_agent,_ = get_financial_agent(corp_name='SK하이닉스')
     end = time.time()
     # result = get_info(f_agent, corp_name='삼성전자')
     #result = get_corp_answer(f_agent, question='현재 SK하이닉스 주식이 14만원인데 재무제표를 보고 적절한지 알려주라')
