@@ -69,7 +69,7 @@
                         <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                         <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
                     {% else %}
-                        <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                        <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a>
                         {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
                         <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
                         <!--?next={{request.path}}는 현재 path값을 같이 넘겨주어서 로그아웃 한 다음 현재 path로 리다이렉트된다.-->

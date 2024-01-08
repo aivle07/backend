@@ -67,7 +67,7 @@
                   <a href="/accounts/signup" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">회원가입</a>
                   <a href="/accounts/login" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그인</a>
               {% else %}
-                  <a href="#" id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a></li>
+                  <a href="#" id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block">{{user.name}}님 반갑습니다.</a>
                   {% comment %} <a href="#" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">프로필</a> </li>  {% endcomment %}
                   <a href="/accounts/logout?next={{request.path}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">로그 아웃</a></li>
               {% endif %}
