@@ -21,7 +21,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+    HEY, 재무분석
   </title>
   <!-- Favicon -->
   <link href="{%static '/assets/img/brand/favicon.png' %}" rel="icon" type="image/png">
@@ -137,14 +137,9 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item ">
-            <a class="nav-link" href="/">
-              <i class="ni ni-tv-2 text-primary"></i> HEY 금융+ 홈으로
-            </a>
-          </li>
           <li class="nav-item  active ">
             <a class="nav-link  active " href="javascript:void(0)">
-              <i class="ni ni-tv-2 text-primary"></i> 대시보드
+              <i class="ni ni-tv-2 text-primary"></i> 재무분석
             </a>
           </li>
           <li class="nav-item">
@@ -158,16 +153,6 @@
               <i class="ni ni-bullet-list-67 text-red"></i> 금
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/summary/real_estate">
-              <i class="ni ni-bullet-list-67 text-red"></i> 부동산(Comming soon)
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/summary/coin">
-              <i class="ni ni-bullet-list-67 text-red"></i> 코인(Comming soon)
-            </a>
-          </li>
         </ul>
         <!-- Divider -->
         <hr class="my-3">
@@ -176,20 +161,20 @@
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> 시작하기
+            <a class="nav-link" href="https://www.fsc.go.kr/in090301">
+              <i class="ni ni-spaceship"></i> 금융위원회
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> 후원하기
+            <a class="nav-link" href="https://www.fsc.go.kr/in090301">
+              <i class="ni ni-palette"></i> 구독하기
             </a>
           </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item active active-pro">
             <a class="nav-link" href="./examples/upgrade.html">
-              <i class="ni ni-send text-dark"></i> Send - Email
+              <i class="ni ni-send text-dark"></i> 이메일
             </a>
           </li>
         </ul>
@@ -208,9 +193,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{%static '/assets/img/theme/example.jpg' %}">
-                </span>
+
                 <div class="media-body ml-2 d-none d-lg-block">
                   <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
                 </div>
@@ -281,7 +264,7 @@
                   <div class="row">
                     <div class="col">
                       {% comment %} <h5 class="card-2-title text-uppercase text-muted mb-0">요약 소개</h5> {% endcomment %}
-                      <span class="h2 font-weight-bold mb-0" >주식 그래프</span>
+                      <span class="h2 font-weight-bold mb-0">주식 그래프</span>
                       <div class="chart-example">
                       </div>
                     </div>
@@ -297,19 +280,10 @@
               <div class="card-2 card-2-stats mb-4 mb-xl-0">
                 <div class="card-2-body">
                     <div class="col">
-                      <span id='corp_intro' class="h2 font-weight-bold mb-0">삼성전자 소개</span>
-                      <div id="corp_info" class="news-text tooltiptext">삼성전자는 대한민국의 대표적인 글로벌 기업 중 하나로, 
-                        다양한 전자제품과 기술 솔루션을 제공하는 다국적 기업입니다. 아래는 삼성전자에 대한 간략한 소개입니다.
-                        대한 간략한 소개입니다대한<br><br><br><br><br><br><br><br><br><br><br> </div>
+                      <span id='corp_intro' class="h2 font-weight-bold mb-0"></span>
+                      <div id="corp_info" class="news-text tooltiptext "></div>
                     </div>
-                    <div id="재무랭체인" class="news-text">이 기업의 당기순이익은 -2,184,699,000,000 원입니다. 
-                      이 기업의 ROE는 -0.3997입니다. 이 기업의 재무제표는 연결재무제표로 구성되어 있습니다. 
-                      재무상태표와 손익계산서 등 다양한 항목이 포함되어 있으며, 
-                      주요 항목으로는 유동자산, 비유동자산, 자산총계, 유동부채, 비유동부채 등이 있습니다. 
-                      최근 기준으로 유동자산은 30,393,967,000,000 원이며, 비유동자산은 71,655,483,000,000 원입니다. 
-                      자산총계는 102,049,450,000,000 원으로 나타나고 있습니다. 유동부채는 20,250,122,000,000 원이며, 
-                      비유동부채는 26,567,768,000,000 원입니다. 
-                      이러한 재무정보를 통해 기업의 재무상태와 부채 상황을 파악할 수 있습니다.<br><br><br><br><br><br><br><br><br><br><br>
+                    <div id="financial_summary" class="news-text">
                     </div>
                 </div>
               </div>
@@ -467,7 +441,7 @@
                 <div class="card-4-body" id="expandableCard">
                   <div id="triangleContainer"></div>
                   <div id="triangle-value"></div>
-                  <div id="myChart" style="width: 500px; height: 440px;"></div>
+                  <div id="myChart" style="width: 500px; height: 440px; max-width:500px; max-heigth:440px;"></div>
                 </div>
                 <button id="expandButton">Expand</button>
               </div>
@@ -640,7 +614,7 @@
   });
 
   $(document).ready(function () {
-    $('.summary_card').hide();
+    //$('.summary_card').hide();
     $("#chart-dept-card").hover(
       function () {
         $("#chart-dept-title").css("display", "block");
@@ -701,9 +675,9 @@
 
 
   // 회사의 Roe, PBR, PER 값을 설정
-  var roeValue = 0.8;
-  var pbrValue = 1.2;
-  var perValue = 1.5;
+  var roe;
+  var pbr;
+  var per;
   var equity = 5;
   var stockprice = 10;
   var profit = 20;
@@ -911,32 +885,10 @@
         `;
     }
     }
+   
+  // 각 변에 위치한 회사 지점에 값 표시-------> 이게 삼각형에 들어가는 값들
+
   
-  // 각 변에 위치한 회사 지점에 값 표시
-  svg.append("text")
-    .attr("x", 50)
-    .attr("y", 180)
-    .text(`ROE: ${roeValue}`)
-    .attr("fill", "#000000");
-  
-  svg.append("text")
-    .attr("x", 180)
-    .attr("y", 350)
-    .text(`PBR: ${pbrValue}`)
-    .attr("fill", "#000000");
-  
-  svg.append("text")
-    .attr("x", 310)
-    .attr("y", 180)
-    .text(`PER: ${perValue}`)
-    .attr("fill", "#000000");
-  
-  
-    svg.append("text")
-    .attr("x", 310)
-    .attr("y", 180)
-    .text(`PER: ${perValue}`)
-    .attr("fill", "#000000");
     
     
   function updateSalesChart(data){
@@ -965,7 +917,7 @@
 			success : function(data){   //파일 주고받기가 성공했을 경우. data 변수 안에 값을 담아온다.
         console.log(data)
 				$(".chart-example").html(data.chart);  //현재 화면 위 id="message" 영역 안에 data안에 담긴 html 코드를 넣어준다. 
-        $("#corp_intro").html(corp_name+" 소개");
+        $("#corp_intro").html(corp_name);
         $("#corp_financial_reports").html(corp_name+" 재무분석")
         $('.summary_card').fadeIn();
         let asset;
@@ -1000,7 +952,7 @@
           }
         } 
 
-        data.corp_news.forEach(function(news,idx){
+        {% comment %} data.corp_news.forEach(function(news,idx){
           $('#corp_news').append("<p class='jb-title' onclick='showPopup("+idx+")'>"+news.title+"</p> \
           <div id='popup"+idx+"' class='popup hide layer'> \
               <div class='content'> \
@@ -1012,10 +964,11 @@
                   <a class='pop-link' target='_blank' href='"+news.link+"'>" + news.link + "</div> \
               </div> \
           </div>");
-        })
+        }) {% endcomment %}
        
         $('#corp_info').html(data.corp_info);
-        
+        $('#financial_summary').html(data.financial_summary);
+
         $('#stock_data').html("<p class='jb-title'>KS11 : "+data.stock_data.KS11[0].Close+" => "+data.stock_data.KS11[1].Close+"</p> \
                                 <a class='nav-link text-center'>변화량 : "+(data.stock_data.KS11[1].Close - data.stock_data.KS11[0].Close).toFixed(2)+"</a> \
                                 <p class='jb-title'>KQ11 : "+data.stock_data.KQ11[0].Close+" => "+data.stock_data.KQ11[1].Close+"</p>  \
@@ -1033,6 +986,13 @@
         $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
         $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
         
+        roe.text('ROE: '+data.financial_values.ROE[1]);
+      
+        pbr.text('PBR: '+data.financial_values.PBR[1]);
+      
+        per.text('PER: '+data.financial_values.PER[1]);
+
+        drawChart(data.stock_data.current_price,data.financial_values)
 			},
       error	: function(xhr, status, error) {  
         $('#search_error').show();
@@ -1083,6 +1043,23 @@
   $(document).ready(function () {
     // 페이지가 로드될 때 챗봇 초기 인사말 표시
     $('#chatbot_conversation').append("<p class='chatbot-answer'> Hey, 금융에게 재무제표 정보를 물어보세요!</p>");
+      roe = svg.append("text")
+        .attr("x", 50)
+        .attr("y", 180)
+        .text('ROE: ')
+        .attr("fill", "#000000");
+      
+      pbr = svg.append("text")
+        .attr("x", 180)
+        .attr("y", 350)
+        .text('PBR: ')
+        .attr("fill", "#000000");
+      
+      per = svg.append("text")
+        .attr("x", 310)
+        .attr("y", 180)
+        .text('PER: ')
+        .attr("fill", "#000000");
     });
 
     function sendMessage() {
@@ -1159,15 +1136,15 @@
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-    function drawChart() {
-      // 가상의 데이터 (적절한 값으로 대체 필요)
-      var pbr = 1.25;
-      var per = 10; // 동종업계의 per 의 평균을 계산해서 넣어야 함. 우선 10 default 고정
-      var eps = 1795;
-      var roe = 0.0968;
-      var bps = 8;
+    function drawChart(current_price,financial_values) {
+      // 가상의 데이터 (적절한 값으로 대체 필요) ----->두 번째 넣을 값
+      var pbr = financial_values.PBR[1];
+      var per = financial_values.PER[1]; // 동종업계의 per 의 평균을 계산해서 넣어야 함. 우선 10 default 고정
+      var eps = financial_values.EPS[1];
+      var roe = financial_values.ROE[1];
+      var bps = financial_values.BPS[1];
       
-      var currentPrice = 18000;
+      var currentPrice = current_price;
       var pbrPer = eps*per;
       var epsBps = pbr*bps;
       var roe = eps * roe * 100;
