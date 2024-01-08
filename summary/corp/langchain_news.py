@@ -11,6 +11,7 @@ from langchain.chat_models import ChatOpenAI
 from bs4 import BeautifulSoup
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain_core.documents import Document
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -48,13 +49,23 @@ def date_crawl(all_hrefs):
 def news_summary(link):
     urls = [link]
 
-    loader = AsyncChromiumLoader(urls=urls)
-    html = loader.load()
-
+    start = time.time()
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/98.0.4758.102"}
+    html = []
+    for url in urls:
+        html.append(Document(page_content=requests.get(url,headers=headers).text, metadata={"source": url}))
+    end = time.time()
+    print('html load : ',end-start)
+    
+    start = time.time()
     bs_transformer = BeautifulSoupTransformer()
     docs_transformed = bs_transformer.transform_documents(html, tags_to_extract=['article'])
     text = docs_transformed[0].page_content
+    end = time.time()
     
+    print('html parser : ',end-start)
+    
+    start = time.time()
     openai_api_key = os.getenv("OPENAI_API_KEY")
 
     os.environ["OPENAI_API_KEY"] = openai_api_key
@@ -67,8 +78,12 @@ def news_summary(link):
     llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
     
     llmchain = LLMChain(llm=llm, prompt=prompt)
+    end = time.time()
+    
+    print('langchain : ',end-start)
     result = llmchain.run(text)
-
+    
+    
     return result
 
 # 관련 기사 json형태로 받아오기

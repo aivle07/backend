@@ -4,8 +4,8 @@ from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 
 class MyCustomSignupForm(SignupForm):
     name = forms.CharField(max_length=40)
-    agree_terms = forms.BooleanField(label='서비스 이용약관 및 개인정보방침 동의')
-    agree_marketing = forms.BooleanField(label='마케팅 이용 동의')
+    agree_terms = forms.BooleanField(label='Hey,금융 이용약관 동의')
+    agree_marketing = forms.BooleanField(label='개인정보 수집 및 이용 동의')
     
     def __init__(self, *args, **kwargs):
         super(MyCustomSignupForm, self).__init__(*args, **kwargs)
