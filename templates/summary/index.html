@@ -193,36 +193,27 @@
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
-
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">{{user.username}}</span>
+                  <a href="#"id="username" class="btn-welcome py-2 px-4 ms-3 d-none d-lg-block text-white">{{user.name}}님 반갑습니다.</a></li>
                 </div>
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
-                <h6 class="text-overflow m-0">Welcome!</h6>
-              </div>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
-              </a>
+                <h6 class="text-overflow m-0">환영합니다!</h6>
+              </div>     
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+                <span>설정</span>
               </a>
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
-              </a>
-              <a href="./examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+                <span>활동</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="/accounts/logout" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
-                <span>Logout</span>
+                <span>로그아웃</span>
               </a>
             </div>
           </li>
@@ -616,8 +607,9 @@
                 zeroLineColor: Charts.colors.gray[900],
               },
               ticks: {
+                beginAtZero:false,
                 callback: function (e) {
-                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "K";
+                  if (!(e % 10)) return "￦" + e.toLocaleString('ko-KR') + "M";
                 },
               },
             },
@@ -635,7 +627,7 @@
                     '<span class="popover-body-label mr-auto">' +
                     t +
                     "</span>"),
-                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "K</span>")
+                (n += '<span class="popover-body-value">￦' + o.toLocaleString('ko-KR') + "M</span>")
               );
             },
           },
@@ -1033,10 +1025,10 @@
         ,[(Math.round(dept*100)/asset).toFixed(2),(Math.round(equity*100)/asset).toFixed(2)]);
         
         drawSalesChart($('#chart-sales2')
-        ,[dept,profit,revenue,netincome]);
+        ,[dept/1000,profit/1000,revenue/1000,netincome/1000]);
         
-        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept,profit,revenue,netincome]+"]);return false;");
-        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept,prev_profit,prev_revenue,prev_netincome]+"]);return false;");
+        $("#sales2023").attr('onclick',"updateSalesChart(["+[dept/1000,profit/1000,revenue/1000,netincome/1000]+"]);return false;");
+        $("#sales2022").attr('onclick',"updateSalesChart(["+[prev_dept/1000,prev_profit/1000,prev_revenue/1000,prev_netincome/1000]+"]);return false;");
         
         roe.text('ROE: '+data.financial_values.ROE[1]);
       
@@ -1247,7 +1239,24 @@
       // 차트 그리기
       chart.draw(data, options);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var usernames = document.querySelector('#username');
+      var fullname = usernames.textContent.trim();
+      //var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+      var nameLength = fullname.length - 8;
+      var maskedName = fullname.substring(0, nameLength-1) + '*' + fullname.substring(nameLength, fullname.length - 1);
+      usernames.innerText = maskedName;
+      /*
+      usernames.forEach(function(userElement) {
+          var fullname = userElement.textContent.trim();
+          var maskedName = fullname.substring(0, fullname.length - 1) + '*';
+          userElement.innerText = maskedName + '님 반갑습니다.';
+      });
+      */
+    });
   </script>
+  
 
 </body>
 </html>
