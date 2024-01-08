@@ -523,7 +523,7 @@ h6,
     width: 100%;
   }
   
-  .screen .div {
+  .screen .div-contents {
     background-color: #ffffff;
     overflow: hidden;
     width: 1440px;
@@ -1119,10 +1119,14 @@ h6,
 /*게시판 변경 css */
 
 .pagiset {
-    margin-top: 4em;
-    font-family: var(--ff-en);
-    font-weight: 400;
-    text-align: center;
+  margin-top: -8%;
+  font-family: var(--ff-en);
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5%;
   }
   .pagiset-list {
     margin-top: 1rem;
@@ -1197,14 +1201,7 @@ hr {
   text-align: center;
   margin-top: 13%;
 }
-.input-file {
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 15%;
-  /* margin-bottom: 77px; */
-  bottom: 8px;
-  position: relative;
-}
+
 
 .input-file [type="file"] {
   position: absolute;
@@ -1216,15 +1213,19 @@ hr {
 .input-file .file-label {
   display: inline-block;
   min-width: 53px;
-  height: 27px;
+  height: 34.89px;
   line-height: 24px;
   padding: 0 10px;
-  border-radius: 2px;
-  font-size: 13px;
-  background-color: #333;
+  border-radius: 10px;
+  font-size: 17px;
+  background-color: #3498db;
   color: #fff;
   text-align: center;
-  left: -57%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
 }
 .input-file .file-name {
   width: 300px;
@@ -1240,7 +1241,12 @@ hr {
 .input-file {
   display: flex;
   justify-content: flex-end;
-  margin-right: 15%;
+  margin-right: 5%;
+}
+.input-file-contents {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5%;
 }
 
 .input-file [type="file"] {
@@ -1253,24 +1259,7 @@ hr {
   clip: rect(0, 0, 0, 0);
   border: 0 none;
 }
-.input-file .file-label {
-  display: inline-block;
-  min-width: 53px;
-  height: 80px;
-  line-height: 24px;
-  padding: 0 10px;
-  border-radius: 15px;
-  font-size: 20px;
-  background-color: #3498db;
-  color: #fff;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  cursor: pointer;
-  width: 20%;
-}
+
 
 .input-file .file-name {
   width: 300px;
@@ -1533,6 +1522,7 @@ h-report-title {
   color: #777;
   font-style: italic;
   margin-top: 10px;
+  height: 215px;
 }
 
 .no-reply {
