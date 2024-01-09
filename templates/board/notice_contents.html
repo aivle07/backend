@@ -131,15 +131,15 @@
                 </div>
               </div>
             </div>
-            <div class="input-file">
-                <div class= btn-notice>
-                    <button type="button" class = "back" onClick="javascript:history.go(-1);">뒤로가기</button>
+            <div class="input-file3">
+                <div class= "btn-notice2">
+                    <button type="button" class = "back2" onClick="javascript:history.go(-1);">뒤로가기</button>
                     {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
                     {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
                     
                     {% if data.board.author == user.username or user.is_admin%}
-                    <a class="create" href="/board/{{data.board.id}}/update/">수정하기</a>
-                    <a class="create" href="/board/{{data.board.category}}/{{data.board.id}}/delete/" onClick="return confirm('정말로 삭제하시겠습니까?');">삭제하기</a>
+                    <a class="create3" href="/board/{{data.board.id}}/update/">수정하기</a>
+                    <a class="create3" href="/board/{{data.board.category}}/{{data.board.id}}/delete/" onClick="return confirm('정말로 삭제하시겠습니까?');">삭제하기</a>
                     {% endif %}
                 </div>
             </div>     
