@@ -206,11 +206,16 @@
                                         <script>
                                           function sellStock() {
                                             check = false;
+                                            console.log(typeof (buy_form.buy_list.length) == 'undefined');
                                             for(i=0; i < buy_form.buy_list.length; i++){
-                                              if(buy-form.buy_list[i].checked){
+                                              if(buy_form.buy_list[i].checked){
                                                 check = true;
                                                 break;
                                               }
+                                            }
+
+                                            if(typeof (buy_form.buy_list.length) == 'undefined'){
+                                              if(buy_form.buy_list.checked) check = true;
                                             }
 
                                             if(check == false){

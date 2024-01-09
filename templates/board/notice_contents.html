@@ -133,7 +133,11 @@
             </div>
             <div class="input-file3">
                 <div class= "btn-notice2">
+                    {% if data.board.category == "Q&A" %}
                     <button type="button" class = "back2" onClick="javascript:history.go(-1);">뒤로가기</button>
+                    
+                    {% endif %}
+                    {% comment %} <button type="button" class = "back2" onClick="javascript:history.go(-1);">뒤로가기</button> {% endcomment %}
                     {% comment %} <button class = "create" onclick="location.href='{{request.path}}update';">수정하기</button> {% endcomment %}
                     {% comment %} <button class = "create" onclick='location.href="{% url 'board:board-update' post.id %}";'>수정하기</button> {% endcomment %}
                     
