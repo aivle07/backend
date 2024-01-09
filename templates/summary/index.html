@@ -273,8 +273,7 @@
                       <span id='corp_intro' class="h2 font-weight-bold mb-0"></span>
                       <div id="corp_info" class="news-text tooltiptext "></div>
                     </div>
-                    <div id="financial_summary" class="news-text">
-                    </div>
+                    <div id="financial_summary"class="news-text scrollbar-2" style="word-break:break-all; "></div>
                 </div>
               </div>
             </div>
@@ -1011,7 +1010,7 @@
        
         $('#corp_info').html(data.corp_info);
         
-        $('#financial_summary').html(data.financial_summary);
+        $('#financial_summary').html(data.financial_summary+"<br>");
 
         $('#stock_data').html("<p class='jb-title'>KS11 : "+data.stock_data.KS11[0].Close+" => "+data.stock_data.KS11[1].Close+"</p> \
                                 <a class='nav-link text-center'>변화량 : "+(data.stock_data.KS11[1].Close - data.stock_data.KS11[0].Close).toFixed(2)+"</a> \
