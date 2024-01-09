@@ -20738,6 +20738,11 @@ pre>code.highlight {
 .sub-tt{
   font-size: 11px;
 }
+.sub-ttt{
+  font-size: 11px;
+  text-align: left;
+}
+
 .sub-tit{
   font-size: 15px;
   text-align: center;
@@ -20944,8 +20949,7 @@ pre>code.highlight {
 
 
 .news-text {
-  text-overflow: ellipsis;
-  display: -webkit-box;
+  
   -webkit-line-clamp: 16;
   -webkit-box-orient: vertical;
   margin-top: 5%;
@@ -21500,3 +21504,50 @@ td {
   margin-bottom: 10px; /* Adjust this value to set the margin between td elements */
 }
 
+/* 스크롤바 스타일 */
+.scrollbar-2 {
+  height: 80%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.scrollbar-2:not(:hover) .scroll-element {
+  opacity: 0;
+}
+
+.scrollbar-2 .scroll-element {
+  transition: opacity 300ms;
+  margin-right: 2px;
+}
+
+.scrollbar-2 .scroll-element .scroll-bar,
+.scrollbar-2 .scroll-element .scroll-element_track {
+  transition: background-color 300ms;
+}
+
+.scrollbar-2 .scroll-element .scroll-element_track {
+  background-color: transparent;
+}
+
+.scrollbar-2 .scroll-element.scroll-y {
+  width: 3px;
+  height: 3px;
+  right: 0;
+}
+
+.scrollbar-2 .scroll-element.scroll-x {
+  height: 3px;
+  height: 3px;
+  bottom: 0;
+}
+
+/* Webkit 기반 브라우저 스크롤바 스타일 */
+.scrollbar-2::-webkit-scrollbar {
+  width: 8px;
+  height: 3px;
+
+}
+
+.scrollbar-2::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
