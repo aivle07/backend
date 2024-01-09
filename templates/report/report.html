@@ -311,6 +311,8 @@
   $(function(){
     
     PDFObject.embed("{{report.file.url}}","#example1");
+
+    $('#chatbot_text').append("<p class='chatbot-answer'> Hey, 금융에게 금융 리포트 정보를 물어보세요!</p>");
   });
   function sendMessage() {
     // crsf 토큰 가져오기
