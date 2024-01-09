@@ -78,11 +78,11 @@ def news_summary(link):
     llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
     
     llmchain = LLMChain(llm=llm, prompt=prompt)
+    
+    result = llmchain.run(text)
     end = time.time()
     
     print('langchain : ',end-start)
-    result = llmchain.run(text)
-    
     
     return result
 
