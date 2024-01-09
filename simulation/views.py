@@ -18,7 +18,8 @@ def get_data(param):
         period = int(period)
     try:
         #종목코드가 파라미터일 경우
-        df = fdr.DataReader(search_param)[-300:]
+        search_param = name_to_code[search_param]
+        #df = fdr.DataReader(search_param)[-300:]
         #df = df.reset_index().rename(columns={"index": "date"})
         df = df.bfill()
         #response_data = df.to_dict(orient='records')
@@ -27,7 +28,8 @@ def get_data(param):
         
         # name_to_code = fdr.StockListing('KRX')[['Code', 'Name']]
         # search_param = name_to_code.loc[name_to_code['Name'] == search_param].Code
-        search_param = name_to_code[search_param]
+        #search_param = name_to_code[search_param]
+        #df = fdr.DataReader(search_param)[-300:]
         df = fdr.DataReader(search_param)[-300:]
         #df = df.reset_index().rename(columns={"index": "date"})
         #response_data = df.to_dict(orient='records')
