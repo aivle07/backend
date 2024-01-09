@@ -516,7 +516,6 @@ h6,
 
 /* 추천 서비스 css */
 .screen {
-    background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -530,7 +529,6 @@ h6,
     position: relative;
   }
   .screen .div-contents {
-    background-color: #ffffff;
     overflow: hidden;
     width: 1440px;
     height: 1024px;
@@ -1218,7 +1216,7 @@ hr {
 }
 .input-file .file-label {
   display: inline-block;
-  min-width: 53px;
+  min-width: 93px;
   height: 34.89px;
   line-height: 24px;
   padding: 0 10px;
@@ -1230,8 +1228,10 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-right: 830px;
   cursor: pointer;
+  width: 13%;
+  height: 50;
 }
 .input-file .file-name {
   width: 300px;
@@ -1247,8 +1247,27 @@ hr {
 .input-file {
   display: flex;
   justify-content: flex-end;
-  margin-right: 5%;
+  margin-right: 15%;
+  height: 20%;
+  margin-top: -7%;
 }
+.input-file2{
+  display: flex;
+  justify-content: flex-end;
+  height: 10%;
+  margin-top: 3%;
+}
+.input-file3{
+  display: flex;
+  justify-content: flex-end;
+  height: 10%;
+  margin-top: 5%;
+}
+
+.btn-notice2{
+  width:32%;
+}
+
 .input-file-contents {
   display: flex;
   justify-content: flex-end;
@@ -1277,7 +1296,7 @@ hr {
   
 }
 .create{
-  height: 35px;
+    height: 35px;
     width: 100px;
     background-color: #3498db;
     font-size: 17px;
@@ -1289,6 +1308,22 @@ hr {
     /* margin-right: 5%; */
     transition: background-color 0.5s;
 }
+.create3{
+    height: 35px;
+    width: 100px;
+    background-color: #3498db;
+    font-size: 17px;
+    border-radius: 10px;
+    position: relative;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+    /* margin-right: 5%; */
+    transition: background-color 0.5s;
+    padding: 2.4%;
+    margin-left: 2%;
+}
+
 .create-write{
     background-color: #3498db;
     font-size: 17px;
@@ -1299,18 +1334,33 @@ hr {
     padding: 5px;
     /* margin-right: 5%; */
     transition: background-color 0.5s;
-    height: 34.89;
+    height: 54.89;
 }
 .back{
   background-color: #3498db;
-  height: 34.89;
+  height: 54.89;
   font-size: 20px;
   margin-right: 10px;
   border-radius: 10px;
   border: none; 
   color: #ffffff;
   font-size: 17px;
+  z-index: 44;
+  position: relative;
 }
+.back2{
+  background-color: #3498db;
+  height: 45.89;
+  font-size: 20px;
+  margin-right: 60px;
+  border-radius: 10px;
+  border: none; 
+  color: #ffffff;
+  font-size: 17px;
+  z-index: 44;
+  position: relative;
+}
+
 .create:hover, .back:hover {
   background-color: #267bb3; /* hover 시 색상 변경 */
 } 
@@ -1463,7 +1513,7 @@ h-report-title {
   margin-top:3%;
 }
 .create2{
-  height: 35px;
+  height: 40px;
   width: 100px;
   background-color: #3498db;
   font-size: 17px;
