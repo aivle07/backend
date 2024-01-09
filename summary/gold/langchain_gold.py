@@ -7,7 +7,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_types import AgentType
 from dotenv import load_dotenv
 from datetime import datetime
-
+from langchain.agents import load_tools
 load_dotenv()
 
 # 금 정보 agent 생성함수
@@ -21,13 +21,17 @@ def get_gold_data_agent():
     
     llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 
+    serpapi_api_key = os.getenv("SERPAPI_API_KEY")
+    os.environ["SERPAPI_API_KEY"] = serpapi_api_key
+    tool_names = ['serpapi']
+    tools = load_tools(tool_names)
     agent = create_pandas_dataframe_agent(
         llm,
         df_gold,
         verbose=False,
         agent_type=AgentType.OPENAI_FUNCTIONS,
         handle_parsing_errors=True,
-        # extra_tools=tools
+        extra_tools=tools
     )
     
     return agent

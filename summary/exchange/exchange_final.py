@@ -4,6 +4,7 @@ from langchain_experimental.agents import create_pandas_dataframe_agent
 from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_types import AgentType
 from dotenv import load_dotenv
+from langchain.agents import load_tools
 load_dotenv()
 
 # 환율 라이브러리 가져와서 ChatOpenAI와 연결된 에이전트를 생성
@@ -13,11 +14,16 @@ def get_exchange():
     # ChatOpenAI 에이전트 생성
     openai_api_key = os.getenv("OPENAI_API_KEY")
     os.environ["OPENAI_API_KEY"] = openai_api_key
+    serpapi_api_key = os.getenv("SERPAPI_API_KEY")
+    os.environ["SERPAPI_API_KEY"] = serpapi_api_key
+    tool_names = ['serpapi']
+    tools = load_tools(tool_names)
     agent = create_pandas_dataframe_agent(
         ChatOpenAI(temperature=0, model='gpt-3.5-turbo-0613'), 
         [df1, df2], 
         verbose=False,
         agent_type=AgentType.OPENAI_FUNCTIONS,
+        extra_tools=tools
     )
     return agent
 

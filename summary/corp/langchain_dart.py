@@ -15,6 +15,7 @@ from langchain.callbacks.streaming_stdout_final_only import FinalStreamingStdOut
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
+from langchain.agents import load_tools
 load_dotenv()
 
 # 기업명으로 corp_code를 검색하는 함수
@@ -71,6 +72,11 @@ def get_financial_agent(corp_name):
 
     os.environ["OPENAI_API_KEY"] = openai_api_key
     
+    serpapi_api_key = os.getenv("SERPAPI_API_KEY")
+    os.environ["SERPAPI_API_KEY"] = serpapi_api_key
+    tool_names = ['serpapi']
+    tools = load_tools(tool_names)
+    
     llm_1 = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
 
     agent_1 = create_pandas_dataframe_agent(
@@ -78,7 +84,7 @@ def get_financial_agent(corp_name):
         financial_df,
         verbose=False,
         agent_type=AgentType.OPENAI_FUNCTIONS,
-        # extra_tools=tools
+        extra_tools=tools
     )
     
     return agent_1,financial_data
