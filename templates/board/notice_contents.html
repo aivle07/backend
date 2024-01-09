@@ -115,7 +115,7 @@
                   <div class="comment scrollbar">
                     {% for comment in data.commentList %}
                         <div class="comment-item">
-                            <span class="comment-info">댓글 번호: {{comment.id}}</span><br>
+                            <span class="comment-info">운영자</span><br>
                             <span class="comment-content"><pre>댓글 내용: {{comment.content}}</pre></span><br>
                             <span class="comment-date">댓글 작성일: {{comment.create_dt|iso_to_date|date:'Y-m-d A H:i'}}</span><br>
                         </div>
