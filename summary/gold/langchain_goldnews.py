@@ -114,7 +114,7 @@ def gold_news_json(keyword):
             if link.startswith('https://www.bntnews.co.kr'):
                 selected_items.append(item)
                 count += 1
-                if count == 1:
+                if count == 5:
                     break
 
         json_data['items'] = selected_items
