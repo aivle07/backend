@@ -20738,6 +20738,11 @@ pre>code.highlight {
 .sub-tt{
   font-size: 11px;
 }
+.sub-ttt{
+  font-size: 11px;
+  text-align: left;
+}
+
 .sub-tit{
   font-size: 15px;
   text-align: center;
