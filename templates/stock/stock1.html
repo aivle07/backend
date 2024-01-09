@@ -115,7 +115,8 @@
                                       </div>
                                       <div class="sma-legend legend-summary-wrap">
                                           <span>단순이동평균</span>
-                                          <span class="chart-legend-label" style="color: rgb(220, 94, 4);">10</span>
+                                          <span class="chart-legend-label" style="color: rgb(148, 0, 211);"
+                                          >10</span>
                                           <span class="chart-legend-label" style="color: rgb(220, 188, 4);">20</span>
                                           <span class="chart-legend-label" style="color: rgb(17, 208, 103);">60</span>
                                       </div>
@@ -234,7 +235,7 @@
         if(isNaN(value) || isNaN(count) || count < 0){
           price.innerText = "1이상의 숫자를 입력하세요";
           price.style = "color:red;";
-          price.style.fontSize = "16px"; // 글자 크기 작게 설정
+          price.style.fontSize = "13px"; // 글자 크기 작게 설정
           unit.innerText = "";
           label.innerText = "";
           return;
@@ -242,7 +243,7 @@
 
         price.innerText = (value * count).toLocaleString();
         price.style = "color:black;"
-        price.style.fontSize = "24px"; // 글자 크기 작게 설정
+        price.style.fontSize = "21px"; // 글자 크기 작게 설정
         unit.innerText = "원";
         label.innerText = "주문총액";
 
