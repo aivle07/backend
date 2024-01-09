@@ -9,7 +9,7 @@ class QuizLimit(permissions.BasePermission):
         user = request.user
         # 2. 해당 유저의 last login을 가져온다.
         user_instance = User.objects.get(email=user)
-        last_login_time = user_instance.last_login
+        last_login_time = datetime.now()
         user_id = user_instance.id
         # 1. 해당 유저의 히스토리에서 create_dt를 가져온다.
         history_instance = QuizHistory.objects.filter(user_id=user).order_by("-create_dt").first()
