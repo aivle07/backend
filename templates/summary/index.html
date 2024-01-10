@@ -936,7 +936,7 @@
     if(deptChart != undefined) deptChart.destroy();
     $.ajax({
 			type:'post',   //post 방식으로 전송
-			url:'/summary/test/',   //데이터를 주고/받을 파일 주소
+			url:'/summary/search_corp/',   //데이터를 주고/받을 파일 주소
 			data: {
         corp_name: corp_name,
         csrfmiddlewaretoken: window.CSRF_TOKEN,
