@@ -29,7 +29,7 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style2.css' %}" rel="stylesheet">
     
 </head>
 <body class="scrollbar">
@@ -133,7 +133,73 @@
     </div>
     
   </div>
-     
+  <!-- Footer Start -->
+  <div class="container-fluid bg-dark text-body footer wow fadeIn" data-wow-delay="0.1s" style="margin-top: 60%;">
+    <div class="container py-5 px-lg-5">
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-3">
+                <p class="section-title text-white h5 mb-4">주소<span></span></p>
+                <p><i class="fa fa-map-marker-alt me-3"></i>경기 성남시 분당구 불정로 90</p>
+                <p><i class="fa fa-phone-alt me-3"></i>+010 1234 5678</p>
+                <p><i class="fa fa-envelope me-3"></i>aivle07@gmail.com</p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <p class="section-title text-white h5 mb-4">빠른 검색<span></span></p>
+                <a class="btn btn-link" href="">메인</a>
+                <a class="btn btn-link" href="">서비스 소개</a>
+                <a class="btn btn-link" href="">요약서비스</a>
+                <a class="btn btn-link" href="">금융퀴즈</a>
+                <a class="btn btn-link" href="">모의 투자</a>
+                <a class="btn btn-link" href="">게시판</a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <p class="section-title text-white h5 mb-4">(주)우상상플러스<span></span></p>
+                <a class="btn btn-link" href="">소개</a>
+                <a class="btn btn-link" href="">업적</a>
+                <a class="btn btn-link" href="">전략</a>
+                <a class="btn btn-link" href="">역사</a>
+                <a class="btn btn-link" href="">오시는길</a>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <p class="section-title text-white h5 mb-4">뉴스레터<span></span></p>
+                <p>AI가 설명해주는 금융 정보 요약 서비스를 받고 싶으면 이메일을 입력하세요</p>
+                <div class="position-relative w-100 mt-3">
+                    <input class="form-control border-0 rounded-pill w-100 ps-4 pe-5" type="text" placeholder="이메일 입력하세요" style="height: 48px;">
+                    <button type="button" class="btn shadow-none position-absolute top-0 end-0 mt-1 me-2"><i class="fa fa-paper-plane text-primary fs-4"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container px-lg-5">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">(주)우상상플러스</a>, COPYRIGHTS 우상상플러스. ALL RIGHTS RESERVED.      
+      
+      <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    <br>
+                      <a class="border-bottom" href="/private">|개인정보 처리방침|</a>
+                      <a class="border-bottom" href="/private2">이용약관|</a>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-menu">
+                        <a href="">메인</a>
+                        <a href="">ARS안내</a>
+                        <a href="">고객센터</a>
+                        <a href="">질문 및 답변</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->   
   <!-- Back to Top -->
   <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
  
@@ -190,480 +256,3 @@ $(document).mouseup(function (e) {
                 
 </body>   
 </html>
-<style>
-  .frame {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-  }
-  .frame .overlap-wrapper {
-    background-color: #ffffff;
-    width: 1403px;
-    height: 1023px;
-  }
-  .frame .overlap {
-    position: relative;
-    width: 2683px;
-    height: 2055px;
-  }
-  .frame .mask-group {
-    position: absolute;
-    width: 524px;
-    height: 373px;
-    top: 650px;
-    left: 879px;
-  }
-  .frame .img {
-    position: absolute;
-    width: 505px;
-    height: 453px;
-    top: 570px;
-    left: 136px;
-  }
-  .frame .group {
-    width: 1448px;
-    height: 1016px;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .frame .overlap-group {
-    position: absolute;
-    width: 1450px;
-    height: 114px;
-    top: 0;
-    left: 2px;
-  }
-  .frame .text-wrapper {
-    font-family: "Inter-Black", Helvetica;
-    font-weight: bold;
-    color: #000000;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: 1.5;
-    padding:5%;
-  }
-  .frame .line {
-    width: 268px;
-    top: 52px;
-    left: 0;
-    position: absolute;
-    height: 2px;
-  }
-  .frame .overlap-group-wrapper {
-    width: 1450px;
-    height: 114px;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .frame .div {
-    position: relative;
-    width: 1401px;
-    height: 114px;
-    background-image: url(./img/rectangle-1.png);
-    background-size: 100% 100%;
-  }
-  .frame .text-wrapper-2 {
-    width: 126px;
-    top: 47px;
-    left: 471px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 24px;
-    white-space: nowrap;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .text-wrapper-3 {
-    width: 151px;
-    top: 47px;
-    left: 601px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 24px;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .overlap-2 {
-    position: absolute;
-    width: 266px;
-    height: 27px;
-    top: 47px;
-    left: 762px;
-  }
-  .frame .text-wrapper-4 {
-    position: absolute;
-    width: 156px;
-    top: 0;
-    left: 0;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 24px;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
-  }
-  .frame .text-wrapper-5 {
-    width: 156px;
-    top: 0;
-    left: 110px;
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    color: #000000;
-    font-size: 24px;
-    white-space: nowrap;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .text-wrapper-6 {
-    position: absolute;
-    width: 278px;
-    top: 34px;
-    left: 47px;
-    font-family: "Inter-Bold", Helvetica;
-    font-weight: 700;
-    color: #000000;
-    font-size: 48px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .image {
-    position: absolute;
-    width: 126px;
-    height: 61px;
-    top: 27px;
-    left: 1275px;
-    mix-blend-mode: lighten;
-    object-fit: cover;
-  }
-  .frame .overlap-3 {
-    width: 350px;
-    height: 656px;
-    top: 140px;
-    left: 3%;
-    z-index:1;
-  }
-  .frame .rectangle {
-    position: absolute;
-    width: 293px;
-    height: 848px;
-    top: 0;
-    left: 0;
-  }
-  .frame .element {
-    font-family: "Inter-Medium", Helvetica;
-    font-weight: 500;
-    color: #000000;
-    font-size: 18px;
-    letter-spacing: 0;
-    line-height: normal;
-    padding:5%;
-    text-align:justify;
-  }
-  
-  .frame .span {
-    font-family: "Inter-Medium", Helvetica;
-    font-weight: 500;
-    color: #000000;
-    font-size: 18px;
-    letter-spacing: 0;
-  }
-  .frame .text-wrapper-7 {
-    font-size: 16px;
-    color: #000000; /* 기본 텍스트 색상 */
-    transition: color 0.3s ease;
-  }
-  .frame .text-wrapper-7:hover {
-    color: #ff0000; /* hover 상태일 때의 텍스트 색상 변경 */
-    font-weight: bold;
-  }
-  .frame .rectangle-2 {
-    position: absolute;
-    width: 95px;
-    height: 37px;
-    top: 777px;
-    left: 173px;
-    background-color: #d9d9d9;
-    border-radius: 20px;
-  }
-  .frame .text-wrapper-8 {
-    position: absolute;
-    width: 101px;
-    top: 781px;
-    left: 198px;
-    mix-blend-mode: multiply;
-    font-family: "KoHo-SemiBold", Helvetica;
-    font-weight: 600;
-    color: #000000;
-    font-size: 16px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .rectangle-3 {
-    position: absolute;
-    width: 48px;
-    height: 34px;
-    top: -1173px;
-    left: 2935px;
-  }
-  .frame .rectangle-4 {
-    position: absolute;
-    width: 117px;
-    height: 44px;
-    top: -585px;
-    left: 2143px;
-  }
-  .frame .rectangle-5 {
-    position: absolute;
-    width: 655px;
-    height: 656px;
-    top: 140px;
-    left:509px;
-    background-color: #fff;
-    border-radius: 7px;
-    border: 1px solid;
-    border-color: #fff;
-    z-index:1;
-  }
-  .rectangle-6 {
-    position: absolute;
-    width: 565px;
-    height: 206px;
-    top: 201px;
-    left: 555px;
-    background-color: #f5f5f5;
-    border-radius: 7px;
-    border: 1px solid;
-    border-color: #f5f5f5;
-    z-index:90;
-  }
-  .frame .text-wrapper-9 {
-    width: 186px;
-    top: 154px;
-    left: 558px;
-    font-weight: bold;
-    color: #000000;
-    font-size: 24px;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: normal;
-    z-index:99;
-  }
-  .frame .p {
-    width: 513px;
-    top: 229px;
-    left: 580px;
-    font-family: "Inter-Medium", Helvetica;
-    font-weight: 500;
-    color: #000000;
-    font-size: 18px;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: 2;
-    z-index: 99;
-    text-align: justify;
-  }
-  .frame .rectangle-7 {
-    position: absolute;
-    width: 314px;
-    height: 59px;
-    top: 694px;
-    left: 689px;
-    background-color: #486eff;
-    color: #fff;
-    border-radius: 7px;
-    border: none;
-    transition: box-shadow 0.3s ease;
-    z-index: 1;
-    text-align: center;
-    font-size:18px;
-    }
-  
-  .frame .rectangle-7:active {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1); /* 클릭 시 그림자 추가 */
-  }
-  .frame .text-wrapper-10 {
-    position: absolute;
-    width: 358px;
-    top: 182px;
-    left: 14px;
-    font-family: "KoHo-SemiBold", Helvetica;
-    font-weight: 600;
-    color: #000000;
-    font-size: 40px;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .text-wrapper-11 {
-    width: 148px;
-    top: 304px;
-    left: 822px;
-    font-family: "Inter-Medium", Helvetica;
-    font-weight: 500;
-    color: #000000;
-    font-size: 36px;
-    position: absolute;
-    letter-spacing: 0;
-    line-height: normal;
-  }
-  .frame .mask-group-2 {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    position: absolute;
-    top: 953px;
-    left: 958px;
-    transform: rotate(-25deg);
-  }
-  
-  .frame .glass-crystal-ring {
-    position: relative;
-    width: 236px;
-    height: 300px;
-    margin-top: -570.3px;
-    transform: rotate(25deg);
-    object-fit: cover;
-    left: -240%;
-    
-  }
-  
-  .frame .subtract {
-    position: absolute;
-    width: 53px;
-    height: 226px;
-    top: -203px;
-    left: 235px;
-    transform: rotate(25deg);
-    margin-top: -570.3px;
-  }
-  
-  .frame .text-wrapper-12 {
-    position: absolute;
-    width: 118px;
-    top: -37px;
-    left: 39px;
-    font-family: "Inter-Medium", Helvetica;
-    color: #000000;
-    font-size: 30px;
-    letter-spacing: 0;
-    line-height: normal;
-    z-index:99;
-  }
-  
-  .frame .text-wrapper-13 {
-    position: absolute;
-    width: 118px;
-    top: -202px;
-    left: 43px;
-    font-family: "Inter-Medium", Helvetica;
-    font-weight: 500;
-    color: #000000;
-    font-size: 30px;
-    letter-spacing: 0;
-    line-height: normal;
-    z-index:99;
-  }
-  
-  .frame .line-2 {
-    width: 257px;
-    top: 246px;
-    left: 7px;
-    object-fit: cover;
-    position: absolute;
-    height: 2px;
-  }
-  
-  .checkbox-wrapper {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    margin-top: 510px;
-    margin-left:-5%;
-  }
-
-  
-  .checkbox-input1 {
-    margin-right: 9px;
-    margin-top:-40px;
-    top:50%; 
-    z-index:99;
-  }
-
-  .checkbox-input2 {
-    margin-right: 40px;
-    margin-top: -700%;
-    z-index:99;
-  }
-
- 
-.rectangle-21{ 
-  position: absolute;
-  width: 655px;
-  height: 656px;
-  top: 191px;
-  left: 509px;
-  background-color: #fff;
-  border-radius: 7px;
-  border: 1px solid;
-  border-color: #fff;
-  }     
-    
-  .cube7 {
-    position: absolute;
-    width: 335px;
-    height: 480px;
-    top: -62%;
-    margin-top: -680.3px;
-    margin-left: -520.3px;
-    margin-bottom: 15px;
-    left: 13%;
-    transform: rotate(25deg);
-    z-index: -28;
-  }
-  
-  .circle7 {
-    position: absolute;
-    width: 400px;
-    height: 310px;
-    transform: rotate(25deg);
-    margin-top: -300.3px;
-    margin-left: 60.3px;
-    top: -62%;
-    left: 57%;
-    z-index: -1;
-  }
-  #popup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .7);
-    z-index: 1;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-#popup.hide {
-    display: none;
-}
-
-#popup .content {
-    padding: 20px;
-    background: #fff;
-    border-radius: 5px;
-}
-</style>

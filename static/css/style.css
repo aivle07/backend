@@ -676,6 +676,7 @@ h6,
     border-radius: 15px;
     border: 1px solid;
     border-color: #8dd0ed;
+    margin-top:8%;
   }
   .screen .overlap-3-1 {
     position: relative;
@@ -1526,11 +1527,9 @@ h-report-title {
   transition: background-color 0.5s;
   left: 92%;
 }
-.group10{
-  margin-top:15%;
-}
+
 .title-3{
-  width: 95%;
+  width: 96%;
 }
 
 .comment-wrapper {
@@ -1647,8 +1646,27 @@ h-report-title {
         background-size: 100% 100%;
         border: 5px solid lightgray;
         border-radius: 30px;
-        margin-top:12%;
+        margin-top:15%;
       }
+      .overlap1{
+        position: absolute;
+        width: 1193px;
+        height: 529px;
+        top: 10%;
+        left: 5%;
+        background-image: url(./img/rectangle-145.svg);
+        background-size: 100% 100%;
+        border-radius: 30px;
+        margin-top:12%;
+
+      }
+
+      .overlap11 {
+        background-image: url(./img/rectangle-145.svg);
+        background-size: 100% 100%;
+        border-radius: 30px;
+      }
+
        
       .overlap-group {
         position: absolute;
