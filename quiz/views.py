@@ -45,7 +45,10 @@ def get_random(request):
     while 1:
         # pk = random.randint(1,max_id)
         random_number = random.sample(range(1,max_id+1),1)[0]
-        quiz_instance = Quiz.objects.get(pk=random_number)
+        try:
+            quiz_instance = Quiz.objects.get(pk=random_number)
+        except:
+            continue
         check = False
         if quiz_history:
             for history in quiz_history:
