@@ -98,8 +98,9 @@
                   <div class="group">
                     <div class="overlap-3-1">
                       <div class="overlap-group-wrapper">
+                   
                         {% if data.board.image %}
-                            첨부파일 <a download href='{{data.board.image}}'>{{data.board.image|get_file_name}}</a><br>
+                           첨부파일 <a download href="{% static 'img/금융_리포트_안내.png' %}">{{ data.board.image|get_file_name }}</a><br>
                             {% comment %} <img src="{{data.board.image}}" alt="이미지" style="width:500px; height:300px;"/><br> {% endcomment %}
                         {% endif %}
                         {% if not data.board.image %}
@@ -115,9 +116,9 @@
                   <div class="comment scrollbar">
                     {% for comment in data.commentList %}
                         <div class="comment-item">
-                            <div class="comment-info">운영자</div><br>
-                            <span class="comment-content"><pre>댓글 내용: {{comment.content}}</pre></span><br>
+                            <div class="comment-info">운영자</div>
                             <span class="comment-date">댓글 작성일: {{comment.create_dt|iso_to_date|date:'Y-m-d A H:i'}}</span><br>
+                            <span class="comment-content"><pre>댓글 내용: {{comment.content}}</pre></span><br>
                         </div>
                     {% endfor %}
                 
