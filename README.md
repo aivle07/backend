@@ -2,8 +2,6 @@
 ![7조  4기 7조 소개이미지](https://github.com/aivle07/backend/assets/141730566/59bdcfe3-a833-4208-930a-c7e4ec2a3d93)
 ![스크린샷 2024-01-23 142805](https://github.com/aivle07/backend/assets/141730566/4d740761-42bb-4b55-b591-b0dc3fff337b)
 ![스크린샷 2024-01-23 142819](https://github.com/aivle07/backend/assets/141730566/79b9811a-551b-4fd8-8533-1f3605eb8e23)
-![스크린샷 2024-01-23 142830](https://github.com/aivle07/backend/assets/141730566/7c17eff8-eaa7-4654-a4cd-57e0ec25d4f7)
-![스크린샷 2024-01-23 142842](https://github.com/aivle07/backend/assets/141730566/2927bdae-7858-4aa8-a72b-0f4213da9f81)
 ![스크린샷 2024-01-23 142854](https://github.com/aivle07/backend/assets/141730566/d2eb6018-a02e-4e4e-b777-e7ce7b9cac2e)
 ![스크린샷 2024-01-23 142909](https://github.com/aivle07/backend/assets/141730566/299db28b-98a2-4b23-988b-90c82a5dcef5)
 ![스크린샷 2024-01-23 142927](https://github.com/aivle07/backend/assets/141730566/a8c5d997-ae57-4943-b8de-9dcc3436e491)
